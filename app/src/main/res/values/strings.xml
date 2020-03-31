@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Street Champion Project</string>
+    <string name="hint">Hint</string>
+    <string name="helper_text">Helper text</string>
 </resources>
