@@ -8,12 +8,6 @@ import io.reactivex.schedulers.Schedulers
 
 class RegisterRepository(private var streetChampionService: StreetChampionService) {
 
-    fun registration(u: User) {
-        streetChampionService.registration(u)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result -> Log.e("RESULT", result.toString()) },
-                { error -> Log.e("ERROR", error.toString()) })
-    }
+    fun registration(u: User)  = streetChampionService.registration(u)
 
 }
