@@ -3,11 +3,11 @@ package com.example.streetchampionproject.registerActivity.presentation.viewMode
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.registerActivity.domain.RegisterInteract
+import com.example.streetchampionproject.registerActivity.domain.RegisterInteractImpl
 import com.example.streetchampionproject.registerActivity.scope.RegisterActivityScope
 
 @RegisterActivityScope
-class ViewModelFactory(private val registerInteractor: RegisterInteract, private val navigator: Navigator) :
+class ViewModelFactory(private val registerInteractor: RegisterInteractImpl, private val navigator: Navigator) :
     ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T?>): T {

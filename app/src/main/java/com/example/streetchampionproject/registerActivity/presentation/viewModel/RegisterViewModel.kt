@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.registerActivity.data.model.User
-import com.example.streetchampionproject.registerActivity.domain.RegisterInteract
+import com.example.streetchampionproject.registerActivity.domain.RegisterInteractImpl
+import com.example.streetchampionproject.registerActivity.domain.interfaces.RegisterInteract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

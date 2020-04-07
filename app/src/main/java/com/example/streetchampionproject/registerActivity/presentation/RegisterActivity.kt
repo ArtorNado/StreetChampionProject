@@ -24,7 +24,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RegisterViewModel
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration)
