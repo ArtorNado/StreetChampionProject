@@ -1,24 +1,19 @@
 package com.example.streetchampionproject.app
 
 import android.app.Application
-import com.example.streetchampionproject.app.di.AppComponent
-import com.example.streetchampionproject.app.di.DaggerAppComponent
+import androidx.fragment.app.Fragment
+import com.example.streetchampionproject.app.injector.Injector
+import dagger.android.DispatchingAndroidInjector
+import javax.inject.Inject
 
-class App: Application() {
+class App: Application(){
+
+    @Inject
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        appComponent =
-            DaggerAppComponent.create()
-    }
-
-
-    companion object{
-
-        lateinit var instance: App
-        lateinit var appComponent: AppComponent
-
+        Injector.init(this)
     }
 
 }

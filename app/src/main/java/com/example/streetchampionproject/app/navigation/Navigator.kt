@@ -2,12 +2,14 @@ package com.example.streetchampionproject.app.navigation
 
 import android.content.Context
 import androidx.navigation.NavController
-import com.example.streetchampionproject.loginActivity.presentation.LoginActivity
-import com.example.streetchampionproject.loginActivity.router.LoginRouter
-import com.example.streetchampionproject.registerActivity.presentation.RegisterActivity
-import com.example.streetchampionproject.registerActivity.router.RegisterRouter
+import com.example.streetchampionproject.login.presentation.LoginActivity
+import com.example.streetchampionproject.login.router.LoginRouter
+import com.example.streetchampionproject.main.presentation.MainActivity
+import com.example.streetchampionproject.main.router.MainRouter
+import com.example.streetchampionproject.registration.presentation.RegisterActivity
+import com.example.streetchampionproject.registration.router.RegisterRouter
 
-class Navigator: RegisterRouter, LoginRouter {
+class Navigator: RegisterRouter, LoginRouter, MainRouter {
 
     private var navController: NavController? = null
 
@@ -28,5 +30,9 @@ class Navigator: RegisterRouter, LoginRouter {
 
     override fun openLogin(context: Context) {
         LoginActivity.start(context)
+    }
+
+    override fun openMain(context: Context, id: Int) {
+        MainActivity.start(context, id)
     }
 }

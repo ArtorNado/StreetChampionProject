@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.app.di
 
 import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.app.scope.ApplicationScope
+import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import dagger.Module
 import dagger.Provides
 
