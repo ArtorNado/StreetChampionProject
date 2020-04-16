@@ -2,7 +2,7 @@ package com.example.streetchampionproject.api.scs
 
 import com.example.streetchampionproject.api.scs.response.AuthToken
 import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
-import com.example.streetchampionproject.login.data.UserAuth
+import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
 import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserData
 import com.example.streetchampionproject.registration.data.model.User

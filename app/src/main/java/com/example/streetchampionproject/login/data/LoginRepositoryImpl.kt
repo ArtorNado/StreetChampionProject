@@ -3,6 +3,7 @@ package com.example.streetchampionproject.login.data
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.response.AuthToken
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
+import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
 import io.reactivex.Single
 import javax.inject.Inject

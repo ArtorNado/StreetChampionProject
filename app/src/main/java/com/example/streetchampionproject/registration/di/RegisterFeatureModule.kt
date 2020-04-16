@@ -16,14 +16,6 @@ import dagger.multibindings.IntoMap
 @Module
 class RegisterFeatureModule {
 
-    /*@RegisterActivityScope
-    @Provides
-    fun provideViewModelFactory(registerInteractor: RegisterInteractImpl, navigator: Navigator) =
-        RegisterViewModelFactory(
-            registerInteractor,
-            navigator
-        )*/
-
     @RegisterActivityScope
     @Provides
     @IntoMap
