@@ -45,13 +45,15 @@ android {
 detekt {
     failFast = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
-    config = files("$rootDir/config/detekt/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+    config = files("$rootDir/config/detekt/detekt.yml")
+    // point to your custom config defining rules to run, overwriting default behavior
 // baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
 
     reports {
         html.enabled = true // observe findings in your browser with structure and code snippets
         xml.enabled = false // checkstyle like format mainly for integrations like Jenkins
-        txt.enabled = false // similar to the console output, contains issue signature to manually edit baseline files
+        txt.enabled = false
+        // similar to the console output, contains issue signature to manually edit baseline files
     }
 }
 
@@ -86,6 +88,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.1'
     implementation 'androidx.navigation:navigation-ui:2.2.1'
     implementation 'com.github.zjywill:OverwatchProgress:1.6'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "com.google.dagger:dagger-android-processor:2.21"
     kapt "com.google.dagger:dagger-compiler:2.21"
     testImplementation 'junit:junit:4.12'
