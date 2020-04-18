@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.clubPage.presentation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,26 +9,62 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 
 import com.example.streetchampionproject.R
+import com.example.streetchampionproject.app.injector.Injector
+import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.cleb_page_test_fragment.*
+import javax.inject.Inject
 
 class ClubPageFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private var viewModel: ClubPageViewModel? = null
 
     companion object {
         fun newInstance() =
             ClubPageFragment()
     }
 
-    private lateinit var viewModel: ClubPageViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.club_page_fragment, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.cleb_page_test_fragment, container, false)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ClubPageViewModel::class.java)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Injector.plusClubPageFeatureComponent().inject(this)
+        initViewModel()
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewpager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        TabLayoutMediator(tabs, viewpager,
+            TabLayoutMediator.TabConfigurationStrategy { tabs, position ->
+                when (position) {
+                    0 -> { tabs.text = "TAB ONE"}
+                    1 -> { tabs.text = "TAB TWO"}
+                    2 -> { tabs.text = "TAB TWO"}
+                }
+            }).attach()
+
+    }
+
+    private fun initViewModel(){
+        val viewModel by lazy {
+            ViewModelProvider(
+                this,
+                viewModelFactory
+            ).get(ClubPageViewModel::class.java)
+        }
+        this.viewModel = viewModel
     }
 
 }

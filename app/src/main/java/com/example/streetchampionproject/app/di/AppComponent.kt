@@ -4,7 +4,7 @@ import com.example.streetchampionproject.api.apiFactory.di.ApiFactoryModule
 import com.example.streetchampionproject.app.App
 import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
-import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
 import com.example.streetchampionproject.common.ViewModelFactoryModule
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
@@ -24,7 +24,7 @@ interface AppComponent {
 
     fun provideClubPageFeatureComponent():  ClubPageFeatureComponent.Builder
 
-    fun provideOverviewFeatureComponent(): OverviewFeatureComponent.Builder
+    fun provideSquadFeatureComponent(): SquadFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

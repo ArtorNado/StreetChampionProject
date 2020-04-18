@@ -6,12 +6,10 @@ import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageReposi
 import com.example.streetchampionproject.clubPage.di.scope.ClubPageScope
 import com.example.streetchampionproject.clubPage.domain.ClubPageInteractorImpl
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
-import com.example.streetchampionproject.clubPage.presentation.ClubPageFragment
 import com.example.streetchampionproject.clubPage.presentation.ClubPageViewModel
 import com.example.streetchampionproject.common.ViewModelKey
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
 import dagger.multibindings.IntoMap
 
 @Module

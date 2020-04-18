@@ -6,5 +6,4 @@ import javax.inject.Inject
 
 class ClubPageInteractorImpl @Inject constructor(
     private var clubPageRepository: ClubPageRepository
-): ClubPageInteractor {
-}
+): ClubPageInteractor

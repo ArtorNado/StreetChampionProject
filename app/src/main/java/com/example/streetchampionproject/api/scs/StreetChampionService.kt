@@ -1,6 +1,7 @@
 package com.example.streetchampionproject.api.scs
 
 import com.example.streetchampionproject.api.scs.response.AuthToken
+import com.example.streetchampionproject.api.scs.response.Players
 import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
@@ -35,5 +36,11 @@ interface StreetChampionService {
         @Path("user-email")  email: String
     ):
             Single<UserId>
+
+    @POST("getPlayers/{teamId}")
+    fun getPlayers(
+        @Path("teamId") teamId: Int
+    ):
+            Single<List<Players>>
 
 }
