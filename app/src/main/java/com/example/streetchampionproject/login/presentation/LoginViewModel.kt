@@ -28,6 +28,7 @@ class LoginViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
+                loginInteractor.writeInStorage("AuthToken", result.token)
                 getUserId(email, context)
                 _status.value = View.GONE
             },

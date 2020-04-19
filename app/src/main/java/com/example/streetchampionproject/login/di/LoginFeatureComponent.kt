@@ -2,6 +2,7 @@ package com.example.streetchampionproject.login.di
 
 import com.example.streetchampionproject.login.di.scope.LoginActivityScope
 import com.example.streetchampionproject.login.presentation.LoginActivity
+
 import dagger.Subcomponent
 
 @LoginActivityScope

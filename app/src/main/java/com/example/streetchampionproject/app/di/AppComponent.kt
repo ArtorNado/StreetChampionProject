@@ -13,7 +13,8 @@ import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [NavigatorModule::class, ApiFactoryModule::class, ViewModelFactoryModule::class])
+@Component(modules = [NavigatorModule::class, ApiFactoryModule::class,
+    ViewModelFactoryModule::class, LocalStorageModule::class])
 interface AppComponent {
 
     fun loginFeatureComponent(): LoginFeatureComponent.Builder

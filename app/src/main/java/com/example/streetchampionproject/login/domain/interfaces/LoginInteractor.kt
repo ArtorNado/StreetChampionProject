@@ -10,4 +10,6 @@ interface LoginInteractor {
 
     fun userId(email: String): Single<UserId>
 
+    fun writeInStorage(name: String, message: String)
+
 }

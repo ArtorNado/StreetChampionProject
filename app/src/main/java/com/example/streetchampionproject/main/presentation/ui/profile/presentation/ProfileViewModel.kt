@@ -29,7 +29,7 @@ class ProfileViewModel(
 
 
     fun getUserData(id: Int){
-        profileInteractor.getUserData(id)
+        val result = profileInteractor.getUserData(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result -> Log.e("RESULT", result.toString())

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".clubPage.presentation.ClubPageFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/materialup.appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+        ​
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:title="Club Name"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:layout_scrollFlags="scroll|snap"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_main_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.08">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_user_main_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginBottom="28dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_club_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginTop="28dp"
+                        android:text="TextView"
+                        android:textSize="28sp"
+                        android:textColor="@color/colorPurpleDark"
+                        android:fontFamily="@font/varela_round"
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Club"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPurpleDark"
+                        android:fontFamily="@font/varela_round"
+                        app:layout_constraintStart_toStartOf="@+id/tv_club_name"
+                        app:layout_constraintTop_toBottomOf="@id/tv_club_name" />
+
+                    <Button
+                        android:id="@+id/btn_logIn"
+                        style="@style/GreenButtonThemeOverlay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Apply for membership"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:backgroundTint="@color/colorPink"
+                        android:textColor="@color/colorPurpleDark"
+                        android:fontFamily="@font/varela_round"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                    <Button
+                        android:id="@+id/btn_chat"
+                        style="@style/GreenButtonThemeOverlay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Club chat"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:backgroundTint="@color/colorPink"
+                        android:textColor="@color/colorPurpleDark"
+                        android:fontFamily="@font/varela_round"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                    <Button
+                        android:id="@+id/btn_entry"
+                        style="@style/GreenButtonThemeOverlay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Entry applications"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:backgroundTint="@color/colorPink"
+                        android:textColor="@color/colorPurpleDark"
+                        android:fontFamily="@font/varela_round"
+                        android:layout_marginStart="12dp"
+                        app:layout_constraintStart_toEndOf="@+id/btn_chat"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        ​
+        ​
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:tabSelectedTextColor="?android:attr/textColorPrimaryInverse"
+            app:tabIndicatorColor="?android:attr/textColorPrimaryInverse"
+            app:tabIndicatorHeight="4dp"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    ​
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
