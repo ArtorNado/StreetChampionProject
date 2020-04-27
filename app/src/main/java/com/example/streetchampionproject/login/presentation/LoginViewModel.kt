@@ -42,7 +42,7 @@ class LoginViewModel(
         navigator.openRegister(context)
     }
 
-    fun getUserId(userLogin: String, context: Context){
+    private fun getUserId(userLogin: String, context: Context){
         val response = loginInteractor.userId(userLogin)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

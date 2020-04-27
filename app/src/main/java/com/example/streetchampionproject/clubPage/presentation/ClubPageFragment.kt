@@ -2,12 +2,12 @@ package com.example.streetchampionproject.clubPage.presentation
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
@@ -21,6 +21,8 @@ class ClubPageFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private var viewModel: ClubPageViewModel? = null
 
+    private var teamId: Int? = null
+
     companion object {
         fun newInstance() =
             ClubPageFragment()
@@ -29,7 +31,12 @@ class ClubPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.cleb_page_test_fragment, container, false)
+    ): View? {
+        val bundle = this.arguments
+        teamId = bundle?.getInt("teamId")
+        Log.e("teamId", teamId.toString())
+        return inflater.inflate(R.layout.cleb_page_test_fragment, container, false)
+    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

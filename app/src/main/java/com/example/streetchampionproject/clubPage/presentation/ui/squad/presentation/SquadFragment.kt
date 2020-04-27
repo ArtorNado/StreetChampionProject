@@ -2,15 +2,13 @@ package com.example.streetchampionproject.clubPage.presentation.ui.squad.present
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.response.Players
 import com.example.streetchampionproject.app.injector.Injector
@@ -60,7 +58,6 @@ class SquadFragment : Fragment() {
 
     private fun setAdapter(list: List<Players>) {
         adapter = PlayerListAdapter(list) { players ->
-            Log.e("CLICKED", "CLICK")
         }
         rv_player_list.adapter = adapter
     }

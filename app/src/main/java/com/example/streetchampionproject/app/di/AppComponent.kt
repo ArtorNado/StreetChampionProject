@@ -6,7 +6,9 @@ import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
 import com.example.streetchampionproject.common.ViewModelFactoryModule
+import com.example.streetchampionproject.common.di.LocalStorageModule
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
+import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
 import dagger.BindsInstance
@@ -26,6 +28,8 @@ interface AppComponent {
     fun provideClubPageFeatureComponent():  ClubPageFeatureComponent.Builder
 
     fun provideSquadFeatureComponent(): SquadFeatureComponent.Builder
+
+    fun provideClubListFeatureComponent(): ClubListFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

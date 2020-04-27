@@ -24,15 +24,16 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        return root
-    }
+    ): View? = inflater.inflate(R.layout.fragment_profile, container, false)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Injector.plusProfileFeatureComponent().inject(this)
         initViewModel()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initUserData(activity?.intent?.extras?.getInt("id")?: 0)
     }
 
@@ -48,19 +49,19 @@ class ProfileFragment : Fragment() {
 
     fun initUserData(id: Int){
         viewModel?.getUserData(id)
-        viewModel?.userLogin?.observe(this, Observer {
+        viewModel?.userLogin?.observe(viewLifecycleOwner, Observer {
             tv_user_login.text = it
         })
-        viewModel?.userFirstName?.observe(this, Observer {
+        viewModel?.userFirstName?.observe(viewLifecycleOwner, Observer {
             tv_user_firstName.text = it
         })
-        viewModel?.userSecondname?.observe(this, Observer {
+        viewModel?.userSecondname?.observe(viewLifecycleOwner, Observer {
             tv_user_secondName.text = it
         })
-        viewModel?.userGender?.observe(this, Observer {
+        viewModel?.userGender?.observe(viewLifecycleOwner, Observer {
             tv_user_gender.text = it
         })
-        viewModel?.userCity?.observe(this, Observer {
+        viewModel?.userCity?.observe(viewLifecycleOwner, Observer {
             tv_city_name.text = it
         })
     }

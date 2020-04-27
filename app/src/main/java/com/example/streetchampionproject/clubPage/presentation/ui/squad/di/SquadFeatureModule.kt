@@ -19,7 +19,7 @@ class SquadFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(SquadViewModel::class)
-    fun provideOverviewViewModel(squadInteractor: SquadInteractor): ViewModel {
+    fun provideSquadViewModel(squadInteractor: SquadInteractor): ViewModel {
         return SquadViewModel(
             squadInteractor
         )
@@ -27,9 +27,9 @@ class SquadFeatureModule {
 
     @SquadScope
     @Provides
-    fun provideOverviewInteractor(squadInteractor: SquadInteractorImpl): SquadInteractor = squadInteractor
+    fun provideSquadInteractor(squadInteractor: SquadInteractorImpl): SquadInteractor = squadInteractor
 
     @SquadScope
     @Provides
-    fun provideOverviewRepository(squadRepository: SquadRepositoryImpl): SquadRepository = squadRepository
+    fun provideSquadRepository(squadRepository: SquadRepositoryImpl): SquadRepository = squadRepository
 }

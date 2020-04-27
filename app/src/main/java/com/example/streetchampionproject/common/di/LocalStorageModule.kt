@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.app.di
+package com.example.streetchampionproject.common.di
 
 import android.content.Context
 import com.example.streetchampionproject.app.App

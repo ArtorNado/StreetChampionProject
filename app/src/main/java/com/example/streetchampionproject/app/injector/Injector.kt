@@ -6,6 +6,7 @@ import com.example.streetchampionproject.app.di.DaggerAppComponent
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
+import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
 
@@ -17,6 +18,7 @@ object Injector {
     private var profileFeatureComponent: ProfileFeatureComponent? = null
     private var clubPageFeatureComponent: ClubPageFeatureComponent? = null
     private var squadFeatureComponent: SquadFeatureComponent? = null
+    private var clubListFeatureComponent: ClubListFeatureComponent? = null
 
 
     fun init(app: App) {
@@ -76,6 +78,17 @@ object Injector {
 
     fun clearSquadFeatureComponent() {
         squadFeatureComponent = null
+    }
+
+    fun plusClubListFeatureComponent(): ClubListFeatureComponent = clubListFeatureComponent
+        ?: appComponent.provideClubListFeatureComponent()
+            .build().also {
+                clubListFeatureComponent = it
+            }
+
+
+    fun clearClubListFeatureComponent() {
+        clubListFeatureComponent = null
     }
 
 }
