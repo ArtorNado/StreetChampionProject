@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.response.Teams
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.team_template.view.*
+import kotlinx.android.synthetic.main.template_team.view.*
 
 class ClubListViewHolder(
     override val containerView: View,
@@ -30,7 +30,7 @@ class ClubListViewHolder(
         fun create(parent: ViewGroup, clickLambda: (Teams) -> Unit) =
             ClubListViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.team_template,
+                    R.layout.template_team,
                     parent,
                     false
                 ),

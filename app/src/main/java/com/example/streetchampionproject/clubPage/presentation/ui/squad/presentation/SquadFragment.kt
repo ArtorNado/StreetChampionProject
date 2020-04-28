@@ -13,7 +13,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.response.Players
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.recycler.PlayerListAdapter
-import kotlinx.android.synthetic.main.squad_fragment.*
+import kotlinx.android.synthetic.main.fragment_squad.*
 import javax.inject.Inject
 
 class SquadFragment : Fragment() {
@@ -34,7 +34,7 @@ class SquadFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.squad_fragment, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_squad, container, false)
 
 
     override fun onAttach(context: Context) {

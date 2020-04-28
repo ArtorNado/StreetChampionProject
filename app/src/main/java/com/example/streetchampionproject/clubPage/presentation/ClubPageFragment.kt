@@ -12,7 +12,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.cleb_page_test_fragment.*
+import kotlinx.android.synthetic.main.fragment_club_page_test.*
 import javax.inject.Inject
 
 class ClubPageFragment : Fragment() {
@@ -35,7 +35,7 @@ class ClubPageFragment : Fragment() {
         val bundle = this.arguments
         teamId = bundle?.getInt("teamId")
         Log.e("teamId", teamId.toString())
-        return inflater.inflate(R.layout.cleb_page_test_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_club_page_test, container, false)
     }
 
 

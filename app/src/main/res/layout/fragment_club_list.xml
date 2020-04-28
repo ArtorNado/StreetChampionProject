@@ -79,6 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_filter"
         tools:itemCount="15"
-        tools:listitem="@layout/team_template" />
+        tools:listitem="@layout/template_team" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
