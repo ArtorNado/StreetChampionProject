@@ -31,60 +31,6 @@ class ClubListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View?  = inflater.inflate(R.layout.fragment_club_list, container, false)
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        *//*setHasOptionsMenu(true)*//*
-    }*/
-
-    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        Log.e("create","create")
-        inflater.inflate(R.menu.tool_app_bar, menu)
-        val mi = menu.findItem(R.id.action_search)
-        Log.e("ACTION VIEW", mi.actionView.toString())
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.e("Menu","Menu pressed")
-        if(item.itemId == R.id.action_search) Log.e("Search","Search pressed")
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val mSearchMenuItem = menu.findItem(R.id.action_search)
-        val searchView =
-            mSearchMenuItem.actionView as SearchView
-    }*/
-
-    /* private fun toolBarMenuClick(){
-     topAppBar.setOnMenuItemClickListener {
-         Log.e("CLIC", "CLICK")
-         when (it.itemId) {
-             R.id.action_search -> {
-                 sv.visibility = View.VISIBLE
-                 Log.e("Search","Search")
-             }
-         }
-         true
-     }
- }*/
-
-    /*    private fun setSearchListener() {
-        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
-
-            override fun onQueryTextChange(s: String): Boolean {
-                Log.e("onQueryTextChange", "onQueryTextChange")
-                return true
-            }
-
-            override fun onQueryTextSubmit(s: String): Boolean {
-                Log.e("onQueryTextSubmit", "onQueryTextSubmit")
-                return true
-            }
-        })
-    }*/
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Injector.plusClubListFeatureComponent().inject(this)
@@ -94,9 +40,6 @@ class ClubListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-/*
-        topAppBar.inflateMenu(R.menu.tool_app_bar)
-*/
         initClickListeners()
         rv_club_list.layoutManager = LinearLayoutManager(context)
         initObsrvers()
@@ -135,8 +78,6 @@ class ClubListFragment : Fragment() {
         btn_apply.setOnClickListener {
             applyButtonClick()
         }
-        /*setSearchListener()
-        toolBarMenuClick()*/
     }
 
     private fun applyButtonClick() {

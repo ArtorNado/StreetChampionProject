@@ -12,6 +12,7 @@ import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
 class ClubListViewModel(
     private val clubListInteractor: ClubListInteractor,
@@ -73,11 +74,15 @@ class ClubListViewModel(
                 Log.e("PRINT", "PRINT")
                 _searchError.value = EMPTY_FIELD
             }
+            is HttpException -> {
+                _searchError.value = CITY_NOT_FOUND
+            }
         }
     }
 
     companion object{
         private const val EMPTY_FIELD = "Enter the city name"
+        private const val CITY_NOT_FOUND = "City not found"
     }
 
 }
