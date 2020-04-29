@@ -1,18 +1,11 @@
 package com.example.streetchampionproject.api.scs
 
-import com.example.streetchampionproject.api.scs.response.AuthToken
-import com.example.streetchampionproject.api.scs.response.Players
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
-import com.example.streetchampionproject.api.scs.response.Teams
+import com.example.streetchampionproject.api.scs.response.*
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
-import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserData
 import com.example.streetchampionproject.registration.data.model.User
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface StreetChampionService {
 
@@ -64,6 +57,17 @@ interface StreetChampionService {
     ):
             Single<List<Teams>>
 
+    @POST("getTeam/{id}")
+    fun getTeam(
+        @Path("id") id: Int
+    ):
+            Single<Teams>
 
+    @GET("determineStatus")
+    fun getUserStatusInTeam(
+        @Query("userId") userId: Int,
+        @Query("teamId") teamId: Int
+    ):
+            Single<UserStatusInTeam>
 
 }

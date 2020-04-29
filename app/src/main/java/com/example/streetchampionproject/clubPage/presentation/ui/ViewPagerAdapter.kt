@@ -9,7 +9,7 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int) = when (position) {
-        0 -> SquadFragment.newInstance()
+        1 -> SquadFragment.newInstance()
         else -> SquadFragment.newInstance()
     }
 

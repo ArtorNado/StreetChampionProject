@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.domain
 
-import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserData
+import com.example.streetchampionproject.api.scs.response.UserData
 import com.example.streetchampionproject.main.presentation.ui.profile.data.interfaces.ProfileRepository
 import com.example.streetchampionproject.main.presentation.ui.profile.domain.interfaces.ProfileInteractor
 import io.reactivex.Single

@@ -43,18 +43,6 @@ class ClubListViewModel(
         navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)
     }
 
-    fun getTeamsByName(name: String){
-        val result = clubListInteractor.getTeamsByName(name)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result ->
-                _clubList.value = result
-            },
-                { error ->
-                    Log.e("ERROR11",error.toString())
-                })
-    }
-
     fun getTeamsByCity(city: String){
         val result = clubListInteractor.getTeamsByCity(city)
             .subscribeOn(Schedulers.io())
@@ -71,7 +59,6 @@ class ClubListViewModel(
     private fun errorSearchType(error: Throwable){
         when(error){
             is java.lang.IllegalArgumentException -> {
-                Log.e("PRINT", "PRINT")
                 _searchError.value = EMPTY_FIELD
             }
             is HttpException -> {

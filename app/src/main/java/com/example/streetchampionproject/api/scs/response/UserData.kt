@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.main.presentation.ui.profile.data.model
+package com.example.streetchampionproject.api.scs.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -16,5 +16,8 @@ data class UserData(
     var userGender: String,
 
     @SerializedName("userCity")
-    var userCity: String
+    var userCity: String,
+
+    @SerializedName("team")
+    var team: Teams
 )

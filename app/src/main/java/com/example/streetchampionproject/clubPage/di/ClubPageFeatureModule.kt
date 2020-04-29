@@ -19,9 +19,10 @@ class ClubPageFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(ClubPageViewModel::class)
-    fun provideClubPageViewModel(clubPageInteractor: ClubPageInteractor): ViewModel {
+    fun provideClubPageViewModel(clubPageInteractor: ClubPageInteractor, id: Int): ViewModel {
         return ClubPageViewModel(
-            clubPageInteractor
+            clubPageInteractor,
+            id
         )
     }
 

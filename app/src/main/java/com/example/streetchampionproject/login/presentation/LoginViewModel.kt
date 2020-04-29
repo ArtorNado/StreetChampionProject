@@ -9,6 +9,7 @@ import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.constants.ERRORS
 import com.example.streetchampionproject.login.domain.interfaces.LoginInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class LoginViewModel(
@@ -16,15 +17,22 @@ class LoginViewModel(
     private val navigator: Navigator
 ) : ViewModel() {
 
+    private val compositeDisposable = CompositeDisposable()
+
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int> = _status
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
+
     fun clickLogin(email: String, password: String, context: Context) {
         _status.value = View.VISIBLE
-        val response = loginInteractor.logIn(email, password)
+        compositeDisposable.add(loginInteractor.logIn(email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
@@ -35,7 +43,7 @@ class LoginViewModel(
                 { error ->
                     errorMessage(error)
                     _status.value = View.GONE
-                })
+                }))
     }
 
     fun clickRegistr(context: Context) {
@@ -48,6 +56,7 @@ class LoginViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
                 navigator.openMain(context, result.userId)
+                writeInStorage("userId", result.userId.toString())
                 _status.value = View.GONE
             },
                 { error ->
@@ -55,6 +64,8 @@ class LoginViewModel(
                     _status.value = View.GONE
                 })
     }
+
+    private fun writeInStorage(name: String, value: String) = loginInteractor.writeInStorage(name, value)
 
     private fun errorMessage(error: Throwable){
         when(error.localizedMessage.toString()){
