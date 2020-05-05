@@ -1,8 +1,8 @@
 package com.example.streetchampionproject.main.domain
 
+import com.example.streetchampionproject.api.scs.response.UserData
 import com.example.streetchampionproject.main.data.interfaces.MainRepository
 import com.example.streetchampionproject.main.domain.interfaces.MainInteractor
-import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserData
 import io.reactivex.Single
 import javax.inject.Inject
 

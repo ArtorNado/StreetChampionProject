@@ -70,7 +70,11 @@ class SquadFragment : Fragment() {
             ).get(SquadViewModel::class.java)
         }
         this.viewModel = viewModel
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearSquadFeatureComponent()
     }
 
 }

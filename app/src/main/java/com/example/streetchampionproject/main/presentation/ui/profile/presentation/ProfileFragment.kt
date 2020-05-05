@@ -49,20 +49,12 @@ class ProfileFragment : Fragment() {
 
     fun initUserData(id: Int){
         viewModel?.getUserData(id)
-        viewModel?.userLogin?.observe(viewLifecycleOwner, Observer {
-            tv_user_login.text = it
-        })
-        viewModel?.userFirstName?.observe(viewLifecycleOwner, Observer {
-            tv_user_firstName.text = it
-        })
-        viewModel?.userSecondname?.observe(viewLifecycleOwner, Observer {
-            tv_user_secondName.text = it
-        })
-        viewModel?.userGender?.observe(viewLifecycleOwner, Observer {
-            tv_user_gender.text = it
-        })
-        viewModel?.userCity?.observe(viewLifecycleOwner, Observer {
-            tv_city_name.text = it
+        viewModel?.user?.observe(viewLifecycleOwner, Observer {
+            tv_user_login.text = it.userId.toString()
+            tv_user_firstName.text = it.userFirstName
+            tv_user_secondName.text = it.userSecondName
+            tv_user_gender.text = it.userGender
+            tv_city_name.text = it.userCity
         })
     }
 }

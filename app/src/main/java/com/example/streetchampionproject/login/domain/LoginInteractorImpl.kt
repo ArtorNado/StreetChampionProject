@@ -24,8 +24,6 @@ class LoginInteractorImpl @Inject constructor(
 
     override fun userId(email: String): Single<UserId> = loginRepository.userId(email)
 
-    override fun writeInStorage(name: String, message: String) {
-        localStorage.writeMessage(name, message)
-    }
+    override fun writeInStorage(name: String, message: String) = localStorage.writeMessage(name, message)
 
 }

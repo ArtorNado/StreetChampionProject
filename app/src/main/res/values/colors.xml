@@ -6,5 +6,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="pg">#fcebfa</color>
     <color name="colorPurpleDark">#1a0117</color>
-    <color name="colorPink">#fc0589</color>
+    <!--<color name="colorPink">#fc0589</color>-->
+    <color name="colorPink">#cf1d52</color>
+    <color name="colorGray">#544a4d</color>
 </resources>

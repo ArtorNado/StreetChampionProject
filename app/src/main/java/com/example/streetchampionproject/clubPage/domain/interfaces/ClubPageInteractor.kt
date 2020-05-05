@@ -1,3 +1,12 @@
 package com.example.streetchampionproject.clubPage.domain.interfaces
 
-interface ClubPageInteractor
+import com.example.streetchampionproject.api.scs.response.Teams
+import com.example.streetchampionproject.api.scs.response.UserStatusInTeam
+import io.reactivex.Single
+
+interface ClubPageInteractor{
+
+    fun getTeam(id: Int): Single<Teams>
+
+    fun determineUserStatusInTeam(teamId: Int): Single<UserStatusInTeam>
+}

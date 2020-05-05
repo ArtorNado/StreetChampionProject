@@ -2,6 +2,7 @@ package com.example.streetchampionproject.clubPage.di
 
 import com.example.streetchampionproject.clubPage.di.scope.ClubPageScope
 import com.example.streetchampionproject.clubPage.presentation.ClubPageFragment
+import dagger.BindsInstance
 import dagger.Subcomponent
 
 @ClubPageScope
@@ -14,6 +15,9 @@ interface ClubPageFeatureComponent {
     interface Builder {
 
         fun build(): ClubPageFeatureComponent
+
+        @BindsInstance
+        fun create(id: Int): Builder
 
     }
 }
