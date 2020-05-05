@@ -1,6 +1,7 @@
 package com.example.streetchampionproject.clubPage.presentation
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,11 @@ class ClubPageViewModel(
     private val _team = MutableLiveData<Teams>()
     val team: LiveData<Teams> = _team
 
-    private val _status = MutableLiveData<String>()
-    val status: LiveData<String> = _status
+    private val _userStatus = MutableLiveData<String>()
+    val userStatus: LiveData<String> = _userStatus
+
+    private val _pgStatus = MutableLiveData<Int>()
+    val pgStatus: LiveData<Int> = _pgStatus
 
     fun getData() {
         compositeDisposable.add(
@@ -29,20 +33,21 @@ class ClubPageViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    Log.e("RESULT", result.toString())
                     _team.value = result
+                    _pgStatus.value = View.GONE
                 },
                     { error -> Log.e("ERROR", error.toString()) })
         )
     }
 
     fun determineRole(teamId: Int) {
+        _pgStatus.value = View.VISIBLE
         compositeDisposable.add(
             clubPageInteractor.determineUserStatusInTeam(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    _status.value = result.status
+                    _userStatus.value = result.status
                 },
                     { error -> Log.e("ERROR", error.toString()) })
         )

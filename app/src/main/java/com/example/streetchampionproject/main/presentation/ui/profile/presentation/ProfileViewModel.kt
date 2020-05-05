@@ -28,4 +28,9 @@ class ProfileViewModel(
             },
                 { error -> Log.e("ERROR", error.toString()) })
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }

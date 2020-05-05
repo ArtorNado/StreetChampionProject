@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun initObservers(){
 
-        viewModel?.status?.observe(this, Observer {
+        viewModel?.pgStatus?.observe(this, Observer {
             pg_logIn.visibility = it
         })
 

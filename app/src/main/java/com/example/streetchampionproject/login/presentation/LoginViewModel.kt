@@ -19,8 +19,8 @@ class LoginViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _status = MutableLiveData<Int>()
-    val status: LiveData<Int> = _status
+    private val _pgStatus = MutableLiveData<Int>()
+    val pgStatus: LiveData<Int> = _pgStatus
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -31,18 +31,18 @@ class LoginViewModel(
     }
 
     fun clickLogin(email: String, password: String, context: Context) {
-        _status.value = View.VISIBLE
+        _pgStatus.value = View.VISIBLE
         compositeDisposable.add(loginInteractor.logIn(email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
                 loginInteractor.writeInStorage("AuthToken", result.token)
                 getUserId(email, context)
-                _status.value = View.GONE
+                _pgStatus.value = View.GONE
             },
                 { error ->
                     errorMessage(error)
-                    _status.value = View.GONE
+                    _pgStatus.value = View.GONE
                 }))
     }
 
@@ -57,11 +57,11 @@ class LoginViewModel(
             .subscribe({ result ->
                 navigator.openMain(context, result.userId)
                 writeInStorage("userId", result.userId.toString())
-                _status.value = View.GONE
+                _pgStatus.value = View.GONE
             },
                 { error ->
                     errorMessage(error)
-                    _status.value = View.GONE
+                    _pgStatus.value = View.GONE
                 })
     }
 
