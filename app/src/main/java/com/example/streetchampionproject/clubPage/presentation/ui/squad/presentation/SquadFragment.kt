@@ -25,10 +25,13 @@ class SquadFragment : Fragment() {
     private var adapter: PlayerListAdapter? = null
 
     companion object {
-        fun newInstance() =
-            SquadFragment()
-
-        private const val current = 23
+        fun newInstance(teamId: Int): SquadFragment {
+            val squadFragment = SquadFragment()
+            val args = Bundle()
+            args.putInt("teamId", teamId)
+            squadFragment.arguments = args
+            return squadFragment
+        }
     }
 
     override fun onCreateView(
@@ -41,7 +44,7 @@ class SquadFragment : Fragment() {
         super.onAttach(context)
         Injector.plusSquadFeatureComponent().inject(this)
         initViewModel()
-        viewModel?.getPlayers(current)
+        viewModel?.getPlayers(arguments?.getInt("teamId")?:0)
 
     }
 

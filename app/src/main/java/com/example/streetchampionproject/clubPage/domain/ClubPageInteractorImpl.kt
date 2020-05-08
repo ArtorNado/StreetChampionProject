@@ -1,5 +1,7 @@
 package com.example.streetchampionproject.clubPage.domain
 
+import com.example.streetchampionproject.api.scs.response.NotificationForSend
+import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
 import com.example.streetchampionproject.api.scs.response.UserStatusInTeam
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
@@ -20,4 +22,14 @@ class ClubPageInteractorImpl @Inject constructor(
             teamId
         )
 
+    override fun sendNotif(teamId: Int): Single<StreetChampionResponse> =
+        clubPageRepository.sendNotif(NotificationForSend(0,
+            localStorage.readMessage("userId")?.toInt() ?: 0, teamId,
+            NOTIFICATION_TYPE, NOTIFICATION_STATUS))
+
+
+    companion object{
+        private const val NOTIFICATION_STATUS = 3
+        private const val NOTIFICATION_TYPE = 1
+    }
 }

@@ -41,8 +41,8 @@ class ClubListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListeners()
-        rv_club_list.layoutManager = LinearLayoutManager(context)
         initObsrvers()
+        viewModel?.getData()
     }
 
     private fun initViewModel() {
@@ -65,9 +65,12 @@ class ClubListFragment : Fragment() {
     }
 
     private fun setAdapter(list: List<Teams>) {
+        rv_club_list.layoutManager = LinearLayoutManager(context)
         adapter = ClubListAdapter(list) {
-            viewModel?.clickOnClub(findNavController(), it.teamId)
-        }
+            val navController = findNavController()
+            val bundle = Bundle()
+            bundle.putInt("teamId", it.teamId)
+            navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)        }
         rv_club_list.adapter = adapter
     }
 

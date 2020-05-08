@@ -11,6 +11,7 @@ import com.example.streetchampionproject.common.di.LocalStorageModule
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
+import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -33,6 +34,8 @@ interface AppComponent {
     fun provideClubListFeatureComponent(): ClubListFeatureComponent.Builder
 
     fun provideOverviewFeatureComponent(): OverviewFeatureComponent.Builder
+
+    fun provideNotificationFeatureComponent(): NotificationFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

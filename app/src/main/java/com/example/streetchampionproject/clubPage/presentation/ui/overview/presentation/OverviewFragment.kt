@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
-import javax.inject.Inject
 
 class OverviewFragment : Fragment() {
 
-    @Inject
+    /*@Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var viewModel: OverviewViewModel? = null
+    private var viewModel: OverviewViewModel? = null*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +26,16 @@ class OverviewFragment : Fragment() {
 /*
         Injector.plusOverviewFeatureComponent(12).inject(this)
 */
+/*
         initViewModel()
+*/
     }
 
-    private fun initViewModel() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+   /* private fun initViewModel() {
         val viewModel by lazy {
             ViewModelProvider(
                 this,
@@ -39,7 +43,7 @@ class OverviewFragment : Fragment() {
             ).get(OverviewViewModel::class.java)
         }
         this.viewModel = viewModel
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

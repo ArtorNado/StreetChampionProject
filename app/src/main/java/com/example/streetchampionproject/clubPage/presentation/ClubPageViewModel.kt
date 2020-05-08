@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class ClubPageViewModel(
     private val clubPageInteractor: ClubPageInteractor,
-    private val id: Int
+    private val teamId: Int
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -29,7 +29,7 @@ class ClubPageViewModel(
 
     fun getData() {
         compositeDisposable.add(
-            clubPageInteractor.getTeam(id)
+            clubPageInteractor.getTeam(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
@@ -50,6 +50,24 @@ class ClubPageViewModel(
                     _userStatus.value = result.status
                 },
                     { error -> Log.e("ERROR", error.toString()) })
+        )
+    }
+
+    fun applyForMembership(){
+        _pgStatus.value = View.VISIBLE
+        compositeDisposable.add(
+            clubPageInteractor.sendNotif(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({result ->
+                    Log.e("RESULT_APPLY_MEMBER", result.toString())
+                    _pgStatus.value = View.GONE
+                },
+                    { error ->
+                        Log.e("ERROR_APPLY_MEMBER", error.toString())
+                        _pgStatus.value = View.GONE
+                    })
+
         )
     }
 

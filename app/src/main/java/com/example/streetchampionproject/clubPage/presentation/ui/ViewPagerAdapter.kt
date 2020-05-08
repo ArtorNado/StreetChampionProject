@@ -5,17 +5,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.SquadFragment
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val teamId: Int) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int) = when (position) {
-        1 -> SquadFragment.newInstance()
-        else -> SquadFragment.newInstance()
+        1 -> SquadFragment.newInstance(teamId)
+        else -> SquadFragment.newInstance(teamId)
     }
 
     override fun getItemCount(): Int = CARD_ITEM_SIZE
 
     companion object {
-        private const val CARD_ITEM_SIZE = 3
+        private const val CARD_ITEM_SIZE = 2
     }
 }
