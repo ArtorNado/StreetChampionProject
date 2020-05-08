@@ -90,6 +90,7 @@ dependencies {
     implementation 'com.github.zjywill:OverwatchProgress:1.6'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'com.alespero:expandable-cardview:0.8'
     kapt "com.google.dagger:dagger-android-processor:2.21"
     kapt "com.google.dagger:dagger-compiler:2.21"
     testImplementation 'junit:junit:4.12'

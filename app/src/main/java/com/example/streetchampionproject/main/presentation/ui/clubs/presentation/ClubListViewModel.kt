@@ -1,12 +1,9 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.presentation
 
-import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.response.Teams
 import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
@@ -25,7 +22,7 @@ class ClubListViewModel(
     private var _searchError = MutableLiveData<String>()
     var searchError: LiveData<String> = _searchError
 
-    init{
+    fun getData() {
         val result = clubListInteractor.getTeams()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -36,14 +33,7 @@ class ClubListViewModel(
                 })
     }
 
-    fun clickOnClub(navController: NavController, id: Int){
-        val bundle = Bundle()
-        bundle.putInt("teamId", id)
-        Log.e("id", id.toString())
-        navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)
-    }
-
-    fun getTeamsByCity(city: String){
+    fun getTeamsByCity(city: String) {
         val result = clubListInteractor.getTeamsByCity(city)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -51,13 +41,13 @@ class ClubListViewModel(
                 _clubList.value = result
             },
                 { error ->
-                    Log.e("ERROR11",error.toString())
+                    Log.e("ERROR11", error.toString())
                     errorSearchType(error)
                 })
     }
 
-    private fun errorSearchType(error: Throwable){
-        when(error){
+    private fun errorSearchType(error: Throwable) {
+        when (error) {
             is java.lang.IllegalArgumentException -> {
                 _searchError.value = EMPTY_FIELD
             }
@@ -67,7 +57,7 @@ class ClubListViewModel(
         }
     }
 
-    companion object{
+    companion object {
         private const val EMPTY_FIELD = "Enter the city name"
         private const val CITY_NOT_FOUND = "City not found"
     }

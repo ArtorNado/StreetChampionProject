@@ -22,13 +22,13 @@ interface StreetChampionService {
             Single<AuthToken>
 
 
-    @GET("/user/{userId}")
+    @GET("user/{userId}")
     fun getUser(
         @Path("userId")  userId: String
     ):
             Single<UserData>
 
-    @GET("/userId/{user-email}")
+    @GET("userId/{user-email}")
     fun getUserId(
         @Path("user-email")  email: String
     ):
@@ -69,5 +69,24 @@ interface StreetChampionService {
         @Query("teamId") teamId: Int
     ):
             Single<UserStatusInTeam>
+
+    @POST("getNotificationByRecipient/{recipientId}")
+    fun getNotificationByRecipientId(
+        @Path("recipientId") recipientId: Int
+    ):
+            Single<List<Notification>>
+
+    @GET("answerNotification")
+    fun sendAnswerToNotif(
+        @Query("notification") notificationId: Int,
+        @Query("answer") answer: Int
+    ):
+            Single<StreetChampionResponse>
+
+    @POST("sendNotification")
+    fun sendNotification(
+        @Body notification: NotificationForSend
+    ):
+            Single<StreetChampionResponse>
 
 }

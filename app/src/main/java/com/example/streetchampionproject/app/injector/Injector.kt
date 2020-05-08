@@ -9,18 +9,28 @@ import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.Squad
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
+import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
 
 object Injector {
 
     lateinit var appComponent: AppComponent
+
     private var loginFeatureComponent: LoginFeatureComponent? = null
+
     private var registerFeatureComponent: RegisterFeatureComponent? = null
+
     private var profileFeatureComponent: ProfileFeatureComponent? = null
+
     private var clubPageFeatureComponent: ClubPageFeatureComponent? = null
+
     private var squadFeatureComponent: SquadFeatureComponent? = null
+
     private var clubListFeatureComponent: ClubListFeatureComponent? = null
+
     private var overviewFeatureComponent: OverviewFeatureComponent? = null
+
+    private var notificationFeatureComponent: NotificationFeatureComponent? = null
 
 
     fun init(app: App) {
@@ -102,6 +112,17 @@ object Injector {
 
     fun clearOverviewFeatureComponent() {
         overviewFeatureComponent = null
+    }
+
+    fun plusNotificationFueatureComponent(recipientId: Int): NotificationFeatureComponent =
+        notificationFeatureComponent
+            ?: appComponent.provideNotificationFeatureComponent()
+                .create(recipientId).build().also {
+                    notificationFeatureComponent = it
+                }
+
+    fun clearNotificationFeatureComponent() {
+        notificationFeatureComponent = null
     }
 
 }

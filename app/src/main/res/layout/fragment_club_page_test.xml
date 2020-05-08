@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pb"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".clubPage.presentation.ClubPageFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -12,33 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPink"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        >
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         ​
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
-            app:layout_scrollFlags="scroll|snap"
-            >
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|snap">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
+                android:orientation="vertical"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="pin">
-            </androidx.appcompat.widget.Toolbar>
+                app:layout_collapseMode="pin" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_main_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorWhite"
                 android:layout_marginTop="?attr/actionBarSize"
+                android:backgroundTint="@color/colorWhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,10 +70,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="36dp"
                         android:layout_marginTop="28dp"
-                        android:text="TextView"
-                        android:textSize="28sp"
-                        android:textColor="@color/colorPurpleDark"
                         android:fontFamily="@font/varela_round"
+                        android:text="TextView"
+                        android:textColor="@color/colorPurpleDark"
+                        android:textSize="28sp"
                         app:layout_constraintStart_toEndOf="@+id/imageView"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,17 +95,17 @@
                         style="@style/GreenButtonThemeOverlay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Apply for membership"
-                        android:textAllCaps="true"
-                        android:textSize="14sp"
-                        android:backgroundTint="@color/colorPink"
-                        android:textColor="@color/colorPurpleDark"
-                        android:fontFamily="@font/varela_round"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
+                        android:backgroundTint="@color/colorPink"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Apply for membership"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPurpleDark"
+                        android:textSize="14sp"
                         android:visibility="invisible"
-                        app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                     <Button
@@ -114,17 +113,17 @@
                         style="@style/GreenButtonThemeOverlay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Club chat"
-                        android:textAllCaps="true"
-                        android:textSize="14sp"
-                        android:backgroundTint="@color/colorPink"
-                        android:textColor="@color/colorPurpleDark"
-                        android:fontFamily="@font/varela_round"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
+                        android:backgroundTint="@color/colorPink"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Club chat"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPurpleDark"
+                        android:textSize="14sp"
                         android:visibility="invisible"
-                        app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                     <Button
@@ -132,16 +131,16 @@
                         style="@style/GreenButtonThemeOverlay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:backgroundTint="@color/colorPink"
+                        android:fontFamily="@font/varela_round"
                         android:text="Notifications"
                         android:textAllCaps="true"
-                        android:textSize="14sp"
-                        android:backgroundTint="@color/colorPink"
                         android:textColor="@color/colorPurpleDark"
-                        android:fontFamily="@font/varela_round"
-                        android:layout_marginStart="12dp"
+                        android:textSize="14sp"
                         android:visibility="invisible"
-                        app:layout_constraintStart_toEndOf="@+id/btn_chat"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/btn_chat"
                         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,21 +156,20 @@
             android:layout_width="fill_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorWhite"
-            app:tabSelectedTextColor="@color/colorPurpleDark"
-            app:tabTextColor="@color/colorGray"
             app:tabIndicatorColor="@color/colorPink"
             app:tabIndicatorHeight="4dp"
-            />
+            app:tabSelectedTextColor="@color/colorPurpleDark"
+            app:tabTextColor="@color/colorGray" />
     </com.google.android.material.appbar.AppBarLayout>
     ​
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@null"
         android:layout_marginTop="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        android:background="@null"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.comix.overwatch.HiveProgressView
         android:id="@+id/pg_clubPage"

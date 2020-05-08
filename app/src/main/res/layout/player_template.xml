@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -21,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@id/tv_firstName" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/tv_notif"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/colorPink"
@@ -52,7 +51,7 @@
         android:textColor="@color/colorPurpleDark"
         android:textSize="16sp"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@id/tv_notif"
         app:layout_constraintStart_toStartOf="@id/tv_firstName"
         app:layout_constraintTop_toBottomOf="@+id/tv_firstName" />
 
@@ -67,7 +66,7 @@
         android:textStyle="bold"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@id/tv_notif"
         app:layout_constraintStart_toEndOf="@id/tv_from"
         app:layout_constraintTop_toBottomOf="@+id/tv_firstName" />
 
