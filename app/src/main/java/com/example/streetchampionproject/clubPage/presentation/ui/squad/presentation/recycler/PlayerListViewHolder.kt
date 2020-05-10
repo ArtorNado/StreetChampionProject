@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.player_template.view.*
 

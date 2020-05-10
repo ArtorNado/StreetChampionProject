@@ -1,9 +1,9 @@
 package com.example.streetchampionproject.clubPage.data.interfaces
 
-import com.example.streetchampionproject.api.scs.response.NotificationForSend
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
-import com.example.streetchampionproject.api.scs.response.Teams
-import com.example.streetchampionproject.api.scs.response.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.NotificationForSend
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.Teams
+import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
 import io.reactivex.Single
 
 interface ClubPageRepository{

@@ -21,6 +21,7 @@ class ApiFactoryModule {
 
     @ApplicationScope
     @Provides
-    fun provideStreetChampionService(apiFactory: ApiFactory): StreetChampionService = apiFactory.streetChampionService
+    fun provideStreetChampionService(apiFactory: ApiFactory): StreetChampionService =
+        apiFactory.streetChampionService
 }
 

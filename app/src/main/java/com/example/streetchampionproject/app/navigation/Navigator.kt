@@ -9,7 +9,7 @@ import com.example.streetchampionproject.main.router.MainRouter
 import com.example.streetchampionproject.registration.presentation.RegisterActivity
 import com.example.streetchampionproject.registration.router.RegisterRouter
 
-class Navigator: RegisterRouter, LoginRouter, MainRouter {
+class Navigator : RegisterRouter, LoginRouter, MainRouter {
 
     private var navController: NavController? = null
 

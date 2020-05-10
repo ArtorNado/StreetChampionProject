@@ -73,6 +73,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearLoginFeatureComponent()
+    }
+
     companion object{
         fun start(context: Context){
             val intent = Intent(context, LoginActivity::class.java)

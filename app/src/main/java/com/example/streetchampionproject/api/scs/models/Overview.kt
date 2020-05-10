@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.api.scs.response
+package com.example.streetchampionproject.api.scs.models
 
 import com.google.gson.annotations.SerializedName
 

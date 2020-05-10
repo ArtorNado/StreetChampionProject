@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.api.scs.response.UserData
+import com.example.streetchampionproject.api.scs.models.UserData
 import com.example.streetchampionproject.main.presentation.ui.profile.domain.interfaces.ProfileInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ class ProfileViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _user = MutableLiveData<UserData>()
+    private val _user by lazy { MutableLiveData<UserData>() }
     val user: LiveData<UserData> = _user
 
     fun getUserData(id: Int){

@@ -2,7 +2,7 @@ package com.example.streetchampionproject.clubPage.presentation.ui.squad.present
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 
 class PlayerListAdapter(
     private var players: List<Players>,

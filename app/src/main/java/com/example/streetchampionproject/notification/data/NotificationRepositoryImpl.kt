@@ -1,8 +1,8 @@
 package com.example.streetchampionproject.notification.data
 
 import com.example.streetchampionproject.api.scs.StreetChampionService
-import com.example.streetchampionproject.api.scs.response.Notification
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.Notification
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import io.reactivex.Single
 import javax.inject.Inject
 

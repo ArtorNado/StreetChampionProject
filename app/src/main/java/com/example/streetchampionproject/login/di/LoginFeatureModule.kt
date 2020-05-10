@@ -5,8 +5,8 @@ import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.ViewModelKey
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
-import com.example.streetchampionproject.login.domain.LoginInteractorImpl
 import com.example.streetchampionproject.login.di.scope.LoginActivityScope
+import com.example.streetchampionproject.login.domain.LoginInteractorImpl
 import com.example.streetchampionproject.login.domain.interfaces.LoginInteractor
 import com.example.streetchampionproject.login.presentation.LoginViewModel
 import dagger.Module
@@ -20,7 +20,10 @@ class LoginFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
-    fun provideCountryListViewModel(loginInteractor: LoginInteractor, navigator: Navigator): ViewModel {
+    fun provideCountryListViewModel(
+        loginInteractor: LoginInteractor,
+        navigator: Navigator
+    ): ViewModel {
         return LoginViewModel(
             loginInteractor,
             navigator
@@ -29,9 +32,11 @@ class LoginFeatureModule {
 
     @LoginActivityScope
     @Provides
-    fun provideLoginInteractor(loginInteractor: LoginInteractorImpl): LoginInteractor = loginInteractor
+    fun provideLoginInteractor(loginInteractor: LoginInteractorImpl): LoginInteractor =
+        loginInteractor
 
     @LoginActivityScope
     @Provides
-    fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository = loginRepositoryImpl
+    fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository =
+        loginRepositoryImpl
 }

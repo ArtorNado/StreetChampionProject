@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.notification.domain
 
-import com.example.streetchampionproject.api.scs.response.Notification
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.Notification
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import io.reactivex.Single
 
 interface NotificationInteractor {

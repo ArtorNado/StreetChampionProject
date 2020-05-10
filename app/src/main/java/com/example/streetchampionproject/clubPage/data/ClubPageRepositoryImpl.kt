@@ -1,9 +1,9 @@
 package com.example.streetchampionproject.clubPage.data
 
 import com.example.streetchampionproject.api.scs.StreetChampionService
-import com.example.streetchampionproject.api.scs.response.NotificationForSend
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
-import com.example.streetchampionproject.api.scs.response.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.NotificationForSend
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import io.reactivex.Single
 import javax.inject.Inject

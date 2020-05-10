@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.recycler.PlayerListAdapter
 import kotlinx.android.synthetic.main.fragment_squad.*

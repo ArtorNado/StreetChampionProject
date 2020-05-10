@@ -1,8 +1,8 @@
 package com.example.streetchampionproject.clubPage.domain.interfaces
 
-import com.example.streetchampionproject.api.scs.response.StreetChampionResponse
-import com.example.streetchampionproject.api.scs.response.Teams
-import com.example.streetchampionproject.api.scs.response.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.Teams
+import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
 import io.reactivex.Single
 
 interface ClubPageInteractor{

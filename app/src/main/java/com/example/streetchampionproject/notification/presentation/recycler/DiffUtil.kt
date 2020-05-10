@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.notification.presentation.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.streetchampionproject.api.scs.response.Notification
+import com.example.streetchampionproject.api.scs.models.Notification
 
 class DiffUtil(private val oldList: List<Notification>, private val newList: List<Notification>) :
 DiffUtil.Callback() {

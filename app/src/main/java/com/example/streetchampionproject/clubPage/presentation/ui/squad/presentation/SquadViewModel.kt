@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.domain.interfaces.SquadInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ class SquadViewModel(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _players = MutableLiveData<List<Players>>()
+    private val _players by lazy { MutableLiveData<List<Players>>() }
     val players: LiveData<List<Players>> = _players
 
     fun getPlayers(teamId: Int) {

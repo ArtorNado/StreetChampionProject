@@ -14,7 +14,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_club_page_test.*
+import kotlinx.android.synthetic.main.fragment_club_page.*
 import javax.inject.Inject
 
 class ClubPageFragment : Fragment() {
@@ -29,7 +29,7 @@ class ClubPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_club_page_test, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_club_page, container, false)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,12 +43,12 @@ class ClubPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(view)
         initTabLayout()
-        setObservers()
         teamId?.let {
             viewModel?.determineRole(it)
         }
         viewModel?.getData()
         initClickListeners()
+        initObservers()
     }
 
     private fun initClickListeners() {
@@ -67,7 +67,7 @@ class ClubPageFragment : Fragment() {
 
     private fun initToolbar(view: View) {
         toolbar.navigationIcon =
-            ContextCompat.getDrawable(view.context, R.drawable.ic_keyboard_backspace)
+            ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
     private fun initTabLayout() {
@@ -95,9 +95,9 @@ class ClubPageFragment : Fragment() {
         this.viewModel = viewModel
     }
 
-    private fun setObservers() {
+    private fun initObservers() {
         viewModel?.pgStatus?.observe(viewLifecycleOwner, Observer {
-            pg_clubPage.visibility = it
+            progress_bar.visibility = it
         })
         viewModel?.team?.observe(viewLifecycleOwner, Observer {
             tv_club_name.text = it.teamName
@@ -113,6 +113,13 @@ class ClubPageFragment : Fragment() {
                 }
             }
         })
+        /*viewModel?.error?.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(
+                viewLifecycleOwner,
+                it,
+                Snackbar.LENGTH_SHORT
+            ).show()
+        })*/
     }
 
     override fun onDestroy() {

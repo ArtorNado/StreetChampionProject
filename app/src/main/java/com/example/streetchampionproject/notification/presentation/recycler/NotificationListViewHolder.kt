@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Notification
+import com.example.streetchampionproject.api.scs.models.Notification
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.notification_template.view.*
 

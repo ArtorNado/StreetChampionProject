@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Overview
+import com.example.streetchampionproject.api.scs.models.Overview
 import kotlinx.android.extensions.LayoutContainer
 
 class OverviewViewHolder(

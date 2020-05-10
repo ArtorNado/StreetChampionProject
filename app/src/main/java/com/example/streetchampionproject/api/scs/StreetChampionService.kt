@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.api.scs
 
-import com.example.streetchampionproject.api.scs.response.*
+import com.example.streetchampionproject.api.scs.models.*
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
 import com.example.streetchampionproject.registration.data.model.User

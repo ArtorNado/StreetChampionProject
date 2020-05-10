@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.domain
 
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.interfaces.SquadRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.domain.interfaces.SquadInteractor
 import io.reactivex.Single

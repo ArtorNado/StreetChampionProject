@@ -3,7 +3,7 @@ package com.example.streetchampionproject.notification.presentation.recycler
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.streetchampionproject.api.scs.response.Notification
+import com.example.streetchampionproject.api.scs.models.Notification
 
 class NotificationListAdapter(
     private var notifications: List<Notification>,

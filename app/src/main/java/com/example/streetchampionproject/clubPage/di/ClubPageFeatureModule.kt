@@ -28,10 +28,12 @@ class ClubPageFeatureModule {
 
     @ClubPageScope
     @Provides
-    fun provideClubPageInteractor(clubPageInteractor: ClubPageInteractorImpl): ClubPageInteractor = clubPageInteractor
+    fun provideClubPageInteractor(clubPageInteractor: ClubPageInteractorImpl): ClubPageInteractor =
+        clubPageInteractor
 
     @ClubPageScope
     @Provides
-    fun provideClubPageRepository(clubPageRepository: ClubPageRepositoryImpl): ClubPageRepository = clubPageRepository
+    fun provideClubPageRepository(clubPageRepository: ClubPageRepositoryImpl): ClubPageRepository =
+        clubPageRepository
 }
 

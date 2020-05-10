@@ -2,7 +2,7 @@ package com.example.streetchampionproject.clubPage.presentation.ui.overview.pres
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.streetchampionproject.api.scs.response.Overview
+import com.example.streetchampionproject.api.scs.models.Overview
 
 class OverviewAdapter(
     private var overview: List<Overview>,

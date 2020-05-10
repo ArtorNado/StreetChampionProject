@@ -21,8 +21,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration)
-        /*val registerActivityComponent = App.appComponent.registerFeatureComponent()
-        registerActivityComponent.injectRegisterActivity(this)*/
         Injector.plusRegiserFeatureComponent().inject(this)
         initViewModel()
         initClickListeners()
@@ -69,6 +67,11 @@ class RegisterActivity : AppCompatActivity() {
             gender
         )
         filled_gender.setAdapter(adapter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearRegisterFeatureComponent()
     }
 
     companion object {

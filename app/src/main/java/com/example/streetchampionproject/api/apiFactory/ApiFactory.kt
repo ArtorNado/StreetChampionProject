@@ -40,7 +40,8 @@ class ApiFactory(
 
     val streetChampionService: StreetChampionService by lazy {
         retrofit.create(
-            StreetChampionService::class.java)
+            StreetChampionService::class.java
+        )
     }
 }
 

@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.login.data.interfaces
 
-import com.example.streetchampionproject.api.scs.response.AuthToken
+import com.example.streetchampionproject.api.scs.models.AuthToken
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
 import io.reactivex.Single

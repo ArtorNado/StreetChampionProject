@@ -6,9 +6,9 @@ import javax.inject.Singleton
 @Singleton
 class SharedPrefStorage(
     private val context: Context
-): LocalStorage {
+) : LocalStorage {
 
-    override fun writeMessage(name: String ,message: String?) {
+    override fun writeMessage(name: String, message: String?) {
         context.getSharedPreferences("sharedPreference", Context.MODE_PRIVATE)
             .edit().putString(name, message).apply()
     }

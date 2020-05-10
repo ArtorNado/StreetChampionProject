@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Notification
+import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.notification.presentation.recycler.NotificationListAdapter
 import kotlinx.android.synthetic.main.fragment_notification.*
@@ -76,6 +76,9 @@ class NotificationFragment : Fragment() {
     }
 
     private fun setObservers() {
+        viewModel?.pgStatus?.observe(viewLifecycleOwner, Observer {
+            progress_bar.visibility = it
+        })
         viewModel?.notifications?.observe(viewLifecycleOwner, Observer {
             if (adapter == null) setAdapter(it)
             else adapter?.updateList(it)

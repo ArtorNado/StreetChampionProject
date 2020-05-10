@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
-import com.example.streetchampionproject.api.scs.response.Teams
+import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.main.presentation.ui.clubs.presentation.recycler.ClubListAdapter
 import kotlinx.android.synthetic.main.fragment_club_list.*
@@ -29,7 +29,7 @@ class ClubListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?  = inflater.inflate(R.layout.fragment_club_list, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_club_list, container, false)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,6 +56,9 @@ class ClubListFragment : Fragment() {
     }
 
     private fun initObsrvers() {
+        viewModel?.pgStatus?.observe(viewLifecycleOwner, Observer {
+            progress_bar.visibility = it
+        })
         viewModel?.clubList?.observe(viewLifecycleOwner, Observer {
             setAdapter(it)
         })
@@ -70,7 +73,8 @@ class ClubListFragment : Fragment() {
             val navController = findNavController()
             val bundle = Bundle()
             bundle.putInt("teamId", it.teamId)
-            navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)        }
+            navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)
+        }
         rv_club_list.adapter = adapter
     }
 

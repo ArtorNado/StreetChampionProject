@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.data
 
 import com.example.streetchampionproject.api.scs.StreetChampionService
-import com.example.streetchampionproject.api.scs.response.Players
+import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.interfaces.SquadRepository
 import io.reactivex.Single
 import javax.inject.Inject
