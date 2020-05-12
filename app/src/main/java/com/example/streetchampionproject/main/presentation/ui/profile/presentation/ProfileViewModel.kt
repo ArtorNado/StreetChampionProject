@@ -20,13 +20,13 @@ class ProfileViewModel(
     val user: LiveData<UserData> = _user
 
     fun getUserData(id: Int){
-        val result = profileInteractor.getUserData(id)
+        compositeDisposable.add(profileInteractor.getUserData(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
                 _user.value = result
             },
-                { error -> Log.e("ERROR", error.toString()) })
+                { error -> Log.e("ERROR", error.toString()) }))
     }
 
     override fun onCleared() {
