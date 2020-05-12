@@ -81,9 +81,9 @@ object Injector {
         clubPageFeatureComponent = null
     }
 
-    fun plusSquadFeatureComponent(): SquadFeatureComponent = squadFeatureComponent
+    fun plusSquadFeatureComponent(teamId: Int): SquadFeatureComponent = squadFeatureComponent
         ?: appComponent.provideSquadFeatureComponent()
-            .build().also {
+            .create(teamId).build().also {
                 squadFeatureComponent = it
             }
 

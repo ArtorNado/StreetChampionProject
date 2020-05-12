@@ -9,6 +9,6 @@ import javax.inject.Inject
 class MainRepositoryImpl @Inject constructor(private var streetChampionService: StreetChampionService) :
     MainRepository {
 
-    override fun getUserData(userId: String): Single<UserData> =
+    override fun getUserData(userId: Int): Single<UserData> =
         streetChampionService.getUser(userId)
 }

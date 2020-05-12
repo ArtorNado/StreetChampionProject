@@ -10,6 +10,6 @@ class ProfileInteractorImpl @Inject constructor(
     private val profileRepository: ProfileRepository
 ): ProfileInteractor {
 
-    override fun getUserData(userId: Int): Single<UserData> = profileRepository.getUserData(userId.toString())
+    override fun getUserData(userId: Int): Single<UserData> = profileRepository.getUserData(userId)
 
 }

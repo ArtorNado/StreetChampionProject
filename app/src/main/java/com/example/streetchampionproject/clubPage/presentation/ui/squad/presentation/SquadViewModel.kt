@@ -11,7 +11,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class SquadViewModel(
-    private val squadInteractor: SquadInteractor
+    private val squadInteractor: SquadInteractor,
+    private val teamId: Int
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -19,13 +20,12 @@ class SquadViewModel(
     private val _players by lazy { MutableLiveData<List<Players>>() }
     val players: LiveData<List<Players>> = _players
 
-    fun getPlayers(teamId: Int) {
+    fun getPlayers() {
         compositeDisposable.add(
             squadInteractor.getPlayers(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    Log.e("RESULT", result.toString())
                     _players.value = result
                 },
                     { error -> Log.e("ERROR", error.toString()) })

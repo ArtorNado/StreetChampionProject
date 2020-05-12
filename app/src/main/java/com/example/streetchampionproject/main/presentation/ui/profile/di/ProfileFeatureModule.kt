@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.viewModel.ViewModelKey
 import com.example.streetchampionproject.main.presentation.ui.profile.data.ProfileRepositoryImpl
 import com.example.streetchampionproject.main.presentation.ui.profile.data.interfaces.ProfileRepository
 import com.example.streetchampionproject.main.presentation.ui.profile.di.scope.ProfileFragmentScope
@@ -24,6 +24,7 @@ class ProfileFeatureModule {
             profileInteractor
         )
     }
+
 
     @ProfileFragmentScope
     @Provides

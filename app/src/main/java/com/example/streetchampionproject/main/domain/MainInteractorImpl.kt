@@ -11,6 +11,6 @@ class MainInteractorImpl @Inject constructor(
 ) : MainInteractor {
 
     override fun getUserData(userId: Int): Single<UserData> =
-        mainRepository.getUserData(userId.toString())
+        mainRepository.getUserData(userId)
 
 }

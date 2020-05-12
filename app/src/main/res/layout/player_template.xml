@@ -10,16 +10,16 @@
         android:id="@+id/tv_secondName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:fontFamily="@font/varela_round"
         android:text="SName"
-        android:layout_marginStart="4dp"
         android:textColor="@color/colorPurpleDark"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_firstName"
         app:layout_constraintTop_toTopOf="@id/tv_firstName" />
 
-        <View
+    <View
             android:id="@+id/tv_notif"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="FName"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPurpleDark"
             android:fontFamily="@font/varela_round"

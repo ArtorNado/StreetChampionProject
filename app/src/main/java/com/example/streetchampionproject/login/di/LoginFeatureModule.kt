@@ -2,7 +2,7 @@ package com.example.streetchampionproject.login.di
 
 import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.viewModel.ViewModelKey
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
 import com.example.streetchampionproject.login.di.scope.LoginActivityScope

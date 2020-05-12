@@ -3,12 +3,12 @@ package com.example.streetchampionproject.api.scs.models
 import com.google.gson.annotations.SerializedName
 
 data class Players (
-    @SerializedName("user_first_name")
+    @SerializedName("userFirstName")
     var fisrtName: String,
 
-    @SerializedName("user_second_name")
+    @SerializedName("userSecondName")
     var secondName: String,
 
-    @SerializedName("user_city")
+    @SerializedName("userCity")
     var userCity: String
 )

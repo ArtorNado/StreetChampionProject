@@ -24,7 +24,7 @@ interface StreetChampionService {
 
     @GET("user/{userId}")
     fun getUser(
-        @Path("userId")  userId: String
+        @Path("userId")  userId: Int
     ):
             Single<UserData>
 

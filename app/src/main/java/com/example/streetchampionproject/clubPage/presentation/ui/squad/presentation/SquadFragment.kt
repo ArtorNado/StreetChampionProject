@@ -42,27 +42,31 @@ class SquadFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Injector.plusSquadFeatureComponent().inject(this)
+        Injector.plusSquadFeatureComponent(arguments?.getInt("teamId") ?: 0).inject(this)
         initViewModel()
-        viewModel?.getPlayers(arguments?.getInt("teamId")?:0)
-
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_player_list.layoutManager = LinearLayoutManager(context)
-        viewModel?.players?.observe(viewLifecycleOwner, Observer {
-            setAdapter(it)
-        })
+        getData()
+        initObservers()
+    }
+
+    private fun getData() {
+        viewModel?.getPlayers()
     }
 
     private fun setAdapter(list: List<Players>) {
+        rv_player_list.layoutManager = LinearLayoutManager(context)
         adapter = PlayerListAdapter(list) { players ->
         }
         rv_player_list.adapter = adapter
+    }
+
+    private fun initObservers(){
+        viewModel?.players?.observe(viewLifecycleOwner, Observer {
+            setAdapter(it)
+        })
     }
 
     private fun initViewModel() {
