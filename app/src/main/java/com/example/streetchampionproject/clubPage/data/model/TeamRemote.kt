@@ -2,7 +2,7 @@ package com.example.streetchampionproject.clubPage.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class TeamsRemote(
+data class TeamRemote(
     @SerializedName("teamId")
     var teamId: Int,
 

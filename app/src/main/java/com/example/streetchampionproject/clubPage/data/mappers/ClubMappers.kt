@@ -4,7 +4,7 @@ import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
 import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
-import com.example.streetchampionproject.clubPage.data.model.TeamsRemote
+import com.example.streetchampionproject.clubPage.data.model.TeamRemote
 import com.example.streetchampionproject.clubPage.data.model.UserStatusInTeamRemote
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
 import com.example.streetchampionproject.common.data.databse.models.UserStatusInTeamEntity
@@ -20,7 +20,7 @@ fun mapTeamsEntityToTeams(teamsEntity: TeamsEntity): Teams {
     }
 }
 
-fun mapTeamsRemoteToTeamsEntity(teamsRemote: TeamsRemote): TeamsEntity {
+fun mapTeamsRemoteToTeamsEntity(teamsRemote: TeamRemote): TeamsEntity {
     return with(teamsRemote) {
         TeamsEntity(
             teamId,

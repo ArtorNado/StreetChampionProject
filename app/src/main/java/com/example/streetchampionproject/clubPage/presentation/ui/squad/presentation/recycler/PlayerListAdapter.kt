@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.recycler
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.streetchampionproject.api.scs.models.Players
@@ -16,7 +15,6 @@ class PlayerListAdapter(
     override fun getItemCount(): Int = players.size
 
     override fun onBindViewHolder(holder: PlayerListViewHolder, position: Int) {
-        Log.e("SET_ADAPTER", "StART")
         holder.bind(players[position])
     }
 }

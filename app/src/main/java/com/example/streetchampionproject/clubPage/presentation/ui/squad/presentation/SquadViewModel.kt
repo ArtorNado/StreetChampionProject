@@ -26,7 +26,6 @@ class SquadViewModel(
 
     init {
         getPlayers()
-        updatePlayers()
     }
 
     private fun getPlayers() {
@@ -43,7 +42,7 @@ class SquadViewModel(
         )
     }
 
-    private fun updatePlayers() {
+    fun updatePlayers() {
         compositeDisposable.add(
             squadInteractor.updatePlayers(teamId)
                 .subscribeOn(Schedulers.io())

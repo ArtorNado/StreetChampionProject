@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.models
+package com.example.streetchampionproject.clubPage.presentation.ui.squad.data.models
 
 import com.google.gson.annotations.SerializedName
 

@@ -5,11 +5,12 @@ import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
-import com.example.streetchampionproject.clubPage.data.model.TeamsRemote
+import com.example.streetchampionproject.clubPage.data.model.TeamRemote
 import com.example.streetchampionproject.clubPage.data.model.UserStatusInTeamRemote
-import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.models.SquadRemote
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.models.SquadRemote
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
+import com.example.streetchampionproject.main.presentation.ui.clubs.data.models.TeamsRemote
 import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserDataRemote
 import com.example.streetchampionproject.registration.data.model.User
 import io.reactivex.Completable
@@ -52,13 +53,13 @@ interface StreetChampionService {
     @POST("getTeams")
     fun getTeams(
     ):
-            Single<List<Teams>>
+            Single<List<TeamsRemote>>
 
     @POST("getTeamsByCity/{city}")
     fun getTeamsByCity(
         @Path("city") city: String
     ):
-            Single<List<Teams>>
+            Single<List<TeamsRemote>>
 
     @POST("getTeamsByName/{name}")
     fun getTeamsByName(
@@ -70,7 +71,7 @@ interface StreetChampionService {
     fun getTeam(
         @Path("id") id: Int
     ):
-            Single<TeamsRemote>
+            Single<TeamRemote>
 
     @GET("determineStatus")
     fun getUserStatusInTeam(

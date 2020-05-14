@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ class PlayerListViewHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(player: Players) {
-        Log.e("SET_ADAPTER", "StART")
         containerView.tv_firstName.text = player.firstName
         containerView.tv_secondName.text = player.secondName
         containerView.tv_city.text = player.userCity

@@ -15,4 +15,16 @@ interface TeamsDao {
 
     @Query("SELECT * FROM teams WHERE teamId = :id")
     fun getTeam(id: Int): Observable<TeamsEntity>
+
+    @Query("SELECT * FROM teams")
+    fun getAllTeams(): Observable<List<TeamsEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun setTeams(teamsEntity: List<TeamsEntity>)
+
+    @Query("SELECT * FROM teams WHERE teamCity = :teamCity")
+    fun getTeamsByCity(teamCity: String): Observable<List<TeamsEntity>>
+
+    @Query("DELETE FROM teams")
+    fun clear()
 }

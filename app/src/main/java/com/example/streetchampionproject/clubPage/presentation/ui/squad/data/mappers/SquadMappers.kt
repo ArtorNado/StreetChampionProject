@@ -1,8 +1,7 @@
-package com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.mappers
+package com.example.streetchampionproject.clubPage.presentation.ui.squad.data.mappers
 
-import android.util.Log
 import com.example.streetchampionproject.api.scs.models.Players
-import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.models.SquadRemote
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.models.SquadRemote
 import com.example.streetchampionproject.common.data.databse.models.SquadEntity
 
 fun mapSquadEntityToPlayers(squadEntity: List<SquadEntity>): List<Players> {
@@ -17,8 +16,6 @@ fun mapSquadEntityToPlayers(squadEntity: List<SquadEntity>): List<Players> {
             )
         )
     }
-    Log.e("mapSquadEntity", list.toString())
-
     return list
 }
 
@@ -35,6 +32,5 @@ fun mapSquadRemoteToSquadEntity(squadRemote: List<SquadRemote>, teamId: Int): Li
             )
         )
     }
-    Log.e("mapSquadRemote", list.size.toString())
     return list
 }

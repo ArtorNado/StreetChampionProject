@@ -42,7 +42,6 @@ class ClubListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListeners()
         initObsrvers()
-        viewModel?.getData()
     }
 
     private fun initViewModel() {
