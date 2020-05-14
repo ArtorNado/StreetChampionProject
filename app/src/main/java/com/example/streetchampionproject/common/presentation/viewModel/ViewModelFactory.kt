@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.common.viewModel
+package com.example.streetchampionproject.common.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

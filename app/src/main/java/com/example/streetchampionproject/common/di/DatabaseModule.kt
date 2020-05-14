@@ -3,7 +3,7 @@ package com.example.streetchampionproject.common.di
 import android.content.Context
 import androidx.room.Room
 import com.example.streetchampionproject.app.di.scope.ApplicationScope
-import com.example.streetchampionproject.common.database.Database
+import com.example.streetchampionproject.common.data.databse.Database
 import dagger.Module
 import dagger.Provides
 
@@ -20,6 +20,18 @@ class DatabaseModule {
     @ApplicationScope
     @Provides
     fun provideUserDataDao(database: Database) = database.userDataDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideTeamsDao(database: Database) = database.teamsDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideUserStatusDao(database: Database) = database.userStatusInTeamDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideSquadDao(database: Database) = database.squadDao()
 
 }
 

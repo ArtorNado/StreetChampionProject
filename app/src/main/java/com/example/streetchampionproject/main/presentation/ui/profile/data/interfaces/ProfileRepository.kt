@@ -1,13 +1,15 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.data.interfaces
 
 import com.example.streetchampionproject.api.scs.models.UserData
-import io.reactivex.Single
+import com.example.streetchampionproject.common.data.databse.models.UserDataEntity
+import io.reactivex.Completable
+import io.reactivex.Observable
 
 interface ProfileRepository {
 
-    fun getUserData(userId: Int): Single<UserData>
+    fun setUserDataLocal(userDataEntity: UserDataEntity)
 
-    fun setUserDataLocal(userData: UserData): UserData
+    fun getUserDataLocal(userId: Int): Observable<UserData>
 
-    fun getUserDataLocal(userId: Int): Single<UserData>
+    fun updateUserData(userId: Int): Completable
 }

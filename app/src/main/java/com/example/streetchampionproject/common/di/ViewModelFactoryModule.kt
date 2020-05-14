@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.common.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.streetchampionproject.common.viewModel.ViewModelFactory
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 

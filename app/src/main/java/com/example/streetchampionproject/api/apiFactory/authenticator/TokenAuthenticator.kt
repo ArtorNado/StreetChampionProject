@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.api.apiFactory.authenticator
 
-import com.example.streetchampionproject.common.sharedPreference.LocalStorage
+import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response

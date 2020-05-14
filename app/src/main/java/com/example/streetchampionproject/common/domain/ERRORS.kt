@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.constants
+package com.example.streetchampionproject.common.domain
 
 interface ERRORS {
 
@@ -13,6 +13,7 @@ interface ERRORS {
         companion object{
             const val WRONG_LOG_PAS = "Неверный логин или пароль"
             const val ALREADY_IN_TEAM = "Вы уже состоите в команде"
+            const val NETWORK_EXCEPTION = "Ошибка интернет соединения"
         }
     }
 }

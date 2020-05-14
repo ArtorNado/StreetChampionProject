@@ -1,10 +1,11 @@
-package com.example.streetchampionproject.common.database.userData
+package com.example.streetchampionproject.common.data.databse.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Single
+import com.example.streetchampionproject.common.data.databse.models.UserDataEntity
+import io.reactivex.Observable
 
 @Dao
 interface UserDataDao {
@@ -13,5 +14,5 @@ interface UserDataDao {
     fun setUserData(userDataEntity: UserDataEntity)
 
     @Query("SELECT * FROM user_data WHERE userId = :userId")
-    fun getUserData(userId: Int): Single<UserDataEntity>
+    fun getUserData(userId: Int): Observable<UserDataEntity>
 }

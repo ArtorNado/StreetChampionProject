@@ -2,6 +2,7 @@ package com.example.streetchampionproject.clubPage.presentation.ui.squad.present
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,13 +49,9 @@ class SquadFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
         initObservers()
     }
 
-    private fun getData() {
-        viewModel?.getPlayers()
-    }
 
     private fun setAdapter(list: List<Players>) {
         rv_player_list.layoutManager = LinearLayoutManager(context)
@@ -63,8 +60,9 @@ class SquadFragment : Fragment() {
         rv_player_list.adapter = adapter
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         viewModel?.players?.observe(viewLifecycleOwner, Observer {
+            Log.e("SET_ADAPTER", "StART")
             setAdapter(it)
         })
     }

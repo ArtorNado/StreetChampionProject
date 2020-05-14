@@ -59,8 +59,8 @@ object Injector {
         registerFeatureComponent = null
     }
 
-    fun plusProfileFeatureComponent(): ProfileFeatureComponent = profileFeatureComponent
-        ?: appComponent.profileFeatureComponent()
+    fun plusProfileFeatureComponent(userId: Int): ProfileFeatureComponent = profileFeatureComponent
+        ?: appComponent.profileFeatureComponent().create(userId)
             .build().also {
                 profileFeatureComponent = it
             }

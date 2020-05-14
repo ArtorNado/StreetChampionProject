@@ -7,7 +7,7 @@ import com.example.streetchampionproject.clubPage.di.scope.ClubPageScope
 import com.example.streetchampionproject.clubPage.domain.ClubPageInteractorImpl
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
 import com.example.streetchampionproject.clubPage.presentation.ClubPageViewModel
-import com.example.streetchampionproject.common.viewModel.ViewModelKey
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

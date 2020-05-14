@@ -1,9 +1,18 @@
 package com.example.streetchampionproject.api.scs
 
-import com.example.streetchampionproject.api.scs.models.*
+import com.example.streetchampionproject.api.scs.models.AuthToken
+import com.example.streetchampionproject.api.scs.models.Notification
+import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
+import com.example.streetchampionproject.api.scs.models.Teams
+import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
+import com.example.streetchampionproject.clubPage.data.model.TeamsRemote
+import com.example.streetchampionproject.clubPage.data.model.UserStatusInTeamRemote
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.models.SquadRemote
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
+import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserDataRemote
 import com.example.streetchampionproject.registration.data.model.User
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -26,7 +35,7 @@ interface StreetChampionService {
     fun getUser(
         @Path("userId")  userId: Int
     ):
-            Single<UserData>
+            Single<UserDataRemote>
 
     @GET("userId/{user-email}")
     fun getUserId(
@@ -38,7 +47,7 @@ interface StreetChampionService {
     fun getPlayers(
         @Path("teamId") teamId: Int
     ):
-            Single<List<Players>>
+            Single<List<SquadRemote>>
 
     @POST("getTeams")
     fun getTeams(
@@ -61,14 +70,14 @@ interface StreetChampionService {
     fun getTeam(
         @Path("id") id: Int
     ):
-            Single<Teams>
+            Single<TeamsRemote>
 
     @GET("determineStatus")
     fun getUserStatusInTeam(
         @Query("userId") userId: Int,
         @Query("teamId") teamId: Int
     ):
-            Single<UserStatusInTeam>
+            Single<UserStatusInTeamRemote>
 
     @POST("getNotificationByRecipient/{recipientId}")
     fun getNotificationByRecipientId(
@@ -85,8 +94,7 @@ interface StreetChampionService {
 
     @POST("sendNotification")
     fun sendNotification(
-        @Body notification: NotificationForSend
-    ):
-            Single<StreetChampionResponse>
+        @Body notification: NotificationRemote
+    ): Completable
 
 }

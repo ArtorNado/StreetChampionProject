@@ -1,12 +1,10 @@
-package com.example.streetchampionproject.common.database.userData
+package com.example.streetchampionproject.common.data.databse.models
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.streetchampionproject.api.scs.models.Teams
 
 @Entity(tableName = "user_data")
-class UserDataEntity(
+data class UserDataEntity(
 
     @PrimaryKey
     val userId: Int,
@@ -19,7 +17,6 @@ class UserDataEntity(
 
     val userCity: String,
 
-    @Embedded
-    val team: Teams
+    val team: String
 
 )

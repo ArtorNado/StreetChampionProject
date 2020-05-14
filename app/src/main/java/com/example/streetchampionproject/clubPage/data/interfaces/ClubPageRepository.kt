@@ -1,16 +1,20 @@
 package com.example.streetchampionproject.clubPage.data.interfaces
 
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
-import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
-import io.reactivex.Single
+import io.reactivex.Completable
+import io.reactivex.Observable
 
 interface ClubPageRepository{
 
-    fun getTeam(id: Int): Single<Teams>
+    fun getTeamLocal(id: Int): Observable<Teams>
 
-    fun getUserStatusInTeam(userId: Int, teamId: Int): Single<UserStatusInTeam>
+    fun updateTeam(id: Int): Completable
 
-    fun sendNotif(notification: NotificationForSend): Single<StreetChampionResponse>
+    fun sendNotif(notification: NotificationForSend): Completable
+
+    fun getUserStatus(teamId: Int): Observable<UserStatusInTeam>
+
+    fun updateUserStatus(teamId: Int): Completable
 }

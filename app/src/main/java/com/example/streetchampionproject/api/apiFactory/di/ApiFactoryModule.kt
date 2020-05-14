@@ -4,7 +4,7 @@ import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.api.apiFactory.authenticator.TokenAuthenticator
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.app.di.scope.ApplicationScope
-import com.example.streetchampionproject.common.sharedPreference.LocalStorage
+import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import dagger.Module
 import dagger.Provides
 

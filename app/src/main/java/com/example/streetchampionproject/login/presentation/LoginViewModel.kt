@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.constants.ERRORS
+import com.example.streetchampionproject.common.domain.ERRORS
 import com.example.streetchampionproject.login.domain.interfaces.LoginInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
