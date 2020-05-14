@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
+import com.example.streetchampionproject.main.presentation.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_club_page.*
 import javax.inject.Inject
@@ -44,9 +46,8 @@ class ClubPageFragment : Fragment() {
         initToolbar(view)
         initTabLayout()
         teamId?.let {
-            viewModel?.determineRole(it)
+            viewModel?.getUserStatus()
         }
-        viewModel?.getData()
         initClickListeners()
         initObservers()
     }
@@ -113,13 +114,13 @@ class ClubPageFragment : Fragment() {
                 }
             }
         })
-        /*viewModel?.error?.observe(viewLifecycleOwner, Observer {
+        viewModel?.error?.observe(viewLifecycleOwner, Observer {
             Snackbar.make(
-                viewLifecycleOwner,
+                (activity as MainActivity).findViewById(android.R.id.content),
                 it,
                 Snackbar.LENGTH_SHORT
             ).show()
-        })*/
+        })
     }
 
     override fun onDestroy() {
@@ -131,9 +132,6 @@ class ClubPageFragment : Fragment() {
         const val USER_STATUS = "USER"
         const val ADMIN_TATUS = "ADMIN"
         const val PARTICIPANT_STATUS = "PARTICIPANT"
-        fun newInstance() =
-            ClubPageFragment()
-
     }
 
 }

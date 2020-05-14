@@ -59,8 +59,8 @@ object Injector {
         registerFeatureComponent = null
     }
 
-    fun plusProfileFeatureComponent(): ProfileFeatureComponent = profileFeatureComponent
-        ?: appComponent.profileFeatureComponent()
+    fun plusProfileFeatureComponent(userId: Int): ProfileFeatureComponent = profileFeatureComponent
+        ?: appComponent.profileFeatureComponent().create(userId)
             .build().also {
                 profileFeatureComponent = it
             }
@@ -81,9 +81,9 @@ object Injector {
         clubPageFeatureComponent = null
     }
 
-    fun plusSquadFeatureComponent(): SquadFeatureComponent = squadFeatureComponent
+    fun plusSquadFeatureComponent(teamId: Int): SquadFeatureComponent = squadFeatureComponent
         ?: appComponent.provideSquadFeatureComponent()
-            .build().also {
+            .create(teamId).build().also {
                 squadFeatureComponent = it
             }
 

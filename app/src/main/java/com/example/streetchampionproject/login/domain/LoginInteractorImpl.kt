@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.login.domain
 
 import com.example.streetchampionproject.api.scs.models.AuthToken
-import com.example.streetchampionproject.common.sharedPreference.LocalStorage
+import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId

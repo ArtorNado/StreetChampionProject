@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.main.presentation.ui.profile.data.ProfileRepositoryImpl
 import com.example.streetchampionproject.main.presentation.ui.profile.data.interfaces.ProfileRepository
 import com.example.streetchampionproject.main.presentation.ui.profile.di.scope.ProfileFragmentScope
@@ -19,11 +19,13 @@ class ProfileFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
-    fun provideProfileViewModel(profileInteractor: ProfileInteractor): ViewModel {
+    fun provideProfileViewModel(profileInteractor: ProfileInteractor, userId: Int): ViewModel {
         return ProfileViewModel(
-            profileInteractor
+            profileInteractor,
+            userId
         )
     }
+
 
     @ProfileFragmentScope
     @Provides

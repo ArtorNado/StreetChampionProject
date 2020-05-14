@@ -1,10 +1,13 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.domain.interfaces
 
 import com.example.streetchampionproject.api.scs.models.UserData
-import io.reactivex.Single
+import io.reactivex.Completable
+import io.reactivex.Observable
 
 interface ProfileInteractor {
 
-    fun getUserData(userId: Int): Single<UserData>
+    fun getUserData(userId: Int): Observable<UserData>
+
+    fun updateUserData(userId: Int): Completable
 
 }

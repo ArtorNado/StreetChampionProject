@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
-import com.example.streetchampionproject.common.sharedPreference.LocalStorage
+import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.sign_in.*
 import javax.inject.Inject

@@ -7,7 +7,7 @@ import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.scope
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.domain.SquadInteractorImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.domain.interfaces.SquadInteractor
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.SquadViewModel
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -19,9 +19,10 @@ class SquadFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(SquadViewModel::class)
-    fun provideSquadViewModel(squadInteractor: SquadInteractor): ViewModel {
+    fun provideSquadViewModel(squadInteractor: SquadInteractor, teamId: Int): ViewModel {
         return SquadViewModel(
-            squadInteractor
+            squadInteractor,
+            teamId
         )
     }
 

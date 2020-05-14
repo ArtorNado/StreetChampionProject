@@ -7,7 +7,7 @@ import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.sc
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.domain.OverviewInteractorImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.domain.interfaces.OverviewInteractor
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.presentation.OverviewViewModel
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

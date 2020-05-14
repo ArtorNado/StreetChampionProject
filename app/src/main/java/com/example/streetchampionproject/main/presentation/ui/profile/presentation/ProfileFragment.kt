@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
+import com.example.streetchampionproject.main.presentation.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
@@ -24,20 +26,23 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View? {
+        initViewModel()
+        return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Injector.plusProfileFeatureComponent().inject(this)
-        initViewModel()
+        Injector.plusProfileFeatureComponent(activity?.intent?.extras?.getInt("id") ?: 0)
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUserData(activity?.intent?.extras?.getInt("id")?: 0)
+        initObservers()
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         val viewModel by lazy {
             ViewModelProvider(
                 this,
@@ -47,14 +52,27 @@ class ProfileFragment : Fragment() {
         this.viewModel = viewModel
     }
 
-    fun initUserData(id: Int){
-        viewModel?.getUserData(id)
+    fun initObservers() {
         viewModel?.user?.observe(viewLifecycleOwner, Observer {
-            tv_user_login.text = it.userId.toString()
-            tv_user_firstName.text = it.userFirstName
-            tv_user_secondName.text = it.userSecondName
-            tv_user_gender.text = it.userGender
-            tv_city_name.text = it.userCity
+            with(it) {
+                tv_user_login.text = userSecondName
+                tv_user_firstName.text = userFirstName
+                tv_user_secondName.text = userSecondName
+                tv_user_gender.text = userGender
+                tv_city_name.text = userCity
+            }
         })
+        viewModel?.error?.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(
+                (activity as MainActivity).findViewById(android.R.id.content),
+                it,
+                Snackbar.LENGTH_SHORT
+            ).show()
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearProfileFeatureComponent()
     }
 }

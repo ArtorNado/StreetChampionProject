@@ -15,7 +15,7 @@ class PlayerListViewHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(player: Players) {
-        containerView.tv_firstName.text = player.fisrtName
+        containerView.tv_firstName.text = player.firstName
         containerView.tv_secondName.text = player.secondName
         containerView.tv_city.text = player.userCity
         itemView.setOnClickListener{

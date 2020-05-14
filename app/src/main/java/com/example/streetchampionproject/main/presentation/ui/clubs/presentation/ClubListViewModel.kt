@@ -29,10 +29,15 @@ class ClubListViewModel(
     private val _pgStatus by lazy { MutableLiveData<Int>() }
     val pgStatus: LiveData<Int> = _pgStatus
 
+    init {
+        getData()
+    }
+
     fun getData() {
         _pgStatus.value = View.VISIBLE
+        updateTeams()
         compositeDisposable.add(
-            clubListInteractor.getTeams()
+            clubListInteractor.getAllTeams()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
@@ -47,6 +52,7 @@ class ClubListViewModel(
 
     fun getTeamsByCity(city: String) {
         _pgStatus.value = View.VISIBLE
+        updateTeamsByCity(city)
         compositeDisposable.add(
             clubListInteractor.getTeamsByCity(city)
                 .subscribeOn(Schedulers.io())
@@ -57,12 +63,38 @@ class ClubListViewModel(
                 },
                     { error ->
                         Log.e("ERROR11", error.toString())
-                        errorSearchType(error)
+                        doOnError(error)
                     })
         )
     }
 
-    private fun errorSearchType(error: Throwable) {
+    private fun updateTeams() {
+        compositeDisposable.add(
+            clubListInteractor.updateTeamsList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                },
+                    {
+                        doOnError(it)
+                    })
+        )
+    }
+
+    private fun updateTeamsByCity(city: String) {
+        compositeDisposable.add(
+            clubListInteractor.updateTeamsListByCity(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                },
+                    {
+                        doOnError(it)
+                    })
+        )
+    }
+
+    private fun doOnError(error: Throwable) {
         when (error) {
             is java.lang.IllegalArgumentException -> {
                 _searchError.value = EMPTY_FIELD

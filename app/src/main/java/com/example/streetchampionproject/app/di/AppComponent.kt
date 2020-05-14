@@ -6,8 +6,9 @@ import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
-import com.example.streetchampionproject.common.ViewModelFactoryModule
+import com.example.streetchampionproject.common.di.DatabaseModule
 import com.example.streetchampionproject.common.di.LocalStorageModule
+import com.example.streetchampionproject.common.di.ViewModelFactoryModule
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
@@ -17,8 +18,8 @@ import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [NavigatorModule::class, ApiFactoryModule::class,
-    ViewModelFactoryModule::class, LocalStorageModule::class])
+@Component(modules = [AppModule::class,NavigatorModule::class, ApiFactoryModule::class,
+    ViewModelFactoryModule::class, LocalStorageModule::class, DatabaseModule::class])
 interface AppComponent {
 
     fun loginFeatureComponent(): LoginFeatureComponent.Builder

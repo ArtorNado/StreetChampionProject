@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.notification.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.common.ViewModelKey
+import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.notification.data.NotificationRepository
 import com.example.streetchampionproject.notification.data.NotificationRepositoryImpl
 import com.example.streetchampionproject.notification.di.scope.NotificationScope

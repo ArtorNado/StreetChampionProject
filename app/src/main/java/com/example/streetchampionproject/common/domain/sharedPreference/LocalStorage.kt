@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.common.sharedPreference
+package com.example.streetchampionproject.common.domain.sharedPreference
 
 interface LocalStorage {
 

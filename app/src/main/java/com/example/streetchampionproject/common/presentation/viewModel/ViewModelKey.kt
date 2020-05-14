@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.common
+package com.example.streetchampionproject.common.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

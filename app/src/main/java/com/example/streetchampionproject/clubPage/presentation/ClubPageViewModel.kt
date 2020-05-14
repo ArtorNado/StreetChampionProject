@@ -7,9 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
+import com.example.streetchampionproject.common.domain.ERRORS
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.net.UnknownHostException
 
 class ClubPageViewModel(
     private val clubPageInteractor: ClubPageInteractor,
@@ -30,36 +32,67 @@ class ClubPageViewModel(
     private val _error by lazy { MutableLiveData<String>() }
     val error: LiveData<String> = _error
 
-    fun getData() {
+    init {
+        getUserStatus()
+        updateUserStatus()
+        getTeamData()
+        updateTeam()
+    }
+
+    private fun getTeamData() {
         _pgStatus.value = View.VISIBLE
         compositeDisposable.add(
-            clubPageInteractor.getTeam(teamId)
+            clubPageInteractor.getTeamLocal(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _team.value = result
-                    _pgStatus.value = View.GONE
+                    if (result.teamName.isEmpty())
+                        _pgStatus.value = View.GONE
                 },
                     { error ->
-                        Log.e("ERROR", error.toString())
+                        doOnError(error)
                         _pgStatus.value = View.GONE
                     })
         )
     }
 
-    fun determineRole(teamId: Int) {
-        _pgStatus.value = View.VISIBLE
+    fun getUserStatus() {
         compositeDisposable.add(
-            clubPageInteractor.determineUserStatusInTeam(teamId)
+            clubPageInteractor.getUserStatusInTeam(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _userStatus.value = result.status
-                    _pgStatus.value = View.GONE
                 },
                     { error ->
-                        Log.e("ERROR", error.toString())
-                        _pgStatus.value = View.GONE
+                        doOnError(error)
+                    })
+        )
+    }
+
+    private fun updateUserStatus() {
+        compositeDisposable.add(
+            clubPageInteractor.updateUserStatusInTeam(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                },
+                    { error ->
+                        doOnError(error)
+                    })
+        )
+    }
+
+    private fun updateTeam() {
+        compositeDisposable.add(
+            clubPageInteractor.updateTeam(teamId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                },
+                    { error ->
+                        doOnError(error)
                     })
         )
     }
@@ -70,25 +103,21 @@ class ClubPageViewModel(
             clubPageInteractor.sendNotif(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    Log.e("RESULT_APPLY_MEMBER", result.toString())
+                .subscribe({
                     _pgStatus.value = View.GONE
                 },
                     { error ->
-                        Log.e("ERROR_apply", error.toString())
+                        Log.e("ERROR_APPLY", error.toString())
+                        doOnError(error)
                         _pgStatus.value = View.GONE
                     })
 
         )
     }
 
-    /*private fun errorMessage(error: Throwable){
-        when(error.localizedMessage.toString()){
-            ERRORS.NAME.HTTP_403 -> {
-                _error.value = ERRORS.MESSAGE.ALREADY_IN_TEAM
-            }
-        }
-    }*/
+    private fun doOnError(throwable: Throwable) {
+        if (throwable is UnknownHostException) _error.value = ERRORS.MESSAGE.NETWORK_EXCEPTION
+    }
 
     override fun onCleared() {
         super.onCleared()
