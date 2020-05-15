@@ -6,6 +6,7 @@ import com.example.streetchampionproject.app.di.DaggerAppComponent
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
+import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
@@ -31,6 +32,8 @@ object Injector {
     private var overviewFeatureComponent: OverviewFeatureComponent? = null
 
     private var notificationFeatureComponent: NotificationFeatureComponent? = null
+
+    private var createTeamFeatureComponent: CreateTeamFeatureComponent? = null
 
 
     fun init(app: App) {
@@ -125,4 +128,14 @@ object Injector {
         notificationFeatureComponent = null
     }
 
+    fun plusCreateTeamFeatureComponent(): CreateTeamFeatureComponent =
+        createTeamFeatureComponent
+            ?: appComponent.provideCreateTeamFeatureComponent()
+                .build().also {
+                    createTeamFeatureComponent = it
+                }
+
+    fun clearCreateTeamFeatureComponent() {
+        createTeamFeatureComponent = null
+    }
 }

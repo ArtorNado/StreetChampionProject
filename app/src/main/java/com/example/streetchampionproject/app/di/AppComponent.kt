@@ -9,6 +9,7 @@ import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.Squad
 import com.example.streetchampionproject.common.di.DatabaseModule
 import com.example.streetchampionproject.common.di.LocalStorageModule
 import com.example.streetchampionproject.common.di.ViewModelFactoryModule
+import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
@@ -37,6 +38,8 @@ interface AppComponent {
     fun provideOverviewFeatureComponent(): OverviewFeatureComponent.Builder
 
     fun provideNotificationFeatureComponent(): NotificationFeatureComponent.Builder
+
+    fun provideCreateTeamFeatureComponent(): CreateTeamFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

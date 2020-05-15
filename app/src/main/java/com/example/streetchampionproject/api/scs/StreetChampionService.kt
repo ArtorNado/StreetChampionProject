@@ -1,9 +1,6 @@
 package com.example.streetchampionproject.api.scs
 
-import com.example.streetchampionproject.api.scs.models.AuthToken
-import com.example.streetchampionproject.api.scs.models.Notification
-import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
-import com.example.streetchampionproject.api.scs.models.Teams
+import com.example.streetchampionproject.api.scs.models.*
 import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
 import com.example.streetchampionproject.clubPage.data.model.TeamRemote
 import com.example.streetchampionproject.clubPage.data.model.UserStatusInTeamRemote
@@ -96,6 +93,11 @@ interface StreetChampionService {
     @POST("sendNotification")
     fun sendNotification(
         @Body notification: NotificationRemote
+    ): Completable
+
+    @POST("createTeam")
+    fun createTeam(
+        @Body createTeam: CreateTeam
     ): Completable
 
 }
