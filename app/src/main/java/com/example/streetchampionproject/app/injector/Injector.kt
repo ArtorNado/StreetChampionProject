@@ -10,8 +10,11 @@ import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatur
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
+import com.example.streetchampionproject.match.di.MatchListFeatureComponent
 import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
+import com.example.streetchampionproject.singleMatch.di.interfaces.ParticipantListFeatureComponent
+import com.example.streetchampionproject.singleMatch.di.interfaces.SingleMatchFeatureComponent
 
 object Injector {
 
@@ -35,6 +38,11 @@ object Injector {
 
     private var createTeamFeatureComponent: CreateTeamFeatureComponent? = null
 
+    private var matchListFeatureComponent: MatchListFeatureComponent? = null
+
+    private var singleMatchFeatureComponent: SingleMatchFeatureComponent? = null
+
+    private var participantListFeatureComponent: ParticipantListFeatureComponent? = null
 
     fun init(app: App) {
         appComponent = DaggerAppComponent.builder()
@@ -137,5 +145,38 @@ object Injector {
 
     fun clearCreateTeamFeatureComponent() {
         createTeamFeatureComponent = null
+    }
+
+    fun plusMatchListFeatureComponent(): MatchListFeatureComponent =
+        matchListFeatureComponent
+            ?: appComponent.provideMatchListFeatureComponent()
+                .build().also {
+                    matchListFeatureComponent = it
+                }
+
+    fun clearMatchListFeatureComponent() {
+        matchListFeatureComponent = null
+    }
+
+    fun plusSingleMatchFeatureComponent(id: Int): SingleMatchFeatureComponent =
+        singleMatchFeatureComponent
+            ?: appComponent.provideSingleMatchFeatureComponent()
+                .create(id).build().also {
+                    singleMatchFeatureComponent = it
+                }
+
+    fun clearSingleMatchFeatureComponent() {
+        singleMatchFeatureComponent = null
+    }
+
+    fun plusParticipantListFeatureComponent(matchId: Int): ParticipantListFeatureComponent =
+        participantListFeatureComponent
+            ?: appComponent.provideParticipantListFeatureComponent()
+                .create(matchId).build().also {
+                    participantListFeatureComponent = it
+                }
+
+    fun clearParticipantListFeatureComponent() {
+        participantListFeatureComponent = null
     }
 }

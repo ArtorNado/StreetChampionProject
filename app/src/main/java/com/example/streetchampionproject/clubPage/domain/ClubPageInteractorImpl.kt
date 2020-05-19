@@ -2,7 +2,7 @@ package com.example.streetchampionproject.clubPage.domain
 
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
-import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.UserStatusInPlace
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
 import io.reactivex.Completable
@@ -17,7 +17,7 @@ class ClubPageInteractorImpl @Inject constructor(
 
     override fun updateTeam(id: Int): Completable = clubPageRepository.updateTeam(id)
 
-    override fun getUserStatusInTeam(teamId: Int): Observable<UserStatusInTeam> =
+    override fun getUserStatusInTeam(teamId: Int): Observable<UserStatusInPlace> =
         clubPageRepository.getUserStatus(teamId)
 
     override fun updateUserStatusInTeam(teamId: Int): Completable =

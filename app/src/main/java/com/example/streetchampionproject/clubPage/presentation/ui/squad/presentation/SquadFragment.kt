@@ -44,11 +44,11 @@ class SquadFragment : Fragment() {
         super.onAttach(context)
         Injector.plusSquadFeatureComponent(arguments?.getInt("teamId") ?: 0).inject(this)
         initViewModel()
+        initObservers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initObservers()
         viewModel?.updatePlayers()
     }
 

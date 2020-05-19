@@ -13,14 +13,19 @@ import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatur
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
+import com.example.streetchampionproject.match.di.MatchListFeatureComponent
 import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
+import com.example.streetchampionproject.singleMatch.di.interfaces.ParticipantListFeatureComponent
+import com.example.streetchampionproject.singleMatch.di.interfaces.SingleMatchFeatureComponent
 import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [AppModule::class,NavigatorModule::class, ApiFactoryModule::class,
-    ViewModelFactoryModule::class, LocalStorageModule::class, DatabaseModule::class])
+@Component(
+    modules = [AppModule::class, NavigatorModule::class, ApiFactoryModule::class,
+        ViewModelFactoryModule::class, LocalStorageModule::class, DatabaseModule::class]
+)
 interface AppComponent {
 
     fun loginFeatureComponent(): LoginFeatureComponent.Builder
@@ -29,7 +34,7 @@ interface AppComponent {
 
     fun profileFeatureComponent(): ProfileFeatureComponent.Builder
 
-    fun provideClubPageFeatureComponent():  ClubPageFeatureComponent.Builder
+    fun provideClubPageFeatureComponent(): ClubPageFeatureComponent.Builder
 
     fun provideSquadFeatureComponent(): SquadFeatureComponent.Builder
 
@@ -40,6 +45,12 @@ interface AppComponent {
     fun provideNotificationFeatureComponent(): NotificationFeatureComponent.Builder
 
     fun provideCreateTeamFeatureComponent(): CreateTeamFeatureComponent.Builder
+
+    fun provideMatchListFeatureComponent(): MatchListFeatureComponent.Builder
+
+    fun provideSingleMatchFeatureComponent(): SingleMatchFeatureComponent.Builder
+
+    fun provideParticipantListFeatureComponent(): ParticipantListFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.login.presentation
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +26,6 @@ class LoginViewModel(
     val error: LiveData<String> = _error
 
     override fun onCleared() {
-        Log.e("onCleared", "START")
         super.onCleared()
         compositeDisposable.clear()
     }
@@ -40,7 +38,6 @@ class LoginViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     loginInteractor.writeInStorage("AuthToken", result.token)
-                    getUserId(email, context)
                     _pgStatus.value = View.GONE
                 },
                     { error ->
@@ -48,6 +45,7 @@ class LoginViewModel(
                         _pgStatus.value = View.GONE
                     })
         )
+        getUserId(email, context)
     }
 
     fun clickRegistr(context: Context) {

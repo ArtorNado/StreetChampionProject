@@ -2,12 +2,12 @@ package com.example.streetchampionproject.clubPage.data.mappers
 
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
-import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.UserStatusInPlace
 import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
 import com.example.streetchampionproject.clubPage.data.model.TeamRemote
-import com.example.streetchampionproject.clubPage.data.model.UserStatusInTeamRemote
+import com.example.streetchampionproject.clubPage.data.model.UserStatusInPlaceRemote
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
-import com.example.streetchampionproject.common.data.databse.models.UserStatusInTeamEntity
+import com.example.streetchampionproject.common.data.databse.models.UserStatusInPlaceEntity
 
 fun mapTeamsEntityToTeams(teamsEntity: TeamsEntity): Teams {
     return with(teamsEntity) {
@@ -32,18 +32,18 @@ fun mapTeamsRemoteToTeamsEntity(teamsRemote: TeamRemote): TeamsEntity {
 }
 
 fun mapUserStatusEntityToUserStatusInTeam(
-    userStatusInTeamEntity: UserStatusInTeamEntity
-): UserStatusInTeam {
-    return with(userStatusInTeamEntity) {
-        UserStatusInTeam(userStatus)
+    userStatusInPlaceEntity: UserStatusInPlaceEntity
+): UserStatusInPlace {
+    return with(userStatusInPlaceEntity) {
+        UserStatusInPlace(userStatus)
     }
 }
 
 fun mapUserStatusRemoteToUserStatusEntity(
-    userStatusInTeamRemote: UserStatusInTeamRemote, userId: Int, teamId: Int
+    userStatusInPlaceRemote: UserStatusInPlaceRemote, userId: Int, teamId: Int
 ):
-        UserStatusInTeamEntity =
-    UserStatusInTeamEntity(userId, teamId, userStatusInTeamRemote.status)
+        UserStatusInPlaceEntity =
+    UserStatusInPlaceEntity(userId, teamId, userStatusInPlaceRemote.status)
 
 
 fun mapNotificationFsToNotificationRemote(
