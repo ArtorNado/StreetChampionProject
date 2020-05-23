@@ -22,5 +22,35 @@
         android:textColor="@color/colorPurpleDark"
         android:textSize="14sp" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_create_command_match"
+        style="@style/GreenButtonThemeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPink"
+        android:fontFamily="@font/varela_round"
+        android:text="Create command match"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPurpleDark"
+        android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_Create_single_match"
+        style="@style/GreenButtonThemeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPink"
+        android:fontFamily="@font/varela_round"
+        android:text="Create single match"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPurpleDark"
+        android:textSize="14sp" />
+
 
 </LinearLayout>

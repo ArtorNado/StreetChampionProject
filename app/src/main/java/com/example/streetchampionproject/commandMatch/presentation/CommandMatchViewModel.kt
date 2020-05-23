@@ -74,18 +74,33 @@ class CommandMatchViewModel(
 
 
     private fun setUserStatus(userTeamRole: UserTeamRole) {
-        when (userTeamRole.status) {
+        _userStatus.value = when (userTeamRole.status) {
             "Admin" -> {
-                if (match.value?.firstTeamId == userTeamRole.teamId) _userStatus.value =
-                    "Admin match"
-                else _userStatus.value = "Admin another team"
+                if (match.value?.firstTeamId == userTeamRole.teamId) "Admin match"
+                else if (match.value?.secondTeamId == userTeamRole.teamId) "Participant"
+                else "Admin another team"
             }
+            else -> "Undefined"
         }
     }
 
     fun endCommandMatch(firstTeamScore: Int, secondTeamScore: Int) {
         compositeDisposable.add(
             commandMatchInteractor.endCommandMatch(id, firstTeamScore, secondTeamScore)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _events.value = EVENT_GO_BACK
+                },
+                    { error ->
+                        Log.e("ERROR_UPDATE", error.toString())
+                    })
+        )
+    }
+
+    fun joinCommandMatch() {
+        compositeDisposable.add(
+            commandMatchInteractor.joinCommandMatch(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -10,6 +10,7 @@ import com.example.streetchampionproject.commandMatch.di.CommandMatchFeatureComp
 import com.example.streetchampionproject.common.di.DatabaseModule
 import com.example.streetchampionproject.common.di.LocalStorageModule
 import com.example.streetchampionproject.common.di.ViewModelFactoryModule
+import com.example.streetchampionproject.creating.createMatch.di.CreateMatchFeatureComponent
 import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
@@ -54,6 +55,8 @@ interface AppComponent {
     fun provideParticipantListFeatureComponent(): ParticipantListFeatureComponent.Builder
 
     fun provideCommandMatchFeatureComponent(): CommandMatchFeatureComponent.Builder
+
+    fun provideCreateMatchFeatureComponent(): CreateMatchFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

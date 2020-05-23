@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class CommandMatchFragment : Fragment() {
         super.onAttach(context)
         bundle = this.arguments
         matchId = bundle?.getInt("matchId")
+        Log.e("onAttach", "onAttach")
         matchId.let { Injector.plusCommandMatchFeatureComponent(it ?: 0).inject(this) }
         initViewModel()
     }
@@ -46,6 +48,7 @@ class CommandMatchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel?.updateCommandMatch()
+        Log.e("onViewCreated", "onViewCreated")
         initObservers()
         initToolbar(view)
         initClickListeners()
@@ -85,7 +88,7 @@ class CommandMatchFragment : Fragment() {
     }
 
     private fun initClickListeners() {
-        btn_apply.setOnClickListener {
+        btn_end.setOnClickListener {
             val dialog = EndMatchDialogFragment.newInstance()
             dialog.setTargetFragment(this, 1)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -93,6 +96,9 @@ class CommandMatchFragment : Fragment() {
             } else {
                 dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
             }
+        }
+        btn_apply.setOnClickListener {
+            viewModel?.joinCommandMatch()
         }
         toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -112,6 +118,11 @@ class CommandMatchFragment : Fragment() {
     private fun initToolbar(view: View) {
         toolbar.navigationIcon =
             ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearCommandMatchFeatureComponent()
     }
 
     companion object {

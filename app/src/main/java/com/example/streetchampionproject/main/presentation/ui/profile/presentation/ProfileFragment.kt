@@ -60,6 +60,7 @@ class ProfileFragment : Fragment() {
                 tv_user_secondName.text = userSecondName
                 tv_user_gender.text = userGender
                 tv_city_name.text = userCity
+                tv_club_name.text = team
             }
         })
         viewModel?.error?.observe(viewLifecycleOwner, Observer {

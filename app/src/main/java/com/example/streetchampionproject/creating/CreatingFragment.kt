@@ -26,6 +26,12 @@ class CreatingFragment : Fragment() {
         btn_create_team.setOnClickListener {
             navController.navigate(R.id.action_creatingFragment_to_createTeamFragment)
         }
+        btn_create_command_match.setOnClickListener {
+            navController.navigate(R.id.action_navigation_create_to_createCommandMatchFragment)
+        }
+        btn_Create_single_match.setOnClickListener {
+            navController.navigate(R.id.action_navigation_create_to_createSingleMatchFragment)
+        }
     }
 
 }

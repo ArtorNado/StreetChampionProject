@@ -15,4 +15,6 @@ interface CommandMatchInteractor {
     fun determineUserStatus(): Single<UserTeamRole>
 
     fun endCommandMatch(matchId: Int, firstTeamScore: Int, secondTeamScore: Int): Completable
+
+    fun joinCommandMatch(matchId: Int): Completable
 }

@@ -28,5 +28,8 @@ class CommandMatchInteractorImpl @Inject constructor(
     ): Completable =
         commandMatchRepository.endCommandMatch(matchId, firstTeamScore, secondTeamScore)
 
+    override fun joinCommandMatch(matchId: Int): Completable =
+        commandMatchRepository.joinCommandMatch(matchId)
+
 
 }

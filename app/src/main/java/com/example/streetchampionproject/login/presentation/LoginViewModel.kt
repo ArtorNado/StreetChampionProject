@@ -1,6 +1,7 @@
 package com.example.streetchampionproject.login.presentation
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -59,6 +60,7 @@ class LoginViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     navigator.openMain(context, result.userId)
+                    Log.e("USERID_WRITE", result.userId.toString())
                     writeInStorage("userId", result.userId.toString())
                     _pgStatus.value = View.GONE
                 },

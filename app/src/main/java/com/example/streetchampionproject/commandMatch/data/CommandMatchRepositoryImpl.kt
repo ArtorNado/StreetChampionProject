@@ -39,6 +39,12 @@ class CommandMatchRepositoryImpl @Inject constructor(
     ): Completable =
         streetChampionService.endCommandMatch(matchId, firstTeamScore, secondTeamScore)
 
+    override fun joinCommandMatch(matchId: Int): Completable =
+        streetChampionService.joinCommandMatch(
+            matchId,
+            localStorage.readMessage("userId")?.toInt() ?: 0
+        )
+
 
     private fun setCommandMatchLocal(matchCommandEntity: MatchCommandEntity) {
         matchCommandDao.setCommandMatch(matchCommandEntity)

@@ -168,4 +168,21 @@ interface StreetChampionService {
         @Query("secondTeamsScore") secondTeamScore: Int
     ):
             Completable
+
+    @POST("createMatch")
+    fun createSingleMatch(
+        @Body createSingleMatch: CreateSingleMatch
+    ): Completable
+
+    @POST("createCommandMatch")
+    fun createCommandMatch(
+        @Body createCommandMatch: CreateCommandMatch
+    ): Completable
+
+    @POST("joinCommandMatch")
+    fun joinCommandMatch(
+        @Query("idCommandMatch") matchId: Int,
+        @Query("recipient") id: Int
+    ): Completable
+
 }
