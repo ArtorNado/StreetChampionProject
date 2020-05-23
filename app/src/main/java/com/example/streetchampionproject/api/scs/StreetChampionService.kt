@@ -9,6 +9,7 @@ import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.models.TeamsRemote
 import com.example.streetchampionproject.main.presentation.ui.profile.data.model.UserDataRemote
+import com.example.streetchampionproject.match.data.models.MatchCommandRemote
 import com.example.streetchampionproject.match.data.models.MatchSingleRemote
 import com.example.streetchampionproject.registration.data.model.User
 import com.example.streetchampionproject.singleMatch.data.models.ParticipantRemote
@@ -135,6 +136,36 @@ interface StreetChampionService {
     fun joinSingleMatch(
         @Query("idSingleMatch") matchId: Int,
         @Query("participant") id: Int
+    ):
+            Completable
+
+    @GET("getCommandMatchByRole")
+    fun getCommandMatchByRole(
+        @Query("userId") userId: Int,
+        @Query("role") role: String
+    ):
+            Single<List<MatchCommandRemote>>
+
+    @POST("getAllCommandMatch")
+    fun getCommandMatch(): Single<List<MatchCommandRemote>>
+
+    @POST("getCommandMatch/{id}")
+    fun getCommandMatch(
+        @Path("id") id: Int
+    ):
+            Single<MatchCommandRemote>
+
+    @POST("determineUserStatus/{userId}")
+    fun determineUserStatus(
+        @Path("userId") userId: Int
+    )
+            : Single<UserTeamRole>
+
+    @GET("endCommandMatch")
+    fun endCommandMatch(
+        @Query("matchId") matchId: Int,
+        @Query("firstTeamScore") firstTeamScore: Int,
+        @Query("secondTeamsScore") secondTeamScore: Int
     ):
             Completable
 }

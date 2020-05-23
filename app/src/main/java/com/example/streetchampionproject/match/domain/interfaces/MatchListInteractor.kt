@@ -1,14 +1,11 @@
 package com.example.streetchampionproject.match.domain.interfaces
 
-import com.example.streetchampionproject.api.scs.models.MatchSingle
-import io.reactivex.Completable
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface MatchListInteractor {
 
-    fun getMatchList(matchType: String, role: String): Observable<List<MatchSingle>>
+    fun getMatchList(matchType: String, role: String): Single<List<Any?>>
 
-    fun updateMatchList(matchType: String, role: String): Completable
-
+    fun updateMatchList(matchType: String, role: String): Single<List<Any?>>
 
 }

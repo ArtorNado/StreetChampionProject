@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
+import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.api.scs.models.MatchSingle
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.main.presentation.MainActivity
@@ -42,14 +43,22 @@ class MatchListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         rv_match_list.layoutManager = LinearLayoutManager(context)
         initObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ch_group_match_type.clearCheck()
+        ch_group_status.clearCheck()
         initClickListeners()
     }
 
     private fun initClickListeners() {
         ch_group_status.setOnCheckedChangeListener { group, checkedId ->
+            pg.visibility = View.VISIBLE
             viewModel?.getData(ch_group_match_type.checkedChipId, checkedId)
         }
         ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
+            pg.visibility = View.VISIBLE
             viewModel?.getData(checkedId, ch_group_status.checkedChipId)
         }
     }
@@ -74,18 +83,31 @@ class MatchListFragment : Fragment() {
 
     private fun initObservers() {
         viewModel?.matchList?.observe(viewLifecycleOwner, Observer {
+            pg.visibility = View.GONE
             setAdapter(it)
         })
         viewModel?.error?.observe(viewLifecycleOwner, Observer {
+            pg.visibility = View.GONE
             snackBar(it)
+        })
+        viewModel?.status?.observe(viewLifecycleOwner, Observer {
+            pg.visibility = it
         })
     }
 
     private fun setAdapter(list: List<Any?>) {
         adapter = MatchListAdapter(list) { match ->
             val bundle = Bundle()
-            bundle.putInt("matchId", (match as MatchSingle).matchId ?: 0)
-            view?.findNavController()?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
+            when(match){
+                is MatchSingle -> {
+                    bundle.putInt("matchId", match.matchId ?: 0)
+                    view?.findNavController()?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
+                }
+                is MatchCommand -> {
+                    bundle.putInt("matchId", match.matchId ?: 0)
+                    view?.findNavController()?.navigate(R.id.action_navigation_match_to_commandMatchFragment, bundle)
+                }
+            }
         }
         rv_match_list.adapter = adapter
     }

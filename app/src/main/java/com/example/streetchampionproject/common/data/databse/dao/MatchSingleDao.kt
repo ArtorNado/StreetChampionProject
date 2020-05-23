@@ -6,12 +6,13 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.streetchampionproject.common.data.databse.models.MatchSingleEntity
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface MatchSingleDao {
 
-    @Query("SELECT * FROM match_single")
-    fun getSingleMatch(): Observable<List<MatchSingleEntity>>
+    @Query("SELECT * FROM match_single WHERE role = :role")
+    fun getSingleMatch(role: String): Single<List<MatchSingleEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setSingleMatchs(matchSingleEntity: List<MatchSingleEntity>)

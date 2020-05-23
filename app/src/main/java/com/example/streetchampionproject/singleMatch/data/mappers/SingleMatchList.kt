@@ -31,7 +31,8 @@ fun mapMatchSingleRemoteToMatchSingleEntity(matchSingleRemote: MatchSingleRemote
             numberParticipant,
             currentNumberParticipant,
             description ?: "Dont have description",
-            matchCity ?: "Dont have city"
+            matchCity ?: "Dont have city",
+            "Undefined"
         )
     }
 

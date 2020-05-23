@@ -2,6 +2,7 @@ package com.example.streetchampionproject.singleMatch.presentation.matchPage
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,8 @@ class SingleMatchFragment : Fragment() {
     private var matchId: Int? = null
     private var bundle: Bundle? = null
 
+    private var description: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,14 +47,13 @@ class SingleMatchFragment : Fragment() {
         viewModel?.updateMatchData()
         viewModel?.updateUserStatus()
         initToolbar(view)
-        initTabLayout()
         initClickListeners()
     }
-
 
     ////////////////////////FIX SET TEXT STYLE
     private fun initObservers() {
         viewModel?.team?.observe(viewLifecycleOwner, Observer {
+            description = it.description
             tv_city.text = it.matchCity
             tv_date.text = it.date
             tv_number_participant.text =
@@ -63,6 +65,9 @@ class SingleMatchFragment : Fragment() {
                 "Undefined" -> btn_apply.visibility = View.VISIBLE
                 else -> btn_apply.visibility = View.GONE
             }
+        })
+        viewModel?.updateStatus?.observe(viewLifecycleOwner, Observer {
+            if(it) initTabLayout(description?:"")
         })
     }
 
@@ -81,8 +86,9 @@ class SingleMatchFragment : Fragment() {
             ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
-    private fun initTabLayout() {
-        viewpager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle, matchId ?: 0)
+    private fun initTabLayout(description: String) {
+        Log.e("INIT_TAB", "INIT_TAB")
+        viewpager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle, matchId ?: 0, description)
         TabLayoutMediator(tabs, viewpager,
             TabLayoutMediator.TabConfigurationStrategy { tabs, position ->
                 when (position) {
@@ -97,9 +103,8 @@ class SingleMatchFragment : Fragment() {
     }
 
     private fun initClickListeners() {
-        val navController = findNavController()
         toolbar.setNavigationOnClickListener {
-            navController.popBackStack()
+            findNavController().popBackStack()
         }
         btn_apply.setOnClickListener {
             viewModel?.joinInMatch()

@@ -6,6 +6,7 @@ import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
+import com.example.streetchampionproject.commandMatch.di.CommandMatchFeatureComponent
 import com.example.streetchampionproject.common.di.DatabaseModule
 import com.example.streetchampionproject.common.di.LocalStorageModule
 import com.example.streetchampionproject.common.di.ViewModelFactoryModule
@@ -51,6 +52,8 @@ interface AppComponent {
     fun provideSingleMatchFeatureComponent(): SingleMatchFeatureComponent.Builder
 
     fun provideParticipantListFeatureComponent(): ParticipantListFeatureComponent.Builder
+
+    fun provideCommandMatchFeatureComponent(): CommandMatchFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

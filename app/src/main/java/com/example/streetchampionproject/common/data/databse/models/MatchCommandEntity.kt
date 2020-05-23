@@ -3,16 +3,16 @@ package com.example.streetchampionproject.common.data.databse.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "match_single")
-data class MatchSingleEntity(
+@Entity(tableName = "match_command")
+data class MatchCommandEntity(
     @PrimaryKey
     val matchId: Int,
     val date: String,
     val time: String,
     val creatorId: Int,
-    val numberParticipant: Int,
-    val currentNumberParticipant: Int,
-    val description: String,
+    val firstTeamId: Int,
+    val secondTeamId: Int,
     val matchCity: String,
-    var role : String?
+    val description: String,
+    val role: String
 )

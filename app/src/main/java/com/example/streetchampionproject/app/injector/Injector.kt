@@ -6,6 +6,7 @@ import com.example.streetchampionproject.app.di.DaggerAppComponent
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
+import com.example.streetchampionproject.commandMatch.di.CommandMatchFeatureComponent
 import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
 import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
@@ -43,6 +44,8 @@ object Injector {
     private var singleMatchFeatureComponent: SingleMatchFeatureComponent? = null
 
     private var participantListFeatureComponent: ParticipantListFeatureComponent? = null
+
+    private var commandMatchFeatureComponent: CommandMatchFeatureComponent? = null
 
     fun init(app: App) {
         appComponent = DaggerAppComponent.builder()
@@ -178,5 +181,16 @@ object Injector {
 
     fun clearParticipantListFeatureComponent() {
         participantListFeatureComponent = null
+    }
+
+    fun plusCommandMatchFeatureComponent(id: Int): CommandMatchFeatureComponent =
+        commandMatchFeatureComponent
+            ?: appComponent.provideCommandMatchFeatureComponent()
+                .create(id).build().also {
+                    commandMatchFeatureComponent = it
+                }
+
+    fun clearCommandMatchFeatureComponent() {
+        commandMatchFeatureComponent = null
     }
 }

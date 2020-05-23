@@ -21,7 +21,10 @@ fun mapMatchEntityToMatchSingle(matchSingleEntity: List<MatchSingleEntity>): Lis
     return list
 }
 
-fun mapMatchSingleRemoteToMatchSingleEntity(matchSingleRemote: List<MatchSingleRemote>): List<MatchSingleEntity> {
+fun mapMatchSingleRemoteToMatchSingleEntity(
+    matchSingleRemote: List<MatchSingleRemote>,
+    role: String
+): List<MatchSingleEntity> {
     val list = ArrayList<MatchSingleEntity>()
     matchSingleRemote.forEach {
         list.add(
@@ -32,8 +35,25 @@ fun mapMatchSingleRemoteToMatchSingleEntity(matchSingleRemote: List<MatchSingleR
                 it.creatorId,
                 it.currentNumberParticipant,
                 it.numberParticipant,
-                it.description?: "Without description",
-                it.matchCity?: "Undefined"
+                it.description ?: "Without description",
+                it.matchCity ?: "Undefined",
+                role
+            )
+        )
+    }
+    return list
+}
+
+fun mapMatchSingleRemoteToMatchSingle(matchSingleRemote: List<MatchSingleRemote>): List<MatchSingle> {
+    val list = ArrayList<MatchSingle>()
+    matchSingleRemote.forEach {
+        list.add(
+            MatchSingle(
+                it.matchId,
+                it.date,
+                it.numberParticipant,
+                it.currentNumberParticipant,
+                it.matchCity ?: "Undefined"
             )
         )
     }

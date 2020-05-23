@@ -41,5 +41,9 @@ class DatabaseModule {
     @Provides
     fun provideParticipantsDao(database: Database) = database.participantsDao()
 
+    @ApplicationScope
+    @Provides
+    fun provideMatchCommandDao(database: Database) = database.matchCommandDao()
+
 }
 
