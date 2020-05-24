@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ class CommandMatchFragment : Fragment() {
         super.onAttach(context)
         bundle = this.arguments
         matchId = bundle?.getInt("matchId")
-        Log.e("onAttach", "onAttach")
         matchId.let { Injector.plusCommandMatchFeatureComponent(it ?: 0).inject(this) }
         initViewModel()
     }
@@ -48,7 +46,6 @@ class CommandMatchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel?.updateCommandMatch()
-        Log.e("onViewCreated", "onViewCreated")
         initObservers()
         initToolbar(view)
         initClickListeners()
@@ -72,6 +69,8 @@ class CommandMatchFragment : Fragment() {
             tv_city.text = it.matchCity
             tv_date.text = it.date
             tv_description.text = it.description
+            tv_team1.text = it.firstTeamName
+            tv_team2.text = it.secondTeamName
         })
         viewModel?.userStatus?.observe(viewLifecycleOwner, Observer {
             when (it) {

@@ -7,8 +7,9 @@ import com.example.streetchampionproject.common.data.databse.models.*
 
 @Database(
     entities = [UserDataEntity::class, TeamsEntity::class, UserStatusInPlaceEntity::class,
-        SquadEntity::class, MatchSingleEntity::class, ParticipantsEntity::class, MatchCommandEntity::class],
-    version = 9,
+        SquadEntity::class, MatchSingleEntity::class, ParticipantsEntity::class, MatchCommandEntity::class,
+        EndedCommandMatchEntity::class],
+    version = 13,
     exportSchema = false
 )
 abstract class Database : RoomDatabase() {
@@ -26,6 +27,8 @@ abstract class Database : RoomDatabase() {
     abstract fun participantsDao(): ParticipantsDao
 
     abstract fun matchCommandDao(): MatchCommandDao
+
+    abstract fun endedCommandMatchDao(): EndedCommandMatchDao
 
     companion object {
         const val DATABASE_NAME = "My_database"

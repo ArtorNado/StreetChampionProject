@@ -16,7 +16,9 @@ fun mapMatchEntityToCommand(matchCommandEntity: List<MatchCommandEntity>): List<
                 it.firstTeamId,
                 it.secondTeamId,
                 it.matchCity,
-                it.description
+                it.description,
+                it.firstTeamName?: "",
+                it.secondTeamName?: ""
             )
         )
     }
@@ -39,7 +41,9 @@ fun mapMatchRemoteToEntity(
                 it.secondTeamId,
                 it.matchCity,
                 it.description,
-                role
+                role,
+                it.firstTeamName?: "",
+                it.secondTeamName?: ""
             )
         )
     }
@@ -60,7 +64,9 @@ fun mapMatchRemoteToMatch(
                 it.firstTeamId,
                 it.secondTeamId,
                 it.matchCity,
-                it.description
+                it.description,
+                it.firstTeamName?: "",
+                it.secondTeamName?: ""
             )
         )
     }

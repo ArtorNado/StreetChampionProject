@@ -12,7 +12,8 @@ fun mapUserDataRemoteToUserData(userDataRemote: UserDataRemote): UserData {
             userSecondName,
             userGender,
             userCity,
-            team?.teamName ?: "Dont have team"
+            team?.teamName ?: "Dont have team",
+            team?.teamId?:0
         )
     }
 }
@@ -25,7 +26,8 @@ fun mapUserDataToUserDataEntity(userData: UserData): UserDataEntity {
             userSecondName,
             userGender,
             userCity,
-            team
+            teamName,
+            teamId
         )
     }
 }
@@ -37,7 +39,8 @@ fun mapUserDataEntityToUserData(userDataEntity: UserDataEntity): UserData {
             userFirstName,
             userSecondName,
             userGender, userCity,
-            team
+            teamName,
+            teamId
         )
     }
 }
@@ -50,7 +53,8 @@ fun mapUserDataRemoteToUserDataEntity(userDataRemote: UserDataRemote): UserDataE
             userSecondName,
             userGender,
             userCity,
-            team?.teamName ?: "Dont haveTeam"
+            team?.teamName ?: "Dont haveTeam",
+            team?.teamId?:0
         )
     }
 }

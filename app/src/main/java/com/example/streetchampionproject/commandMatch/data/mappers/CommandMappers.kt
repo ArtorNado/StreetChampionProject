@@ -14,7 +14,9 @@ fun mapCommandMatchEntityToLocal(matchCommandEntity: MatchCommandEntity): MatchC
             firstTeamId,
             secondTeamId,
             matchCity,
-            description
+            description,
+            firstTeamName?: "",
+            secondTeamName?: ""
         )
     }
 }
@@ -30,7 +32,9 @@ fun mapCommandMatchRemoteToEntity(matchCommandRemote: MatchCommandRemote): Match
             secondTeamId,
             matchCity,
             description,
-            "Undefined"
+            "Undefined",
+            firstTeamName?: "",
+            secondTeamName?: ""
         )
     }
 }

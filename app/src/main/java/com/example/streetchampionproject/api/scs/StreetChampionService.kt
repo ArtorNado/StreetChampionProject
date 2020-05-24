@@ -4,6 +4,7 @@ import com.example.streetchampionproject.api.scs.models.*
 import com.example.streetchampionproject.clubPage.data.model.NotificationRemote
 import com.example.streetchampionproject.clubPage.data.model.TeamRemote
 import com.example.streetchampionproject.clubPage.data.model.UserStatusInPlaceRemote
+import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.models.EndedCommandMatchRemote
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.models.SquadRemote
 import com.example.streetchampionproject.login.data.models.UserAuth
 import com.example.streetchampionproject.login.data.models.UserId
@@ -184,5 +185,18 @@ interface StreetChampionService {
         @Query("idCommandMatch") matchId: Int,
         @Query("recipient") id: Int
     ): Completable
+
+    @GET("getEndedCommandMatches")
+    fun getEndedCommandMatches(
+        @Query("teamId") teamId: Int
+    ):
+            Single<List<EndedCommandMatchRemote>>
+
+    @GET("getCommandMatches")
+    fun getFeatureCommandMatches(
+        @Query("teamId") teamId: Int
+    ):
+            Single<List<MatchCommandRemote>>
+
 
 }

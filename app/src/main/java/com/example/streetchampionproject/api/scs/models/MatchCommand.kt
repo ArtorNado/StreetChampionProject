@@ -8,5 +8,7 @@ data class MatchCommand(
     val firstTeamId: Int,
     val secondTeamId: Int,
     val matchCity: String,
-    val description: String
+    val description: String,
+    val firstTeamName: String,
+    val secondTeamName: String
 )

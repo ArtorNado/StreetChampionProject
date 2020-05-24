@@ -14,5 +14,7 @@ data class MatchCommandEntity(
     val secondTeamId: Int,
     val matchCity: String,
     val description: String,
-    val role: String
+    val role: String,
+    val firstTeamName: String,
+    val secondTeamName: String
 )

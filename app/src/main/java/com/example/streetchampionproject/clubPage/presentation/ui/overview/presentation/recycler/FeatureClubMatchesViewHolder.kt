@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.match.presentation.recycler
+package com.example.streetchampionproject.clubPage.presentation.ui.overview.presentation.recycler
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,10 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import kotlinx.android.synthetic.main.command_match_template.view.*
 
-class MatchCommandViewHolder(
+class FeatureClubMatchesViewHolder (
     override val containerView: View,
     private val clickLambda: (MatchCommand) -> Unit
-) : MatchListViewHolder<MatchCommand>(containerView) {
+) : ClubMatchesViewHolder<MatchCommand>(containerView) {
 
 
     override fun bind(match: MatchCommand) {
@@ -25,7 +25,7 @@ class MatchCommandViewHolder(
     companion object {
 
         fun create(parent: ViewGroup, clickLambda: (MatchCommand) -> Unit) =
-            MatchCommandViewHolder(
+            FeatureClubMatchesViewHolder(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.command_match_template,
                     parent,

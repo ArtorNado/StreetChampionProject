@@ -45,5 +45,9 @@ class DatabaseModule {
     @Provides
     fun provideMatchCommandDao(database: Database) = database.matchCommandDao()
 
+    @ApplicationScope
+    @Provides
+    fun provideEndedCommandMatchDao(database: Database) = database.endedCommandMatchDao()
+
 }
 

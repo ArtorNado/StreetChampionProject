@@ -35,7 +35,7 @@ class ParticipantListFragment : Fragment() {
         super.onAttach(context)
         bundle = this.arguments
         matchId = bundle?.getInt("matchId")
-        matchId.let { Injector.plusParticipantListFeatureComponent(it ?: 0).inject(this) }
+        Injector.plusParticipantListFeatureComponent(matchId?: 0).inject(this)
         initViewModel()
     }
 

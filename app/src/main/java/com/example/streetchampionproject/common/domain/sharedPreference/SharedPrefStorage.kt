@@ -1,8 +1,9 @@
 package com.example.streetchampionproject.common.domain.sharedPreference
 
 import android.content.Context
-import android.util.Log
+import javax.inject.Singleton
 
+@Singleton
 class SharedPrefStorage(
     private val context: Context
 ) : LocalStorage {
@@ -12,8 +13,8 @@ class SharedPrefStorage(
             .edit().putString(name, message).apply()
     }
 
-    override fun readMessage(name: String): String? {
-        Log.e("READ","READ")
-        return context.getSharedPreferences("sharedPreference", Context.MODE_PRIVATE).getString(name, "")
-    }
+    override fun readMessage(name: String): String? =
+        context.getSharedPreferences("sharedPreference", Context.MODE_PRIVATE)
+            .getString(name, "")
+    
 }

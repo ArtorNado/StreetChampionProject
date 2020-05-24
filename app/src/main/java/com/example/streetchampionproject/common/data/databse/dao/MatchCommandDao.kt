@@ -26,4 +26,7 @@ interface MatchCommandDao {
     @Query("SELECT * FROM match_command WHERE matchId = :matchId")
     fun getCommandMatch(matchId: Int): Observable<MatchCommandEntity>
 
+    @Query("SELECT * FROM match_command WHERE(firstTeamId =:teamId OR secondTeamId = :teamId)")
+    fun getCommandMatches(teamId: Int): Observable<List<MatchCommandEntity>>
+
 }

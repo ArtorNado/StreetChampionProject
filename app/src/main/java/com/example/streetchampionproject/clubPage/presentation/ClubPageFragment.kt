@@ -79,7 +79,7 @@ class ClubPageFragment : Fragment() {
                         tabs.text = "Matchs"
                     }
                     1 -> {
-                        tabs.text = "squad"
+                        tabs.text = "Squad"
                     }
                 }
             }).attach()
