@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_status")
-data class UserStatusInTeamEntity (
+data class UserStatusInPlaceEntity (
     @PrimaryKey
     val userId: Int,
-    val teamId: Int,
+    val placeId: Int,
     val userStatus: String
 )

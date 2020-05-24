@@ -27,11 +27,27 @@ class DatabaseModule {
 
     @ApplicationScope
     @Provides
-    fun provideUserStatusDao(database: Database) = database.userStatusInTeamDao()
+    fun provideUserStatusDao(database: Database) = database.userStatusInPlaceDao()
 
     @ApplicationScope
     @Provides
     fun provideSquadDao(database: Database) = database.squadDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideMatchSingleDao(database: Database) = database.matchListDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideParticipantsDao(database: Database) = database.participantsDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideMatchCommandDao(database: Database) = database.matchCommandDao()
+
+    @ApplicationScope
+    @Provides
+    fun provideEndedCommandMatchDao(database: Database) = database.endedCommandMatchDao()
 
 }
 

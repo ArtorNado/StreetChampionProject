@@ -3,13 +3,13 @@ package com.example.streetchampionproject.clubPage.data
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
-import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.UserStatusInPlace
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import com.example.streetchampionproject.clubPage.data.mappers.*
 import com.example.streetchampionproject.common.data.databse.dao.TeamsDao
-import com.example.streetchampionproject.common.data.databse.dao.UserStatusInTeamDao
+import com.example.streetchampionproject.common.data.databse.dao.UserStatusInPlaceDao
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
-import com.example.streetchampionproject.common.data.databse.models.UserStatusInTeamEntity
+import com.example.streetchampionproject.common.data.databse.models.UserStatusInPlaceEntity
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ClubPageRepositoryImpl @Inject constructor(
     private val streetChampionService: StreetChampionService,
     private val teamsDao: TeamsDao,
-    private val userStatusInTeamDao: UserStatusInTeamDao,
+    private val userStatusInTeamDao: UserStatusInPlaceDao,
     localStorage: LocalStorage
 ) : ClubPageRepository {
 
@@ -42,17 +42,16 @@ class ClubPageRepositoryImpl @Inject constructor(
         teamsDao.setTeam(teamsEntity)
     }
 
-    override fun getUserStatus(teamId: Int): Observable<UserStatusInTeam> =
+    override fun getUserStatus(teamId: Int): Observable<UserStatusInPlace> =
         userStatusInTeamDao.getUserStatus(userId, teamId)
             .map { mapUserStatusEntityToUserStatusInTeam(it) }
 
     override fun updateUserStatus(teamId: Int): Completable =
         streetChampionService.getUserStatusInTeam(userId, teamId)
-            .map { mapUserStatusRemoteToUserStatusEntity(it, userId, teamId) }
-            .doOnSuccess { setUserStatusLocal(it) }
+            .map { setUserStatusLocal(mapUserStatusRemoteToUserStatusEntity(it, userId, teamId)) }
             .ignoreElement()
 
-    private fun setUserStatusLocal(userStatusInTeamEntity: UserStatusInTeamEntity) {
+    private fun setUserStatusLocal(userStatusInTeamEntity: UserStatusInPlaceEntity) {
         userStatusInTeamDao.setUserStatus(userStatusInTeamEntity)
     }
 

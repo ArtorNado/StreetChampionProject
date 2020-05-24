@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.clubPage.domain.interfaces
 
 import com.example.streetchampionproject.api.scs.models.Teams
-import com.example.streetchampionproject.api.scs.models.UserStatusInTeam
+import com.example.streetchampionproject.api.scs.models.UserStatusInPlace
 import io.reactivex.Completable
 import io.reactivex.Observable
 
@@ -11,7 +11,7 @@ interface ClubPageInteractor {
 
     fun updateTeam(id: Int): Completable
 
-    fun getUserStatusInTeam(teamId: Int): Observable<UserStatusInTeam>
+    fun getUserStatusInTeam(teamId: Int): Observable<UserStatusInPlace>
 
     fun updateUserStatusInTeam(teamId: Int): Completable
 

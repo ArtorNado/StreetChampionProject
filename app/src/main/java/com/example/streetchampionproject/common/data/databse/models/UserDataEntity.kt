@@ -17,6 +17,8 @@ data class UserDataEntity(
 
     val userCity: String,
 
-    val team: String
+    val teamName: String,
+
+    val teamId: Int
 
 )

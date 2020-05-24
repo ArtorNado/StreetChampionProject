@@ -27,7 +27,6 @@ class LoginViewModel(
     val error: LiveData<String> = _error
 
     override fun onCleared() {
-        Log.e("onCleared", "START")
         super.onCleared()
         compositeDisposable.clear()
     }
@@ -40,7 +39,6 @@ class LoginViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     loginInteractor.writeInStorage("AuthToken", result.token)
-                    getUserId(email, context)
                     _pgStatus.value = View.GONE
                 },
                     { error ->
@@ -48,6 +46,7 @@ class LoginViewModel(
                         _pgStatus.value = View.GONE
                     })
         )
+        getUserId(email, context)
     }
 
     fun clickRegistr(context: Context) {
@@ -61,6 +60,7 @@ class LoginViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     navigator.openMain(context, result.userId)
+                    Log.e("USERID_WRITE", result.userId.toString())
                     writeInStorage("userId", result.userId.toString())
                     _pgStatus.value = View.GONE
                 },

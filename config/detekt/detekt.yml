@@ -59,7 +59,7 @@ complexity:
     threshold: 4
   ComplexInterface:
     active: true
-    threshold: 30
+    threshold: 40
     includeStaticDeclarations: false
   ComplexMethod:
     active: true
@@ -96,12 +96,12 @@ complexity:
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
   TooManyFunctions:
-    active: true
+    active: false
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
     thresholdInFiles: 20
     thresholdInClasses: 50
     thresholdInInterfaces: 30
-    thresholdInObjects: 20
+    thresholdInObjects: 40
     thresholdInEnums: 10
     ignoreDeprecated: false
     ignorePrivate: false

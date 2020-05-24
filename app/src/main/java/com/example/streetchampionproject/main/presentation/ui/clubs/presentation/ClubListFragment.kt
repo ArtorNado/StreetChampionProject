@@ -69,10 +69,9 @@ class ClubListFragment : Fragment() {
     private fun setAdapter(list: List<Teams>) {
         rv_club_list.layoutManager = LinearLayoutManager(context)
         adapter = ClubListAdapter(list) {
-            val navController = findNavController()
             val bundle = Bundle()
             bundle.putInt("teamId", it.teamId)
-            navController.navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)
+            findNavController().navigate(R.id.action_navigation_notifications_to_clubPageFragment, bundle)
         }
         rv_club_list.adapter = adapter
     }

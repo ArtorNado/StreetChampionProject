@@ -6,5 +6,6 @@ data class UserData(
     var userSecondName: String,
     var userGender: String,
     var userCity: String,
-    var team: String
+    var teamName: String,
+    var teamId: Int
 )

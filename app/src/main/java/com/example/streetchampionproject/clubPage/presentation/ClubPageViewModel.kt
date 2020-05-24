@@ -34,9 +34,7 @@ class ClubPageViewModel(
 
     init {
         getUserStatus()
-        updateUserStatus()
         getTeamData()
-        updateTeam()
     }
 
     private fun getTeamData() {
@@ -57,7 +55,7 @@ class ClubPageViewModel(
         )
     }
 
-    fun getUserStatus() {
+    private fun getUserStatus() {
         compositeDisposable.add(
             clubPageInteractor.getUserStatusInTeam(teamId)
                 .subscribeOn(Schedulers.io())
@@ -71,7 +69,7 @@ class ClubPageViewModel(
         )
     }
 
-    private fun updateUserStatus() {
+    fun updateUserStatus() {
         compositeDisposable.add(
             clubPageInteractor.updateUserStatusInTeam(teamId)
                 .subscribeOn(Schedulers.io())
@@ -84,7 +82,7 @@ class ClubPageViewModel(
         )
     }
 
-    private fun updateTeam() {
+    fun updateTeam() {
         compositeDisposable.add(
             clubPageInteractor.updateTeam(teamId)
                 .subscribeOn(Schedulers.io())

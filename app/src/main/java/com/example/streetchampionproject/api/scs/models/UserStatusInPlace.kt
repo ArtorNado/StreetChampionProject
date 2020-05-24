@@ -1,6 +1,6 @@
 package com.example.streetchampionproject.api.scs.models
 
-data class UserStatusInTeam(
+data class UserStatusInPlace(
 
     var status: String
 

@@ -14,5 +14,7 @@ class SharedPrefStorage(
     }
 
     override fun readMessage(name: String): String? =
-        context.getSharedPreferences("sharedPreference", Context.MODE_PRIVATE).getString(name, "")
+        context.getSharedPreferences("sharedPreference", Context.MODE_PRIVATE)
+            .getString(name, "")
+    
 }

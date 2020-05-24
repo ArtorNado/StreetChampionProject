@@ -43,11 +43,10 @@ class ClubPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel?.updateUserStatus()
+        viewModel?.updateTeam()
         initToolbar(view)
         initTabLayout()
-        teamId?.let {
-            viewModel?.getUserStatus()
-        }
         initClickListeners()
         initObservers()
     }
@@ -80,7 +79,7 @@ class ClubPageFragment : Fragment() {
                         tabs.text = "Matchs"
                     }
                     1 -> {
-                        tabs.text = "squad"
+                        tabs.text = "Squad"
                     }
                 }
             }).attach()
