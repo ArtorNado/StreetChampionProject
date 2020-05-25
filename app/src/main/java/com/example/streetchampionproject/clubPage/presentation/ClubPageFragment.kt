@@ -97,7 +97,10 @@ class ClubPageFragment : Fragment() {
 
     private fun initObservers() {
         viewModel?.pgStatus?.observe(viewLifecycleOwner, Observer {
-            progress_bar.visibility = it
+            when(it){
+                "visible" -> progress_bar.visibility = View.VISIBLE
+                "gone" -> progress_bar.visibility = View.GONE
+            }
         })
         viewModel?.team?.observe(viewLifecycleOwner, Observer {
             tv_club_name.text = it.teamName

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.MatchCommand
@@ -86,7 +86,8 @@ class OverviewFragment : Fragment() {
             when(match){
                 is MatchCommand ->{
                     bundle?.putInt("matchId", match.matchId)
-                    findNavController().navigate(R.id.action_overviewFragment_to_commandMatchFragment)
+                    Log.e("CUR_DEST", view?.findNavController()?.currentDestination.toString())
+                    view?.findNavController()?.navigate(R.id.action_clubPageFragment_to_commandMatchFragment, bundle)
                 }
             }
         }

@@ -19,12 +19,12 @@ class NotificationListAdapter(
         holder.bind(notifications[position])
     }
 
-    override fun submitList(list: MutableList<Notification>?) {
-        super.submitList(list)
-    }
-
     fun updateList(newList: List<Notification>) {
-        DiffUtil.calculateDiff(DiffUtil(this.notifications, newList), false)
+        DiffUtil.calculateDiff(
+            com.example.streetchampionproject.common.presentation.diff.DiffUtil(
+                this.notifications,
+                newList
+            ), false)
             .dispatchUpdatesTo(this)
         this.notifications = newList
     }

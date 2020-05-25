@@ -84,7 +84,8 @@ class MatchListFragment : Fragment() {
     private fun initObservers() {
         viewModel?.matchList?.observe(viewLifecycleOwner, Observer {
             pg.visibility = View.GONE
-            setAdapter(it)
+            if(adapter == null) setAdapter(it)
+            else adapter?.updateList(it)
         })
         viewModel?.error?.observe(viewLifecycleOwner, Observer {
             pg.visibility = View.GONE

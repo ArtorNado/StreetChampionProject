@@ -15,9 +15,6 @@ class ClubListViewHolder(
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bind(teams: Teams) {
-/*
-        Log.e("NAME", teams.teamName)
-*/
         containerView.tv_teamName.text = teams.teamName
         containerView.tv_city.text = teams.teamCity
         itemView.setOnClickListener{
