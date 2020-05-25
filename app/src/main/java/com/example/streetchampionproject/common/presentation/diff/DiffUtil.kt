@@ -1,9 +1,8 @@
-package com.example.streetchampionproject.notification.presentation.recycler
+package com.example.streetchampionproject.common.presentation.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.streetchampionproject.api.scs.models.Notification
 
-class DiffUtil(private val oldList: List<Notification>, private val newList: List<Notification>) :
+class DiffUtil(private val oldList: List<Any?>, private val newList: List<Any?>) :
 DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =

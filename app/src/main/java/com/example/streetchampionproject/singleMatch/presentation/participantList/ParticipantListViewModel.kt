@@ -25,7 +25,7 @@ class ParticipantListViewModel(
     }
 
     private fun getParticipants() {
-        val result =
+        compositeDisposable.add(
             participantListInteractor.getParticipants(matchId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -35,16 +35,19 @@ class ParticipantListViewModel(
                     { error ->
                         Log.e("PART_LIST", "ERROR")
                     })
+        )
     }
 
-    fun updateParticipants(){
-        val result = participantListInteractor.updateParticipants(matchId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-            },
-                { error ->
-                    Log.e("UPDATE_PART_LIST", "ERROR")
-                })
+    fun updateParticipants() {
+        compositeDisposable.add(
+            participantListInteractor.updateParticipants(matchId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                },
+                    { error ->
+                        Log.e("UPDATE_PART_LIST", "ERROR")
+                    })
+        )
     }
 }

@@ -1,24 +1,20 @@
 package com.example.streetchampionproject.clubPage.presentation
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
 import com.example.streetchampionproject.common.domain.ERRORS
+import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.net.UnknownHostException
 
 class ClubPageViewModel(
     private val clubPageInteractor: ClubPageInteractor,
     private val teamId: Int
-) : ViewModel() {
-
-    private val compositeDisposable = CompositeDisposable()
+) : BaseViewModel() {
 
     private val _team by lazy { MutableLiveData<Teams>() }
     val team: LiveData<Teams> = _team
@@ -26,8 +22,8 @@ class ClubPageViewModel(
     private val _userStatus by lazy { MutableLiveData<String>() }
     val userStatus: LiveData<String> = _userStatus
 
-    private val _pgStatus by lazy { MutableLiveData<Int>() }
-    val pgStatus: LiveData<Int> = _pgStatus
+    private val _pgStatus by lazy { MutableLiveData<String>() }
+    val pgStatus: LiveData<String> = _pgStatus
 
     private val _error by lazy { MutableLiveData<String>() }
     val error: LiveData<String> = _error
@@ -38,7 +34,7 @@ class ClubPageViewModel(
     }
 
     private fun getTeamData() {
-        _pgStatus.value = View.VISIBLE
+        _pgStatus.value = "visible"
         compositeDisposable.add(
             clubPageInteractor.getTeamLocal(teamId)
                 .subscribeOn(Schedulers.io())
@@ -46,11 +42,11 @@ class ClubPageViewModel(
                 .subscribe({ result ->
                     _team.value = result
                     if (result.teamName.isEmpty())
-                        _pgStatus.value = View.GONE
+                        _pgStatus.value = "gone"
                 },
                     { error ->
                         doOnError(error)
-                        _pgStatus.value = View.GONE
+                        _pgStatus.value = "gone"
                     })
         )
     }
@@ -62,8 +58,10 @@ class ClubPageViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _userStatus.value = result.status
+                    _pgStatus.value = "gone"
                 },
                     { error ->
+                        _pgStatus.value = "gone"
                         doOnError(error)
                     })
         )
@@ -96,18 +94,18 @@ class ClubPageViewModel(
     }
 
     fun applyForMembership() {
-        _pgStatus.value = View.VISIBLE
+        _pgStatus.value = "visible"
         compositeDisposable.add(
             clubPageInteractor.sendNotif(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _pgStatus.value = View.GONE
+                    _pgStatus.value = "gone"
                 },
                     { error ->
                         Log.e("ERROR_APPLY", error.toString())
                         doOnError(error)
-                        _pgStatus.value = View.GONE
+                        _pgStatus.value = "gone"
                     })
 
         )
@@ -115,10 +113,5 @@ class ClubPageViewModel(
 
     private fun doOnError(throwable: Throwable) {
         if (throwable is UnknownHostException) _error.value = ERRORS.MESSAGE.NETWORK_EXCEPTION
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 }

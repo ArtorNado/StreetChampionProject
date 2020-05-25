@@ -4,21 +4,18 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.app.navigation.Navigator
+import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class ClubListViewModel(
     private val clubListInteractor: ClubListInteractor,
     private val navigator: Navigator
-) : ViewModel() {
-
-    private val compositeDisposable = CompositeDisposable()
+) : BaseViewModel() {
 
     private val _clubList by lazy { MutableLiveData<List<Teams>>() }
     var clubList: LiveData<List<Teams>> = _clubList
@@ -105,11 +102,6 @@ class ClubListViewModel(
                 _pgStatus.value = View.GONE
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 
     companion object {

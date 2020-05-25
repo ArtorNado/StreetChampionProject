@@ -59,7 +59,8 @@ class ClubListFragment : Fragment() {
             progress_bar.visibility = it
         })
         viewModel?.clubList?.observe(viewLifecycleOwner, Observer {
-            setAdapter(it)
+            if(adapter == null) setAdapter(it)
+            else adapter?.updateList(it)
         })
         viewModel?.searchError?.observe(viewLifecycleOwner, Observer {
             tf_city.error = it.toString()

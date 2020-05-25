@@ -1,14 +1,16 @@
 package com.example.streetchampionproject.match.presentation.recycler
 
+import android.util.Log
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.api.scs.models.MatchSingle
 
 class MatchListAdapter(
-    private val dataSet: List<Any?>,
+    private var dataSet: List<Any?>,
     private val clickLambda: (Any?) -> Unit
-) : RecyclerView.Adapter<MatchListViewHolder<*>>() {
+) : ListAdapter<Any, MatchListViewHolder<*>>(Diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchListViewHolder<*> {
         return when (viewType) {
@@ -28,6 +30,15 @@ class MatchListAdapter(
         }
     }
 
+    fun updateList(newList: List<Any?>) {
+        Log.e("UPDATE", "UPDATE")
+        DiffUtil.calculateDiff(
+            com.example.streetchampionproject.common.presentation.diff.DiffUtil(
+                this.dataSet,
+                newList
+            ), false)
+            .dispatchUpdatesTo(this)
+        this.dataSet = newList   }
 
     override fun getItemViewType(position: Int): Int {
         return when (dataSet[position]) {

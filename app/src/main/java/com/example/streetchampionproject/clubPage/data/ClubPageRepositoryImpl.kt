@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.clubPage.data
 
+import android.util.Log
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
@@ -34,11 +35,11 @@ class ClubPageRepositoryImpl @Inject constructor(
 
     override fun updateTeam(id: Int): Completable =
         streetChampionService.getTeam(id)
-            .map { mapTeamsRemoteToTeamsEntity(it) }
-            .doOnSuccess { setUserLocal(it) }
+            .map { setUserLocal(mapTeamsRemoteToTeamsEntity(it)) }
             .ignoreElement()
 
     private fun setUserLocal(teamsEntity: TeamsEntity) {
+        Log.e("SET_USER_LOCAL", "SET")
         teamsDao.setTeam(teamsEntity)
     }
 
