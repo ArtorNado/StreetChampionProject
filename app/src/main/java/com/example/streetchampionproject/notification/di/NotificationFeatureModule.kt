@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.notification.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.notification.data.NotificationRepository
 import com.example.streetchampionproject.notification.data.NotificationRepositoryImpl
@@ -28,6 +30,15 @@ class NotificationFeatureModule {
             recipientId
         )
     }
+
+    @NotificationScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): NotificationViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(NotificationViewModel::class.java)
+
 
     @NotificationScope
     @Provides

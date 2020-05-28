@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.clubPage.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.clubPage.data.ClubPageRepositoryImpl
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import com.example.streetchampionproject.clubPage.di.scope.ClubPageScope
@@ -25,6 +27,15 @@ class ClubPageFeatureModule {
             id
         )
     }
+
+    @ClubPageScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): ClubPageViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(ClubPageViewModel::class.java)
+
 
     @ClubPageScope
     @Provides

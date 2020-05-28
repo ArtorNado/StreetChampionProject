@@ -7,4 +7,12 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="mtrl_picker_text_input_date_hint" description="Label for a single date selected by the user [CHAR_LIMIT=60]">Date</string>
+    <string name="invalid_log_pas">Неверный логин или пароль</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="internet_connection">Ошибка интернет соединения</string>
+    <string name="city_not_found">Город не найден</string>
+    <string name="error_joining_in_team">Вы уже состоите в команде</string>
+    <string name="match_type_error">Выберите тип матча</string>
+    <string name="create_not_enough_rights">Только админ команды может создавать матч</string>
+    <string name="already_have_team">Пользователь уже состоит в команде</string>
 </resources>

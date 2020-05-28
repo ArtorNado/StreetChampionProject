@@ -1,32 +1,22 @@
 package com.example.streetchampionproject.notification.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.app.injector.Injector
+import com.example.streetchampionproject.common.presentation.BaseFragment
 import com.example.streetchampionproject.notification.presentation.recycler.NotificationListAdapter
 import kotlinx.android.synthetic.main.fragment_notification.*
-import javax.inject.Inject
 
-class NotificationFragment : Fragment() {
+class NotificationFragment : BaseFragment<NotificationViewModel>() {
 
-    companion object {
-        fun newInstance() = NotificationFragment()
-    }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var viewModel: NotificationViewModel? = null
 
     private var adapter: NotificationListAdapter? = null
     private var teamId: Int? = null
@@ -36,28 +26,37 @@ class NotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_notification, container, false)
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun inject() {
         val bundle = this.arguments
         teamId = bundle?.getInt("teamId")
-        Injector.plusNotificationFueatureComponent(teamId ?: 0).inject(this)
-        initViewModel()
+        Injector.plusNotificationFueatureComponent(teamId ?: 0, this).inject(this)
+    }
+
+    override fun initClickListeners() {
+        val navController = findNavController()
+        toolbar.setNavigationOnClickListener {
+            navController.popBackStack()
+        }
+    }
+
+    override fun subscribe(viewModel: NotificationViewModel) {
+        viewModel.getData()
+        viewModel.pgStatus.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                ARG_STATUS_GONE -> progress_bar.visibility = View.GONE
+                ARG_STATUS_VISIBLE -> progress_bar.visibility = View.VISIBLE
+                else -> progress_bar.visibility = View.GONE
+            }
+        })
+        viewModel.notifications.observe(viewLifecycleOwner, Observer {
+            if (adapter == null) setAdapter(it)
+            else adapter?.updateList(it)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolBar(view)
-        setObservers()
-        initCLickListeners()
-        viewModel?.getData()
-    }
-
-    private fun initCLickListeners() {
-        val navController = findNavController()
-        toolbar.setNavigationOnClickListener {
-            navController.popBackStack()
-        }
     }
 
     private fun initToolBar(view: View) {
@@ -65,30 +64,10 @@ class NotificationFragment : Fragment() {
             ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
-    private fun initViewModel() {
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(NotificationViewModel::class.java)
-        }
-        this.viewModel = viewModel
-    }
-
-    private fun setObservers() {
-        viewModel?.pgStatus?.observe(viewLifecycleOwner, Observer {
-            progress_bar.visibility = it
-        })
-        viewModel?.notifications?.observe(viewLifecycleOwner, Observer {
-            if (adapter == null) setAdapter(it)
-            else adapter?.updateList(it)
-        })
-    }
-
     private fun setAdapter(list: List<Notification>) {
         rv_notif_list.layoutManager = LinearLayoutManager(context)
         adapter = NotificationListAdapter(list) {
-            viewModel?.notifAnswer(it)
+            viewModel.notifAnswer(it)
         }
         rv_notif_list.adapter = adapter
     }
@@ -96,6 +75,11 @@ class NotificationFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Injector.clearNotificationFeatureComponent()
+    }
+
+    companion object {
+        const val ARG_STATUS_VISIBLE = "Visible"
+        const val ARG_STATUS_GONE = "Gone"
     }
 
 }

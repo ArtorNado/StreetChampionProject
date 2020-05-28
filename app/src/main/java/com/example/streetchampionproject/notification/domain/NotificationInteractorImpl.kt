@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.notification.domain
 
 import com.example.streetchampionproject.api.scs.models.Notification
-import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import com.example.streetchampionproject.notification.data.NotificationRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,13 +15,18 @@ class NotificationInteractorImpl @Inject constructor(
     override fun sendNotificationAnswer(
         notification: Notification,
         notifications: List<Notification>?
-    ): Single<StreetChampionResponse> =
+    ): Single<List<Notification>> =
         notificationRepository.sendAnswerToNotif(
             notification.notificationId,
             notification.notificationStatus
         )
+            .flatMap {
+                deleteElement(notification, notifications)
+            }
+            .onErrorResumeNext { deleteElement(notification, notifications) }
 
-    override fun deleteElement(
+
+    private fun deleteElement(
         notification: Notification,
         notifications: List<Notification>?
     ): Single<List<Notification>> {

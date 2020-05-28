@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.singleMatch.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.singleMatch.data.SingleMatchRepositoryImpl
 import com.example.streetchampionproject.singleMatch.data.interfaces.SingleMatchRepository
@@ -19,12 +21,24 @@ class SingleMatchFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(SingleMatchViewModel::class)
-    fun provideSingleMatchViewModel(singleMatchInteractor: SingleMatchInteractor, id: Int): ViewModel {
+    fun provideSingleMatchViewModel(
+        singleMatchInteractor: SingleMatchInteractor,
+        id: Int
+    ): ViewModel {
         return SingleMatchViewModel(
             singleMatchInteractor,
             id
         )
     }
+
+    @SingleMatchScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): SingleMatchViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(SingleMatchViewModel::class.java)
+
 
     @SingleMatchScope
     @Provides

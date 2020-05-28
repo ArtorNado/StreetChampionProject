@@ -1,31 +1,21 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.overview.presentation
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.presentation.recycler.ClubMatchesAdapter
-import com.example.streetchampionproject.main.presentation.MainActivity
-import com.google.android.material.snackbar.Snackbar
+import com.example.streetchampionproject.common.presentation.BaseFragment
 import kotlinx.android.synthetic.main.overview_fragment.*
-import javax.inject.Inject
 
-class OverviewFragment : Fragment() {
+class OverviewFragment : BaseFragment<OverviewViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private var viewModel: OverviewViewModel? = null
     private var adapter: ClubMatchesAdapter? = null
     private var teamId: Int? = null
     private var bundle: Bundle? = null
@@ -35,71 +25,46 @@ class OverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.overview_fragment, container, false)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        bundle = this.arguments
-        teamId = bundle?.getInt("teamId")
-        Injector.plusOverviewFeatureComponent(teamId?:0).inject(this)
-        initViewModel()
-    }
-
     override fun onResume() {
         super.onResume()
         ch_group_match_type.clearCheck()
-        initClickListeners()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initObservers()
+    override fun inject() {
+        bundle = this.arguments
+        teamId = bundle?.getInt("teamId")
+        Injector.plusOverviewFeatureComponent(teamId ?: 0, this).inject(this)
     }
 
-    private fun initObservers(){
-        viewModel?.error?.observe(viewLifecycleOwner, Observer {
-            snackBar(it)
-        })
-        viewModel?.matchList?.observe(viewLifecycleOwner, Observer {
-            Log.e("OBSERV", it.toString())
+    override fun subscribe(viewModel: OverviewViewModel) {
+        observe(viewModel.matchList, Observer {
             setAdapter(it)
         })
     }
 
-    private fun initViewModel() {
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(OverviewViewModel::class.java)
-        }
-        this.viewModel = viewModel
-    }
-
-    private fun initClickListeners(){
+    override fun initClickListeners() {
         ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
-            viewModel?.getData(checkedId)
+            viewModel.getData(checkedId)
         }
     }
 
     private fun setAdapter(list: List<Any?>) {
         rv_match_list.layoutManager = LinearLayoutManager(context)
         adapter = ClubMatchesAdapter(list) { match ->
-            when(match){
-                is MatchCommand ->{
+            when (match) {
+                is MatchCommand -> {
                     bundle?.putInt("matchId", match.matchId)
-                    Log.e("CUR_DEST", view?.findNavController()?.currentDestination.toString())
-                    view?.findNavController()?.navigate(R.id.action_clubPageFragment_to_commandMatchFragment, bundle)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_clubPageFragment_to_commandMatchFragment, bundle)
                 }
             }
         }
         rv_match_list.adapter = adapter
     }
 
-    private fun snackBar(text: String) {
-        Snackbar.make(
-            (activity as MainActivity).findViewById(android.R.id.content),
-            text,
-            Snackbar.LENGTH_SHORT
-        ).show()
+    override fun onDestroy() {
+        super.onDestroy()
+        Injector.clearOverviewFeatureComponent()
     }
 
     companion object {
@@ -110,11 +75,6 @@ class OverviewFragment : Fragment() {
             overviewFragment.arguments = args
             return overviewFragment
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Injector.clearOverviewFeatureComponent()
     }
 
 }

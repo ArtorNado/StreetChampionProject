@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.commandMatch.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.commandMatch.data.CommandMatchRepositoryImpl
 import com.example.streetchampionproject.commandMatch.data.interfaces.CommandMatchRepository
 import com.example.streetchampionproject.commandMatch.di.scope.CommandMatchScope
@@ -28,6 +30,15 @@ class CommandMatchFeatureModule {
             id
         )
     }
+
+    @CommandMatchScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): CommandMatchViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(CommandMatchViewModel::class.java)
+
 
     @CommandMatchScope
     @Provides

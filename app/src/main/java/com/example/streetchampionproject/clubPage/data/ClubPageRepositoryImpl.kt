@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.clubPage.data
 
-import android.util.Log
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.NotificationForSend
 import com.example.streetchampionproject.api.scs.models.Teams
@@ -11,9 +10,14 @@ import com.example.streetchampionproject.common.data.databse.dao.TeamsDao
 import com.example.streetchampionproject.common.data.databse.dao.UserStatusInPlaceDao
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
 import com.example.streetchampionproject.common.data.databse.models.UserStatusInPlaceEntity
+import com.example.streetchampionproject.common.domain.Exceptions
+import com.example.streetchampionproject.common.domain.ResponseCode
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
+import retrofit2.HttpException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ClubPageRepositoryImpl @Inject constructor(
@@ -36,10 +40,15 @@ class ClubPageRepositoryImpl @Inject constructor(
     override fun updateTeam(id: Int): Completable =
         streetChampionService.getTeam(id)
             .map { setUserLocal(mapTeamsRemoteToTeamsEntity(it)) }
+            .onErrorResumeNext { error ->
+                when (error) {
+                    is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
+                    else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                }
+            }
             .ignoreElement()
 
     private fun setUserLocal(teamsEntity: TeamsEntity) {
-        Log.e("SET_USER_LOCAL", "SET")
         teamsDao.setTeam(teamsEntity)
     }
 
@@ -50,6 +59,12 @@ class ClubPageRepositoryImpl @Inject constructor(
     override fun updateUserStatus(teamId: Int): Completable =
         streetChampionService.getUserStatusInTeam(userId, teamId)
             .map { setUserStatusLocal(mapUserStatusRemoteToUserStatusEntity(it, userId, teamId)) }
+            .onErrorResumeNext { error ->
+                when (error) {
+                    is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
+                    else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                }
+            }
             .ignoreElement()
 
     private fun setUserStatusLocal(userStatusInTeamEntity: UserStatusInPlaceEntity) {
@@ -63,4 +78,11 @@ class ClubPageRepositoryImpl @Inject constructor(
                 userId
             )
         )
+            .onErrorResumeNext { error ->
+                when (error) {
+                    is UnknownHostException -> Completable.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
+                    is HttpException -> Completable.error(Exceptions.error(ResponseCode.JOIN_TEAM_ERROR))
+                    else -> Completable.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                }
+            }
 }

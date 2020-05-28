@@ -1,28 +1,27 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.presentation.recycler.PlayerListAdapter
+import com.example.streetchampionproject.common.presentation.BaseFragment
 import kotlinx.android.synthetic.main.fragment_squad.*
-import javax.inject.Inject
 
-class SquadFragment : Fragment() {
+class SquadFragment : BaseFragment<SquadViewModel>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var viewModel: SquadViewModel? = null
 
     private var adapter: PlayerListAdapter? = null
+
+    private var teamId: Int? = null
+    private var bundle: Bundle? = null
 
     companion object {
         fun newInstance(teamId: Int): SquadFragment {
@@ -39,41 +38,31 @@ class SquadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_squad, container, false)
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Injector.plusSquadFeatureComponent(arguments?.getInt("teamId") ?: 0).inject(this)
-        initViewModel()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initObservers()
-        viewModel?.updatePlayers()
-    }
-
-
     private fun setAdapter(list: List<Players>) {
         rv_player_list.layoutManager = LinearLayoutManager(context)
         adapter = PlayerListAdapter(list) { players ->
+            bundle?.putInt("id", players.userId)
+            view?.findNavController()?.navigate(R.id.action_clubPageFragment_to_navigation_home, bundle)
         }
         rv_player_list.adapter = adapter
     }
 
-    private fun initObservers() {
-        viewModel?.players?.observe(viewLifecycleOwner, Observer {
-            setAdapter(it)
-        })
+    override fun inject() {
+        bundle = this.arguments
+        teamId = bundle?.getInt("teamId")
+        Log.e("TEAM_ID", teamId.toString())
+        Injector.plusSquadFeatureComponent(teamId?:0, this).inject(this)
     }
 
-    private fun initViewModel() {
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(SquadViewModel::class.java)
-        }
-        this.viewModel = viewModel
+    override fun initClickListeners() {
+        //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun subscribe(viewModel: SquadViewModel) {
+        viewModel.updatePlayers()
+        observe(viewModel.players, Observer {
+            setAdapter(it)
+        })
     }
 
     override fun onDestroy() {

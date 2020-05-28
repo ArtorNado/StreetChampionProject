@@ -36,8 +36,9 @@ class CommandMatchViewModel(
                 .subscribe({ result ->
                     setUserStatus(result)
                 },
-                    {
-                        Log.e("GET_STATUS_M_ERROR", it.toString())
+                    { error ->
+                        Log.e("GET_STATUS_M_ERROR", error.toString())
+                        onError(error)
                     })
         )
 
@@ -52,8 +53,9 @@ class CommandMatchViewModel(
                     _match.value = result
                     determineUserStatus()
                 },
-                    {
-                        Log.e("GET_COM_M_ERROR", it.toString())
+                    { error ->
+                        Log.e("GET_COM_M_ERROR", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -68,6 +70,7 @@ class CommandMatchViewModel(
                 },
                     { error ->
                         Log.e("ERROR_UPDATE_CMD", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -94,6 +97,7 @@ class CommandMatchViewModel(
                 },
                     { error ->
                         Log.e("ERROR_UPDATE", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -108,6 +112,7 @@ class CommandMatchViewModel(
                 },
                     { error ->
                         Log.e("ERROR_UPDATE_CMD", error.toString())
+                        onError(error)
                     })
         )
     }

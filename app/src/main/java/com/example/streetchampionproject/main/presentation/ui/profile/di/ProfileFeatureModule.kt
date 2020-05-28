@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.main.presentation.ui.profile.data.ProfileRepositoryImpl
 import com.example.streetchampionproject.main.presentation.ui.profile.data.interfaces.ProfileRepository
@@ -25,6 +27,14 @@ class ProfileFeatureModule {
             userId
         )
     }
+
+    @ProfileFragmentScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): ProfileViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(ProfileViewModel::class.java)
 
 
     @ProfileFragmentScope

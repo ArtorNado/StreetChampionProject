@@ -5,11 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
-import com.example.streetchampionproject.common.domain.ERRORS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.net.UnknownHostException
 
 class ClubPageViewModel(
     private val clubPageInteractor: ClubPageInteractor,
@@ -25,8 +23,6 @@ class ClubPageViewModel(
     private val _pgStatus by lazy { MutableLiveData<String>() }
     val pgStatus: LiveData<String> = _pgStatus
 
-    private val _error by lazy { MutableLiveData<String>() }
-    val error: LiveData<String> = _error
 
     init {
         getUserStatus()
@@ -45,7 +41,7 @@ class ClubPageViewModel(
                         _pgStatus.value = "gone"
                 },
                     { error ->
-                        doOnError(error)
+                        onError(error)
                         _pgStatus.value = "gone"
                     })
         )
@@ -62,7 +58,7 @@ class ClubPageViewModel(
                 },
                     { error ->
                         _pgStatus.value = "gone"
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
@@ -75,7 +71,7 @@ class ClubPageViewModel(
                 .subscribe({
                 },
                     { error ->
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
@@ -88,7 +84,7 @@ class ClubPageViewModel(
                 .subscribe({
                 },
                     { error ->
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
@@ -104,14 +100,11 @@ class ClubPageViewModel(
                 },
                     { error ->
                         Log.e("ERROR_APPLY", error.toString())
-                        doOnError(error)
+                        onError(error)
                         _pgStatus.value = "gone"
                     })
 
         )
     }
 
-    private fun doOnError(throwable: Throwable) {
-        if (throwable is UnknownHostException) _error.value = ERRORS.MESSAGE.NETWORK_EXCEPTION
-    }
 }

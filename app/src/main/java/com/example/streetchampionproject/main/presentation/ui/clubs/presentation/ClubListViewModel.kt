@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.presentation
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Teams
@@ -10,7 +9,6 @@ import com.example.streetchampionproject.common.presentation.viewModel.BaseViewM
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
 
 class ClubListViewModel(
     private val clubListInteractor: ClubListInteractor,
@@ -30,8 +28,7 @@ class ClubListViewModel(
         getData()
     }
 
-    fun getData() {
-        _pgStatus.value = View.VISIBLE
+    private fun getData() {
         updateTeams()
         compositeDisposable.add(
             clubListInteractor.getAllTeams()
@@ -39,16 +36,14 @@ class ClubListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _clubList.value = result
-                    _pgStatus.value = View.GONE
                 },
                     { error ->
-                        _pgStatus.value = View.GONE
+                        onError(error)
                     })
         )
     }
 
     fun getTeamsByCity(city: String) {
-        _pgStatus.value = View.VISIBLE
         updateTeamsByCity(city)
         compositeDisposable.add(
             clubListInteractor.getTeamsByCity(city)
@@ -56,11 +51,10 @@ class ClubListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _clubList.value = result
-                    _pgStatus.value = View.GONE
                 },
                     { error ->
                         Log.e("ERROR11", error.toString())
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
@@ -72,8 +66,8 @@ class ClubListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                 },
-                    {
-                        doOnError(it)
+                    {error ->
+                        onError(error)
                     })
         )
     }
@@ -85,23 +79,10 @@ class ClubListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                 },
-                    {
-                        doOnError(it)
+                    { error ->
+                        onError(error)
                     })
         )
-    }
-
-    private fun doOnError(error: Throwable) {
-        when (error) {
-            is java.lang.IllegalArgumentException -> {
-                _searchError.value = EMPTY_FIELD
-                _pgStatus.value = View.GONE
-            }
-            is HttpException -> {
-                _searchError.value = CITY_NOT_FOUND
-                _pgStatus.value = View.GONE
-            }
-        }
     }
 
     companion object {

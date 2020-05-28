@@ -198,5 +198,33 @@ interface StreetChampionService {
     ):
             Single<List<MatchCommandRemote>>
 
+    @GET("getAllCommandMatchByCity")
+    fun getCommandMatchByCity(
+        @Query("city") city: String
+    ):
+            Single<List<MatchCommandRemote>>
+
+    @GET("getCommandMatchByRoleAndCity")
+    fun getCommandMatchByRoleAndCity(
+        @Query("userId") userId: Int,
+        @Query("role") role: String,
+        @Query("city") city: String
+    ):
+            Single<List<MatchCommandRemote>>
+
+    @GET("getSingleMatchByRoleAndCity")
+    fun getSingleMatchByRoleAndCity(
+        @Query("userId") userId: Int,
+        @Query("role") role: String,
+        @Query("city") city: String
+    ):
+            Single<List<MatchSingleRemote>>
+
+    @GET("getSingleMatchByCity")
+    fun getSingleMatchByCity(
+        @Query("city") city: String
+    ):
+            Single<List<MatchSingleRemote>>
+
 
 }

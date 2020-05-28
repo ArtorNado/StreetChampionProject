@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.match.presentation
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.R
@@ -16,24 +15,25 @@ class MatchListViewModel(
     private val _matchList: MutableLiveData<List<Any?>> by lazy { MutableLiveData<List<Any?>>() }
     val matchList: LiveData<List<Any?>> = _matchList
 
-    private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    val error: LiveData<String> = _error
+    private val _status: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val status: LiveData<String> = _status
 
-    private val _status: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
-    val status: LiveData<Int> = _status
+    private var searchCity: String = "Undefined"
 
     private fun getMatchList(matchType: String, role: String) {
+        _status.value = ARG_STATUS_VISIBLE
         compositeDisposable.add(
-            matchListInteractor.getMatchList(matchType, role)
+            matchListInteractor.getMatchList(matchType, role, searchCity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    _status.value = ARG_STATUS_GONE
                     _matchList.value = result
                 },
                     { error ->
                         compositeDisposable.clear()
-                        _status.value = View.GONE
-                        _error.value = error.toString()
+                        _status.value = ARG_STATUS_GONE
+                        onError(error)
                     })
         )
         updateMatchList(matchType, role)
@@ -41,14 +41,14 @@ class MatchListViewModel(
 
     private fun updateMatchList(matchType: String, role: String) {
         compositeDisposable.add(
-            matchListInteractor.updateMatchList(matchType, role)
+            matchListInteractor.updateMatchList(matchType, role, searchCity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _matchList.value = result
                 },
                     { error ->
-                        _error.value = error.toString()
+                       onError(error)
                     })
         )
     }
@@ -56,6 +56,14 @@ class MatchListViewModel(
     fun getData(matchType: Int, status: Int) {
         val match = determineMatchType(matchType)
         val role = determineStatus(status)
+        updateMatchList(match, role)
+    }
+
+    fun getDataByCity(matchType: Int, status: Int, city: String){
+        val match = determineMatchType(matchType)
+        val role = determineStatus(status)
+        if(city == "") this.searchCity = "Undefined"
+        else this.searchCity = city
         getMatchList(match, role)
     }
 
@@ -77,12 +85,13 @@ class MatchListViewModel(
     }
 
     companion object {
-
         const val CHIP_FREE_MATCH = R.id.ch_free_mathes
         const val CHIP_ADMIN = R.id.ch_admin
         const val CHIP_PARTICIPANT = R.id.ch_participant
         const val CHIP_SINGLE = R.id.ch_single
         const val CHIP_COMMAND = R.id.ch_team
+        const val ARG_STATUS_GONE = "Gone"
+        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }

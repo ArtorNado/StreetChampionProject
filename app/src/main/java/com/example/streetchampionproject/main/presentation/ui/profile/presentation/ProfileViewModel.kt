@@ -1,14 +1,13 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.UserData
-import com.example.streetchampionproject.common.domain.ERRORS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.main.presentation.ui.profile.domain.interfaces.ProfileInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.net.UnknownHostException
 
 class ProfileViewModel(
     private val profileInteractor: ProfileInteractor,
@@ -27,6 +26,7 @@ class ProfileViewModel(
     }
 
     private fun getUserData() {
+        Log.e("USUUSUSUS", userId.toString())
         compositeDisposable.add(
             profileInteractor.getUserData(userId)
                 .subscribeOn(Schedulers.io())
@@ -35,7 +35,7 @@ class ProfileViewModel(
                     _user.value = result
                 },
                     { error ->
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
@@ -48,12 +48,9 @@ class ProfileViewModel(
                 .subscribe({
                 },
                     { error ->
-                        doOnError(error)
+                        onError(error)
                     })
         )
     }
 
-    private fun doOnError(throwable: Throwable) {
-        if (throwable is UnknownHostException) _error.value = ERRORS.MESSAGE.NETWORK_EXCEPTION
-    }
 }

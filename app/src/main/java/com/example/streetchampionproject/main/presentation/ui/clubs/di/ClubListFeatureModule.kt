@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.ClubListRepositoryImpl
@@ -20,7 +22,10 @@ class ClubListFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(ClubListViewModel::class)
-    fun provideClubListViewModel(clubListInteractor: ClubListInteractor, navigator: Navigator): ViewModel {
+    fun provideClubListViewModel(
+        clubListInteractor: ClubListInteractor,
+        navigator: Navigator
+    ): ViewModel {
         return ClubListViewModel(
             clubListInteractor,
             navigator
@@ -29,10 +34,20 @@ class ClubListFeatureModule {
 
     @ClubListScope
     @Provides
-    fun provideClubListInteractor(clubListInteractor: ClubListInteractorImpl): ClubListInteractor = clubListInteractor
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): ClubListViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(ClubListViewModel::class.java)
 
     @ClubListScope
     @Provides
-    fun provideClubListRepository(clubListRepository: ClubListRepositoryImpl): ClubListRepository = clubListRepository
+    fun provideClubListInteractor(clubListInteractor: ClubListInteractorImpl): ClubListInteractor =
+        clubListInteractor
+
+    @ClubListScope
+    @Provides
+    fun provideClubListRepository(clubListRepository: ClubListRepositoryImpl): ClubListRepository =
+        clubListRepository
 
 }

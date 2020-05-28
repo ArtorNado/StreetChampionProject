@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.overview.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.OverviewRepositoryImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.interfaces.OverviewRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.scope.OverviewScope
@@ -25,6 +27,15 @@ class OverviewFeatureModule {
             teamId
         )
     }
+
+    @OverviewScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): OverviewViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(OverviewViewModel::class.java)
+
 
     @OverviewScope
     @Provides

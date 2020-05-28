@@ -9,7 +9,7 @@ import com.example.streetchampionproject.common.data.databse.models.*
     entities = [UserDataEntity::class, TeamsEntity::class, UserStatusInPlaceEntity::class,
         SquadEntity::class, MatchSingleEntity::class, ParticipantsEntity::class, MatchCommandEntity::class,
         EndedCommandMatchEntity::class],
-    version = 13,
+    version = 14,
     exportSchema = false
 )
 abstract class Database : RoomDatabase() {

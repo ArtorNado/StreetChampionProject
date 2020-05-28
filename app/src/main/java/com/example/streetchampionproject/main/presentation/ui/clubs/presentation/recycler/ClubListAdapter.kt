@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.presentation.recycler
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -20,8 +19,12 @@ class ClubListAdapter(
         holder.bind(teams[position])
     }
 
+    override fun submitList(list: MutableList<Teams>?) {
+        super.submitList(list)
+        this.teams = list!!
+    }
+
     fun updateList(newList: List<Teams>) {
-        Log.e("UPDATE", "UPDATE")
         DiffUtil.calculateDiff(
             com.example.streetchampionproject.common.presentation.diff.DiffUtil(
                 this.teams,

@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.match.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.match.data.MatchListRepositoryImpl
 import com.example.streetchampionproject.match.data.interfaces.MatchListRepository
@@ -24,6 +26,15 @@ class MatchListFeatureModule {
             matchListInteractor
         )
     }
+
+    @MatchListScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): MatchListViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(MatchListViewModel::class.java)
+
 
     @MatchListScope
     @Provides
