@@ -17,6 +17,12 @@ interface MatchCommandDao {
     @Query("SELECT * FROM match_command WHERE role = :role")
     fun getCommandMatchList(role: String): Single<List<MatchCommandEntity>>
 
+    @Query("SELECT * FROM match_command WHERE role = :role AND matchCity =:city")
+    fun getCommandMatchByRoleAndCity(role: String, city: String): Single<List<MatchCommandEntity>>
+
+    @Query("SELECT * FROM match_command WHERE matchCity = :city")
+    fun getCommandMatchByCity(city: String): Single<List<MatchCommandEntity>>
+
     @Query("DELETE FROM match_command")
     fun clear()
 

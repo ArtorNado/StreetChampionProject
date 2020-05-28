@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.singleMatch.di.interfaces
 
+import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.singleMatch.di.SingleMatchFeatureModule
 import com.example.streetchampionproject.singleMatch.di.scope.SingleMatchScope
 import com.example.streetchampionproject.singleMatch.presentation.matchPage.SingleMatchFragment
@@ -16,6 +17,9 @@ interface SingleMatchFeatureComponent {
     interface Builder {
 
         fun build(): SingleMatchFeatureComponent
+
+        @BindsInstance
+        fun withFragment(fragment: Fragment): Builder
 
         @BindsInstance
         fun create(id: Int): Builder

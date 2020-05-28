@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.notification.di
 
+import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.notification.di.scope.NotificationScope
 import com.example.streetchampionproject.notification.presentation.NotificationFragment
 import dagger.BindsInstance
@@ -18,5 +19,8 @@ interface NotificationFeatureComponent {
 
         @BindsInstance
         fun create(recipientId: Int): Builder
+
+        @BindsInstance
+        fun withFragment(fragment: Fragment): Builder
     }
 }

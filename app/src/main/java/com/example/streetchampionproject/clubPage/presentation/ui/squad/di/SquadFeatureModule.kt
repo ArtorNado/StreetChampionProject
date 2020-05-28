@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.SquadRepositoryImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.interfaces.SquadRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.scope.SquadScope
@@ -28,9 +30,20 @@ class SquadFeatureModule {
 
     @SquadScope
     @Provides
-    fun provideSquadInteractor(squadInteractor: SquadInteractorImpl): SquadInteractor = squadInteractor
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): SquadViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(SquadViewModel::class.java)
+
 
     @SquadScope
     @Provides
-    fun provideSquadRepository(squadRepository: SquadRepositoryImpl): SquadRepository = squadRepository
+    fun provideSquadInteractor(squadInteractor: SquadInteractorImpl): SquadInteractor =
+        squadInteractor
+
+    @SquadScope
+    @Provides
+    fun provideSquadRepository(squadRepository: SquadRepositoryImpl): SquadRepository =
+        squadRepository
 }

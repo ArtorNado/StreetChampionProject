@@ -77,7 +77,7 @@ complexity:
     threshold: 400
   LongMethod:
     active: true
-    threshold: 40
+    threshold: 55
   LongParameterList:
     active: true
     threshold: 6
@@ -91,7 +91,7 @@ complexity:
   StringLiteralDuplication:
     active: true
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
-    threshold: 3
+    threshold: 5
     ignoreAnnotation: true
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'

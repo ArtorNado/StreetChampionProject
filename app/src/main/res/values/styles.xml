@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
@@ -19,6 +19,11 @@
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorSurface">@color/colorWhite</item>
         <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:editTextColor">@color/colorPink</item>
+        <item name="android:textColorHint">@color/colorPink</item>
     </style>
 
 </resources>

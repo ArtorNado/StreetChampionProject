@@ -41,6 +41,7 @@ class SingleMatchViewModel(
                 },
                 { error ->
                     Log.e("ERROR_SINGLE_IND", error.toString())
+                    onError(error)
                 }
             )
         )
@@ -71,6 +72,7 @@ class SingleMatchViewModel(
                 },
                     { error ->
                         Log.e("GEET_USR_ST", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -84,6 +86,7 @@ class SingleMatchViewModel(
                 },
                     { error ->
                         Log.e("UPD_USR_ST", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -101,6 +104,7 @@ class SingleMatchViewModel(
                 },
                     { error ->
                         Log.e("JOIN_TEAM_ERROR", error.toString())
+                        onError(error)
                     })
         )
     }

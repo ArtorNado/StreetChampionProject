@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.creating.createMatch.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.creating.createMatch.data.CreateMatchRepositoryImpl
 import com.example.streetchampionproject.creating.createMatch.data.interfaces.CreateMatchRepository
@@ -24,6 +26,14 @@ class CreateMatchFeatureModule {
             createMatchInteractor
         )
     }
+
+    @CreateMatchScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): CreateMatchViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(CreateMatchViewModel::class.java)
 
     @CreateMatchScope
     @Provides

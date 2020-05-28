@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.app.injector
 
+import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.app.App
 import com.example.streetchampionproject.app.di.AppComponent
 import com.example.streetchampionproject.app.di.DaggerAppComponent
@@ -76,20 +77,21 @@ object Injector {
         registerFeatureComponent = null
     }
 
-    fun plusProfileFeatureComponent(userId: Int): ProfileFeatureComponent = profileFeatureComponent
-        ?: appComponent.profileFeatureComponent().create(userId)
-            .build().also {
-                profileFeatureComponent = it
-            }
+    fun plusProfileFeatureComponent(userId: Int, fragment: Fragment): ProfileFeatureComponent =
+        profileFeatureComponent
+            ?: appComponent.profileFeatureComponent().withFragment(fragment).create(userId)
+                .build().also {
+                    profileFeatureComponent = it
+                }
 
 
     fun clearProfileFeatureComponent() {
         profileFeatureComponent = null
     }
 
-    fun plusClubPageFeatureComponent(id: Int): ClubPageFeatureComponent = clubPageFeatureComponent
-        ?: appComponent.provideClubPageFeatureComponent().create(id)
-            .build().also {
+    fun plusClubPageFeatureComponent(id: Int, fragment: Fragment): ClubPageFeatureComponent = clubPageFeatureComponent
+        ?: appComponent.provideClubPageFeatureComponent()
+            .withFragment(fragment).create(id).build().also {
                 clubPageFeatureComponent = it
             }
 
@@ -98,9 +100,9 @@ object Injector {
         clubPageFeatureComponent = null
     }
 
-    fun plusSquadFeatureComponent(teamId: Int): SquadFeatureComponent = squadFeatureComponent
+    fun plusSquadFeatureComponent(teamId: Int, fragment: Fragment): SquadFeatureComponent = squadFeatureComponent
         ?: appComponent.provideSquadFeatureComponent()
-            .create(teamId).build().also {
+            .withFragment(fragment).create(teamId).build().also {
                 squadFeatureComponent = it
             }
 
@@ -109,21 +111,22 @@ object Injector {
         squadFeatureComponent = null
     }
 
-    fun plusClubListFeatureComponent(): ClubListFeatureComponent = clubListFeatureComponent
-        ?: appComponent.provideClubListFeatureComponent()
-            .build().also {
-                clubListFeatureComponent = it
-            }
+    fun plusClubListFeatureComponent(fragment: Fragment): ClubListFeatureComponent =
+        clubListFeatureComponent
+            ?: appComponent.provideClubListFeatureComponent()
+                .withFragment(fragment).build().also {
+                    clubListFeatureComponent = it
+                }
 
 
     fun clearClubListFeatureComponent() {
         clubListFeatureComponent = null
     }
 
-    fun plusOverviewFeatureComponent(teamId: Int): OverviewFeatureComponent =
+    fun plusOverviewFeatureComponent(teamId: Int, fragment: Fragment): OverviewFeatureComponent =
         overviewFeatureComponent
             ?: appComponent.provideOverviewFeatureComponent()
-                .create(teamId).build().also {
+                .withFragment(fragment).create(teamId).build().also {
                     overviewFeatureComponent = it
                 }
 
@@ -131,10 +134,10 @@ object Injector {
         overviewFeatureComponent = null
     }
 
-    fun plusNotificationFueatureComponent(recipientId: Int): NotificationFeatureComponent =
+    fun plusNotificationFueatureComponent(recipientId: Int, fragment: Fragment): NotificationFeatureComponent =
         notificationFeatureComponent
             ?: appComponent.provideNotificationFeatureComponent()
-                .create(recipientId).build().also {
+                .withFragment(fragment).create(recipientId).build().also {
                     notificationFeatureComponent = it
                 }
 
@@ -153,10 +156,10 @@ object Injector {
         createTeamFeatureComponent = null
     }
 
-    fun plusMatchListFeatureComponent(): MatchListFeatureComponent =
+    fun plusMatchListFeatureComponent(fragment: Fragment): MatchListFeatureComponent =
         matchListFeatureComponent
             ?: appComponent.provideMatchListFeatureComponent()
-                .build().also {
+                .withFragment(fragment).build().also {
                     matchListFeatureComponent = it
                 }
 
@@ -164,10 +167,10 @@ object Injector {
         matchListFeatureComponent = null
     }
 
-    fun plusSingleMatchFeatureComponent(id: Int): SingleMatchFeatureComponent =
+    fun plusSingleMatchFeatureComponent(id: Int, fragment: Fragment): SingleMatchFeatureComponent =
         singleMatchFeatureComponent
             ?: appComponent.provideSingleMatchFeatureComponent()
-                .create(id).build().also {
+                .withFragment(fragment).create(id).build().also {
                     singleMatchFeatureComponent = it
                 }
 
@@ -175,10 +178,10 @@ object Injector {
         singleMatchFeatureComponent = null
     }
 
-    fun plusParticipantListFeatureComponent(matchId: Int): ParticipantListFeatureComponent =
+    fun plusParticipantListFeatureComponent(matchId: Int, fragment: Fragment): ParticipantListFeatureComponent =
         participantListFeatureComponent
             ?: appComponent.provideParticipantListFeatureComponent()
-                .create(matchId).build().also {
+                .withFragment(fragment).create(matchId).build().also {
                     participantListFeatureComponent = it
                 }
 
@@ -186,10 +189,10 @@ object Injector {
         participantListFeatureComponent = null
     }
 
-    fun plusCommandMatchFeatureComponent(id: Int): CommandMatchFeatureComponent =
+    fun plusCommandMatchFeatureComponent(id: Int, fragment: Fragment): CommandMatchFeatureComponent =
         commandMatchFeatureComponent
             ?: appComponent.provideCommandMatchFeatureComponent()
-                .create(id).build().also {
+                .withFragment(fragment).create(id).build().also {
                     commandMatchFeatureComponent = it
                 }
 
@@ -197,10 +200,10 @@ object Injector {
         commandMatchFeatureComponent = null
     }
 
-    fun plusCreateMatchFeatureComponent(): CreateMatchFeatureComponent =
+    fun plusCreateMatchFeatureComponent(fragment: Fragment): CreateMatchFeatureComponent =
         createMatchFeatureComponent
             ?: appComponent.provideCreateMatchFeatureComponent()
-                .build().also {
+                .withFragment(fragment).build().also {
                     createMatchFeatureComponent = it
                 }
 

@@ -1,30 +1,27 @@
 package com.example.streetchampionproject.match.presentation
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.SearchView
+import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.api.scs.models.MatchSingle
 import com.example.streetchampionproject.app.injector.Injector
-import com.example.streetchampionproject.main.presentation.MainActivity
+import com.example.streetchampionproject.common.presentation.BaseFragment
 import com.example.streetchampionproject.match.presentation.recycler.MatchListAdapter
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.match_list_fragment.*
-import javax.inject.Inject
 
-class MatchListFragment : Fragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var viewModel: MatchListViewModel? = null
+class MatchListFragment : BaseFragment<MatchListViewModel>() {
 
     private var adapter: MatchListAdapter? = null
 
@@ -33,84 +30,109 @@ class MatchListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.match_list_fragment, container, false)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Injector.plusMatchListFeatureComponent().inject(this)
-        initViewModel()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rv_match_list.layoutManager = LinearLayoutManager(context)
-        initObservers()
     }
 
     override fun onResume() {
         super.onResume()
         ch_group_match_type.clearCheck()
         ch_group_status.clearCheck()
-        initClickListeners()
+        if (adapter != null) setAdapter(viewModel.matchList.value!!)
     }
 
-    private fun initClickListeners() {
+    override fun inject() {
+        Injector.plusMatchListFeatureComponent(this).inject(this)
+    }
+
+    override fun subscribe(viewModel: MatchListViewModel) {
+        observe(viewModel.matchList, Observer {
+            pg.visibility = View.GONE
+            if (adapter == null) setAdapter(it)
+            else adapter?.updateList(it)
+        })
+        observe(viewModel.status, Observer {
+            when(it){
+                ARG_STATUS_GONE -> pg.visibility = View.GONE
+                ARG_STATUS_VISIBLE -> pg.visibility = View.VISIBLE
+                else -> pg.visibility = View.GONE
+            }
+        })
+    }
+
+    override fun initClickListeners() {
         ch_group_status.setOnCheckedChangeListener { group, checkedId ->
             pg.visibility = View.VISIBLE
-            viewModel?.getData(ch_group_match_type.checkedChipId, checkedId)
+            viewModel.getData(ch_group_match_type.checkedChipId, checkedId)
         }
         ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
             pg.visibility = View.VISIBLE
-            viewModel?.getData(checkedId, ch_group_status.checkedChipId)
+            viewModel.getData(checkedId, ch_group_status.checkedChipId)
         }
-    }
-
-    private fun initViewModel() {
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(MatchListViewModel::class.java)
-        }
-        this.viewModel = viewModel
-    }
-
-    private fun snackBar(text: String) {
-        Snackbar.make(
-            (activity as MainActivity).findViewById(android.R.id.content),
-            text,
-            Snackbar.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun initObservers() {
-        viewModel?.matchList?.observe(viewLifecycleOwner, Observer {
-            pg.visibility = View.GONE
-            if(adapter == null) setAdapter(it)
-            else adapter?.updateList(it)
-        })
-        viewModel?.error?.observe(viewLifecycleOwner, Observer {
-            pg.visibility = View.GONE
-            snackBar(it)
-        })
-        viewModel?.status?.observe(viewLifecycleOwner, Observer {
-            pg.visibility = it
-        })
+        setSearchListener()
     }
 
     private fun setAdapter(list: List<Any?>) {
         adapter = MatchListAdapter(list) { match ->
             val bundle = Bundle()
-            when(match){
+            when (match) {
                 is MatchSingle -> {
                     bundle.putInt("matchId", match.matchId ?: 0)
-                    view?.findNavController()?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
                 }
                 is MatchCommand -> {
                     bundle.putInt("matchId", match.matchId ?: 0)
-                    view?.findNavController()?.navigate(R.id.action_navigation_match_to_commandMatchFragment, bundle)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_navigation_match_to_commandMatchFragment, bundle)
                 }
             }
         }
         rv_match_list.adapter = adapter
+    }
+
+    private fun setSearchListener() {
+        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(s: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(s: String): Boolean {
+                Log.e("SUBMIT", "SUBMIT")
+                viewModel.getDataByCity(
+                    ch_group_match_type.checkedChipId,
+                    ch_group_status.checkedChipId,
+                    sv.query.toString()
+                )
+                return true
+            }
+        })
+        sv.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val searchPlate = sv.findViewById<EditText>(
+            sv.context.resources.getIdentifier(
+                "android:id/search_src_text",
+                null,
+                null
+            )
+        )
+        searchPlate.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                Log.e("onEditorAction", "onEditorAction")
+
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel.getDataByCity(
+                        ch_group_match_type.checkedChipId,
+                        ch_group_status.checkedChipId,
+                        sv.query.toString()
+                    )
+                    return true
+                }
+                return true
+            }
+
+        })
     }
 
     override fun onDestroy() {
@@ -118,5 +140,9 @@ class MatchListFragment : Fragment() {
         Injector.clearMatchListFeatureComponent()
     }
 
+    companion object{
+        const val ARG_STATUS_GONE = "Gone"
+        const val ARG_STATUS_VISIBLE = "Visible"
+    }
 
 }

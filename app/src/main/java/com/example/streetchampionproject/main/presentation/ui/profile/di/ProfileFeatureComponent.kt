@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.di
 
+import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.main.presentation.ui.profile.di.scope.ProfileFragmentScope
 import com.example.streetchampionproject.main.presentation.ui.profile.presentation.ProfileFragment
 import dagger.BindsInstance
@@ -18,6 +19,9 @@ interface ProfileFeatureComponent {
 
         @BindsInstance
         fun create(userId: Int): Builder
+
+        @BindsInstance
+        fun withFragment(fragment: Fragment): Builder
 
     }
 }

@@ -14,6 +14,12 @@ interface MatchSingleDao {
     @Query("SELECT * FROM match_single WHERE role = :role")
     fun getSingleMatch(role: String): Single<List<MatchSingleEntity>>
 
+    @Query("SELECT * FROM match_single WHERE role = :role AND matchCity = :city")
+    fun getSingleMatchByRoleAndCity(role: String, city: String): Single<List<MatchSingleEntity>>
+
+    @Query("SELECT * FROM match_single WHERE matchCity = :city")
+    fun getSingleMatchByCity(city: String): Single<List<MatchSingleEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setSingleMatchs(matchSingleEntity: List<MatchSingleEntity>)
 

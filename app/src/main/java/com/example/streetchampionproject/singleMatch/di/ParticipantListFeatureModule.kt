@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.singleMatch.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.singleMatch.data.ParticipantListRepositoryImpl
 import com.example.streetchampionproject.singleMatch.data.interfaces.ParticipantListRepository
@@ -19,12 +21,24 @@ class ParticipantListFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(ParticipantListViewModel::class)
-    fun provideParticipantListViewModel(participantListInteractor: ParticipantListInteractor, matchId: Int): ViewModel {
+    fun provideParticipantListViewModel(
+        participantListInteractor: ParticipantListInteractor,
+        matchId: Int
+    ): ViewModel {
         return ParticipantListViewModel(
             participantListInteractor,
             matchId
         )
     }
+
+    @ParticipantListScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): ParticipantListViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(ParticipantListViewModel::class.java)
+
 
     @ParticipantListScope
     @Provides

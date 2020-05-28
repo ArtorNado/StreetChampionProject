@@ -16,4 +16,20 @@ interface MatchListRepository {
 
     fun updateCommandMatchWithoutRole(): Single<List<Any?>>
 
+    fun getCommandMatchByCityLocal(city: String): Single<List<Any?>>
+
+    fun getCommandMatchByRoleAndCityLocal(role: String, city: String): Single<List<Any?>>
+
+    fun updateCommandMatchByCity(city: String): Single<List<Any?>>
+
+    fun updateCommandMatchByRoleAndCity(role: String, city: String): Single<List<Any?>>
+
+    fun getSingleMatchByCity(city: String): Single<List<Any?>>
+
+    fun getSingleMatchByRoleAndCity(role: String, city: String): Single<List<Any?>>
+
+    fun updateSingleMatchByCity(city: String): Single<List<Any?>>
+
+    fun updateSingleMatchByRoleAndCity(role: String, city: String): Single<List<Any?>>
+
 }

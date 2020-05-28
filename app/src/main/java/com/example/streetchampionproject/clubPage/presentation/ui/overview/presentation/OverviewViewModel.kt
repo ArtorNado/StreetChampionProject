@@ -20,7 +20,6 @@ class OverviewViewModel(
     private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val error: LiveData<String> = _error
 
-
     private fun getEndedCommandMatch(matchType: String) {
         compositeDisposable.add(
             overviewInteractor.getEndedCommandMatchLocal(matchType, teamId)
@@ -31,6 +30,7 @@ class OverviewViewModel(
                 },
                     { error ->
                         Log.e("ERROR_GET", error.toString())
+                        onError(error)
                         compositeDisposable.clear()
                     })
         )
@@ -45,6 +45,7 @@ class OverviewViewModel(
                 .subscribe({
                 },
                     { error ->
+                        onError(error)
                         Log.e("ERROR_UPDATE", error.toString())
                     })
         )

@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.overview.di
 
+import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.scope.OverviewScope
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.presentation.OverviewFragment
 import dagger.BindsInstance
@@ -13,6 +14,9 @@ interface OverviewFeatureComponent {
 
     @Subcomponent.Builder
     interface Builder {
+
+        @BindsInstance
+        fun withFragment(fragment: Fragment): Builder
 
         @BindsInstance
         fun create(teamId: Int): Builder
