@@ -41,7 +41,7 @@ class ClubPageFragment : BaseFragment<ClubPageViewModel>() {
 
     override fun subscribe(viewModel: ClubPageViewModel) {
         observe(viewModel.pgStatus, Observer {
-            when(it){
+            when (it) {
                 "visible" -> progress_bar.visibility = View.VISIBLE
                 "gone" -> progress_bar.visibility = View.GONE
             }
@@ -59,6 +59,9 @@ class ClubPageFragment : BaseFragment<ClubPageViewModel>() {
                     btn_notifications.visibility = View.VISIBLE
                 }
             }
+        })
+        observe(viewModel.applyButton, Observer {
+            if (it == "gone") btn_apply.visibility = View.GONE
         })
     }
 

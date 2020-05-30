@@ -10,5 +10,6 @@ enum class ResponseCode(val stringResource: Int) {
     JOIN_TEAM_ERROR(R.string.error_joining_in_team),
     MATCH_TYPE_ERROR(R.string.match_type_error),
     USER_NOT_ADMIN(R.string.create_not_enough_rights),
-    USER_ALREADY_HAVE_TEAM(R.string.already_have_team)
+    USER_ALREADY_HAVE_TEAM(R.string.already_have_team),
+    LOGIN_ALREADY_EXIST(R.string.already_have_team)
 }

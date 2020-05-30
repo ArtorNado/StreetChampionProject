@@ -1,21 +1,26 @@
 package com.example.streetchampionproject.registration.presentation
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.app.navigation.Navigator
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.streetchampionproject.common.domain.Exceptions
+import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.registration.data.model.User
 import com.example.streetchampionproject.registration.domain.interfaces.RegisterInteract
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class RegisterViewModel(
-    private val registerInteractor: RegisterInteract,
-    private val navigator: Navigator
-) : ViewModel() {
+    private val registerInteractor: RegisterInteract
+) : BaseViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
+    private val _error by lazy { MutableLiveData<Int>() }
+    val error: LiveData<Int> = _error
+
+    private val _goTo by lazy { MutableLiveData<String>() }
+    val goTo: LiveData<String> = _goTo
+
+    var userId = 0
 
     fun clickRegister(u: User, context: Context) {
         compositeDisposable.add(
@@ -23,17 +28,23 @@ class RegisterViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    Log.e("RESULT", result.toString())
-                    navigator.openLogin(context)
-
+                    userId = result.userId
+                    _goTo.value = "Go to main"
                 },
-                    { error -> Log.e("ERROR", error.toString()) })
+                    { error ->
+                        errorMessage(error)
+                    })
         )
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
+    private fun errorMessage(throwable: Throwable) {
+        if (throwable is Exceptions) {
+            when (throwable.kind) {
+                Exceptions.Kind.BUSINESS -> {
+                    _error.value = throwable.errorResponseCode?.stringResource
+                }
+            }
+        }
     }
 
 }

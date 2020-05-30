@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.login.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
@@ -21,12 +20,10 @@ class LoginFeatureModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     fun provideCountryListViewModel(
-        loginInteractor: LoginInteractor,
-        navigator: Navigator
+        loginInteractor: LoginInteractor
     ): ViewModel {
         return LoginViewModel(
-            loginInteractor,
-            navigator
+            loginInteractor
         )
     }
 

@@ -3,11 +3,13 @@ package com.example.streetchampionproject.login.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
+import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.sign_in.*
@@ -17,6 +19,9 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var localStorage: LocalStorage
+
+    @Inject
+    lateinit var navigator: Navigator
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -31,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         initObservers()
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         val viewModel by lazy {
             ViewModelProvider(
                 this,
@@ -41,36 +46,32 @@ class LoginActivity : AppCompatActivity() {
         this.viewModel = viewModel
     }
 
-    private fun initOnClickListeners(){
-        logInClick()
-        registrClick()
+    private fun initOnClickListeners() {
+        btn_register.setOnClickListener {
+            navigator.openRegister(this)
+        }
+        btn_logIn.setOnClickListener {
+            viewModel?.clickLogin(et_login.text.toString(), et_password.text.toString())
+        }
     }
 
-    fun initObservers(){
-
-        viewModel?.pgStatus?.observe(this, Observer {
-            pg_logIn.visibility = it
+    fun initObservers() {
+        viewModel?.goTo?.observe(this, Observer {
+            if (it == "Go to main") navigator.openMain(this, viewModel?.userId ?: 0)
         })
-
+        viewModel?.pgStatus?.observe(this, Observer {
+            when (it) {
+                "Visible" -> pg_logIn.visibility = View.VISIBLE
+                "Gone" -> pg_logIn.visibility = View.GONE
+            }
+        })
         viewModel?.error?.observe(this, Observer {
             Snackbar.make(
                 findViewById(android.R.id.content),
-                it,
+                getString(it),
                 Snackbar.LENGTH_SHORT
             ).show()
         })
-    }
-
-    private fun registrClick(){
-        btn_register.setOnClickListener {
-            viewModel?.clickRegistr(this)
-        }
-    }
-
-    private fun logInClick(){
-        btn_logIn.setOnClickListener {
-            viewModel?.clickLogin(et_login.text.toString(), et_password.text.toString(), this)
-        }
     }
 
     override fun onDestroy() {
@@ -78,8 +79,8 @@ class LoginActivity : AppCompatActivity() {
         Injector.clearLoginFeatureComponent()
     }
 
-    companion object{
-        fun start(context: Context){
+    companion object {
+        fun start(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
         }

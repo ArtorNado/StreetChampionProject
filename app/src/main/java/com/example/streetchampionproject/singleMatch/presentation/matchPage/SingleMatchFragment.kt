@@ -85,6 +85,8 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
         btn_apply.setOnClickListener {
             viewModel.joinInMatch()
         }
+        btn_end.setOnClickListener {
+        }
     }
 
     override fun onDestroy() {

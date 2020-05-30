@@ -27,6 +27,7 @@ class OverviewRepositoryImpl @Inject constructor(
 
     override fun updateEndedMatchList(teamId: Int): Completable =
         streetChampionService.getEndedCommandMatches(teamId)
+            .doOnSuccess { commandMatchDao.clear() }
             .map { setEndedCommandMatchLocal(mapEndedRemoteToEntity(it)) }
             .ignoreElement()
 
@@ -36,6 +37,7 @@ class OverviewRepositoryImpl @Inject constructor(
 
     override fun updateFeatureMatchList(teamId: Int): Completable =
         streetChampionService.getFeatureCommandMatches(teamId)
+            .doOnSuccess { commandMatchDao.clear() }
             .map { setFeatureCommandMatchLocal(mapMatchRemoteToEntity(it, "Undefined")) }
             .ignoreElement()
 

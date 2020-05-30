@@ -19,6 +19,21 @@ fun mapTeamsEntityToTeams(teamsEntity: List<TeamsEntity>): List<Teams> {
     return list
 }
 
+fun mapTeamsRemoteToTeams(teamsRemote: List<TeamsRemote>): List<Teams> {
+    val list = ArrayList<Teams>()
+    teamsRemote.forEach {
+        list.add(
+            Teams(
+                it.teamId,
+                it.teamName,
+                it.teamCity,
+                it.creatorId
+            )
+        )
+    }
+    return list
+}
+
 fun mapTeamsRemoteToTeamsEntity(teamsRemote: List<TeamsRemote>): List<TeamsEntity> {
     val list = ArrayList<TeamsEntity>()
     teamsRemote.forEach {

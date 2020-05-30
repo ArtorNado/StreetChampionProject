@@ -78,6 +78,7 @@ class ClubListViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    _clubList.value = it
                 },
                     { error ->
                         onError(error)

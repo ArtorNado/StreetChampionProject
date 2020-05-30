@@ -5,10 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
+import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.registration.data.model.User
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.registration.*
 import javax.inject.Inject
 
@@ -16,6 +19,10 @@ class RegisterActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var navigator: Navigator
+
     private var viewModel: RegisterViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.registration)
         Injector.plusRegiserFeatureComponent().inject(this)
         initViewModel()
+        initObservers()
         initClickListeners()
         initComponents()
     }
@@ -52,6 +60,19 @@ class RegisterActivity : AppCompatActivity() {
                 this
             )
         }
+    }
+
+    private fun initObservers() {
+        viewModel?.error?.observe(this, Observer {
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                getString(it),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        })
+        viewModel?.goTo?.observe(this, Observer {
+            if (it == "Go to main") navigator.openMain(this, viewModel?.userId ?: 0)
+        })
     }
 
     private fun initComponents() {

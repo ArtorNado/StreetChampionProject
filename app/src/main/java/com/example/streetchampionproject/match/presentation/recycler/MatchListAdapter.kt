@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.match.presentation.recycler
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,7 +30,6 @@ class MatchListAdapter(
     }
 
     fun updateList(newList: List<Any?>) {
-        Log.e("UPDATE", "UPDATE")
         DiffUtil.calculateDiff(
             com.example.streetchampionproject.common.presentation.diff.DiffUtil(
                 this.dataSet,

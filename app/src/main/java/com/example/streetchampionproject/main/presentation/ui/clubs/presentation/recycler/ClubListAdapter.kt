@@ -19,11 +19,6 @@ class ClubListAdapter(
         holder.bind(teams[position])
     }
 
-    override fun submitList(list: MutableList<Teams>?) {
-        super.submitList(list)
-        this.teams = list!!
-    }
-
     fun updateList(newList: List<Teams>) {
         DiffUtil.calculateDiff(
             com.example.streetchampionproject.common.presentation.diff.DiffUtil(

@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.match.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +38,7 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
         super.onResume()
         ch_group_match_type.clearCheck()
         ch_group_status.clearCheck()
+        chipChanged()
         if (adapter != null) setAdapter(viewModel.matchList.value!!)
     }
 
@@ -48,7 +48,6 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
 
     override fun subscribe(viewModel: MatchListViewModel) {
         observe(viewModel.matchList, Observer {
-            pg.visibility = View.GONE
             if (adapter == null) setAdapter(it)
             else adapter?.updateList(it)
         })
@@ -62,15 +61,16 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
     }
 
     override fun initClickListeners() {
+        setSearchListener()
+    }
+
+    private fun chipChanged(){
         ch_group_status.setOnCheckedChangeListener { group, checkedId ->
-            pg.visibility = View.VISIBLE
             viewModel.getData(ch_group_match_type.checkedChipId, checkedId)
         }
         ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
-            pg.visibility = View.VISIBLE
             viewModel.getData(checkedId, ch_group_status.checkedChipId)
         }
-        setSearchListener()
     }
 
     private fun setAdapter(list: List<Any?>) {
@@ -100,7 +100,6 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
             }
 
             override fun onQueryTextSubmit(s: String): Boolean {
-                Log.e("SUBMIT", "SUBMIT")
                 viewModel.getDataByCity(
                     ch_group_match_type.checkedChipId,
                     ch_group_status.checkedChipId,
@@ -119,8 +118,6 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
         )
         searchPlate.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
-                Log.e("onEditorAction", "onEditorAction")
-
                 if (p1 == EditorInfo.IME_ACTION_SEARCH) {
                     viewModel.getDataByCity(
                         ch_group_match_type.checkedChipId,

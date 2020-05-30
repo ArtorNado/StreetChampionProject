@@ -84,6 +84,17 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
                 dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
             }
         }
+       /* btn_end.setOnClickListener {
+            val dialogg = MaterialDatePicker.Builder.datePicker().setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
+                .setTheme(MaterialDatePicker.INPUT_MODE_TEXT)
+            val dialog = dialogg.build()
+            dialog.setTargetFragment(this, 1)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                dialog.show((activity as MainActivity).supportFragmentManager, ARG_DIALOG_TAG)
+            } else {
+                dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
+            }
+        }*/
         btn_apply.setOnClickListener {
             viewModel.joinCommandMatch()
         }

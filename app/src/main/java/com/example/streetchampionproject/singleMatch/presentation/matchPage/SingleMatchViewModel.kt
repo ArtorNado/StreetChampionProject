@@ -97,8 +97,8 @@ class SingleMatchViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    val upTeam = _team.value
-                    upTeam?.numberParticipant = upTeam?.numberParticipant?.plus(1) ?: 0
+                    /*val upTeam = _team.value
+                    upTeam?.numberParticipant = upTeam?.numberParticipant?.plus(1) ?: 0*/
                     _team.value = team.value
                     _userStatus.value = "Participant"
                 },
@@ -108,4 +108,8 @@ class SingleMatchViewModel(
                     })
         )
     }
+
+    /*fun endMatch(){
+
+    }*/
 }

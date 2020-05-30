@@ -13,30 +13,44 @@ class CreateMatchViewModel(
     private val createMatchInteractor: CreateMatchInteractor
 ) : BaseViewModel() {
 
-    private val _event: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    val event: LiveData<String> = _event
+    private val _status: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val status: LiveData<String> = _status
+
+    private val _goTo: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val goTo: LiveData<String> = _goTo
+
 
     fun createCommandMatch(createCommandMatch: CreateCommandMatch) {
+        _status.value = ARG_STATUS_VISIBLE
         compositeDisposable.add(
             createMatchInteractor.createCommandMatch(createCommandMatch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    _status.value = ARG_STATUS_GONE
+                    onNotification("Матч создан")
+                    _goTo.value = "Go back"
                 },
                     {error ->
+                        _status.value = ARG_STATUS_GONE
                         onError(error)
                     })
         )
     }
 
     fun createSingleMatch(createSingleMatch: CreateSingleMatch) {
+        _status.value = ARG_STATUS_VISIBLE
         compositeDisposable.add(
             createMatchInteractor.createSingleMatch(createSingleMatch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    _status.value = ARG_STATUS_GONE
+                    onNotification("Матч создан")
+                    _goTo.value = "Go back"
                 },
                     { error ->
+                        _status.value = ARG_STATUS_GONE
                         onError(error)
                     })
         )
@@ -48,13 +62,18 @@ class CreateMatchViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result.status != "Admin") _event.value = "Go back"
+                    if (result.status != "Admin") _goTo.value = "Go back"
                 },
                     { error ->
-                        _event.value = "Go back"
+                        _goTo.value = "Go back"
                         onError(error)
                     })
         )
+    }
+
+    companion object {
+        const val ARG_STATUS_GONE = "Gone"
+        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }

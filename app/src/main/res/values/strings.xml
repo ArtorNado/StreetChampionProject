@@ -6,7 +6,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="mtrl_picker_text_input_date_hint" description="Label for a single date selected by the user [CHAR_LIMIT=60]">Date</string>
     <string name="invalid_log_pas">Неверный логин или пароль</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="internet_connection">Ошибка интернет соединения</string>
@@ -15,4 +14,6 @@
     <string name="match_type_error">Выберите тип матча</string>
     <string name="create_not_enough_rights">Только админ команды может создавать матч</string>
     <string name="already_have_team">Пользователь уже состоит в команде</string>
+    <string name="login_exist">Данный логин занят</string>
+    <string name="mtrl_picker_text_input_date_hint" description="Label for a single date selected by the user [CHAR_LIMIT=60]">Date</string>
 </resources>

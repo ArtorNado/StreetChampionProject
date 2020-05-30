@@ -8,6 +8,7 @@ import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.domain.ResponseCode
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.interfaces.ClubListRepository
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsEntityToTeams
+import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsRemoteToTeams
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsRemoteToTeamsEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -24,7 +25,7 @@ class ClubListRepositoryImpl @Inject constructor(
     override fun getTeamsLocal(): Observable<List<Teams>> = teamsDao.getAllTeams()
         .map { mapTeamsEntityToTeams(it) }
 
-    override fun getTeamsByCityLocal(city: String): Observable<List<Teams>> =
+    override fun getTeamsByCityLocal(city: String): Single<List<Teams>> =
         teamsDao.getTeamsByCity(city).map { mapTeamsEntityToTeams(it) }
 
     override fun updateTeams(): Completable =
@@ -38,9 +39,9 @@ class ClubListRepositoryImpl @Inject constructor(
             }
             .ignoreElement()
 
-    override fun updateTeamsByCity(city: String): Completable =
+    override fun updateTeamsByCity(city: String): Single<List<Teams>> =
         streetChampionService.getTeamsByCity(city)
-            .map { setTeamsLocal(mapTeamsRemoteToTeamsEntity(it)) }
+            .map { mapTeamsRemoteToTeams(it) }
             .onErrorResumeNext { error ->
                 when(error){
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
@@ -48,7 +49,6 @@ class ClubListRepositoryImpl @Inject constructor(
                     else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
                 }
             }
-            .ignoreElement()
 
     private fun setTeamsLocal(teamsEntity: List<TeamsEntity>){
         teamsDao.clear()

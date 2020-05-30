@@ -5,6 +5,7 @@ import com.example.streetchampionproject.main.presentation.ui.clubs.data.interfa
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class ClubListInteractorImpl @Inject constructor(
@@ -13,16 +14,15 @@ class ClubListInteractorImpl @Inject constructor(
 
     override fun getAllTeams(): Observable<List<Teams>> = clubListRepository.getTeamsLocal()
 
-
-    override fun getTeamsByCity(city: String): Observable<List<Teams>> {
-        if (city.isEmpty()) return Observable.error(IllegalArgumentException("Empty query"))
+    override fun getTeamsByCity(city: String): Single<List<Teams>> {
+        if (city.isEmpty()) return Single.error(IllegalArgumentException("Empty query"))
         return clubListRepository.getTeamsByCityLocal(city)
     }
 
     override fun updateTeamsList(): Completable =
         clubListRepository.updateTeams()
 
-    override fun updateTeamsListByCity(city: String): Completable =
+    override fun updateTeamsListByCity(city: String): Single<List<Teams>> =
         clubListRepository.updateTeamsByCity(city)
 
 }
