@@ -14,10 +14,8 @@ class ClubListInteractorImpl @Inject constructor(
 
     override fun getAllTeams(): Observable<List<Teams>> = clubListRepository.getTeamsLocal()
 
-    override fun getTeamsByCity(city: String): Single<List<Teams>> {
-        if (city.isEmpty()) return Single.error(IllegalArgumentException("Empty query"))
-        return clubListRepository.getTeamsByCityLocal(city)
-    }
+    override fun getTeamsByCity(city: String): Single<List<Teams>> =
+        clubListRepository.getTeamsByCityLocal(city)
 
     override fun updateTeamsList(): Completable =
         clubListRepository.updateTeams()

@@ -22,8 +22,10 @@
     </style>
 
     <style name="SearchViewStyle" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:editTextColor">@color/colorPink</item>
+        <item name="android:editTextColor">@color/colorPurpleDark</item>
         <item name="android:textColorHint">@color/colorPink</item>
+        <item name="android:textColor">@color/colorPurpleDark</item>
+        <item name="closeIcon">@drawable/ic_close_black_24dp</item>
     </style>
 
 </resources>

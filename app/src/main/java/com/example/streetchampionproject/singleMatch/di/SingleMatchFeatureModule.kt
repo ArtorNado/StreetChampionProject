@@ -49,4 +49,5 @@ class SingleMatchFeatureModule {
     @Provides
     fun provideSingleMatchRepository(singleMatchRepository: SingleMatchRepositoryImpl): SingleMatchRepository =
         singleMatchRepository
+
 }

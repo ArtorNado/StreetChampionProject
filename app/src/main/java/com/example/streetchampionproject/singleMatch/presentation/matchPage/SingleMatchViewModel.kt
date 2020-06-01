@@ -1,9 +1,9 @@
 package com.example.streetchampionproject.singleMatch.presentation.matchPage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.MatchSingleDetailInfo
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.singleMatch.domain.interfaces.SingleMatchInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,25 +25,33 @@ class SingleMatchViewModel(
     private val _updateStatus: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val updateStatus: LiveData<Boolean> = _updateStatus
 
+    private val _goTo: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val goTo: LiveData<String> = _goTo
+
+    private val _pgStatus: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val pgStatus: LiveData<String> = _pgStatus
+
     init {
         getMatchData()
         getUserStatusInMatch()
     }
 
     private fun getMatchData() {
-        compositeDisposable.add(singleMatchInteractor.getSingleMatch(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    Log.e("RESULT_SINGLE_IND", result.toString())
-                    _team.value = result
-                },
-                { error ->
-                    Log.e("ERROR_SINGLE_IND", error.toString())
-                    onError(error)
-                }
-            )
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
+        compositeDisposable.add(
+            singleMatchInteractor.getSingleMatch(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result ->
+                        _team.value = result
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
+                    },
+                    { error ->
+                        onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
+                    }
+                )
         )
     }
 
@@ -57,7 +65,7 @@ class SingleMatchViewModel(
                 },
                     { error ->
                         _updateStatus.value = true
-                        Log.e("ERROR_UPDATE_IND", error.toString())
+                        onError(error)
                     })
         )
     }
@@ -71,7 +79,6 @@ class SingleMatchViewModel(
                     _userStatus.value = result.status
                 },
                     { error ->
-                        Log.e("GEET_USR_ST", error.toString())
                         onError(error)
                     })
         )
@@ -85,31 +92,43 @@ class SingleMatchViewModel(
                 .subscribe({
                 },
                     { error ->
-                        Log.e("UPD_USR_ST", error.toString())
                         onError(error)
                     })
         )
     }
 
     fun joinInMatch() {
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             singleMatchInteractor.joinInMatch(team.value)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    /*val upTeam = _team.value
-                    upTeam?.numberParticipant = upTeam?.numberParticipant?.plus(1) ?: 0*/
-                    _team.value = team.value
                     _userStatus.value = "Participant"
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        Log.e("JOIN_TEAM_ERROR", error.toString())
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                         onError(error)
                     })
         )
     }
 
-    /*fun endMatch(){
+    fun endMatch() {
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
+        compositeDisposable.add(
+            singleMatchInteractor.endSingleMatch(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _goTo.value = CONSTANTS.ACTION.EVENT_GO_BACK
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
+                },
+                    { error ->
+                        onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
+                    })
+        )
+    }
 
-    }*/
 }

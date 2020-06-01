@@ -15,24 +15,24 @@ class MatchListViewModel(
     private val _matchList: MutableLiveData<List<Any?>> by lazy { MutableLiveData<List<Any?>>() }
     val matchList: LiveData<List<Any?>> = _matchList
 
-    private val _status: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    val status: LiveData<String> = _status
+    private val _pgStatus: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val pgStatus: LiveData<String> = _pgStatus
 
     private var searchCity: String = "Undefined"
+    var chMatchType: Int? = null
+    var chStatus: Int? = null
+    var backStatus = true
 
     private fun getMatchList(matchType: String, role: String) {
-        _status.value = ARG_STATUS_VISIBLE
         compositeDisposable.add(
             matchListInteractor.getMatchList(matchType, role, searchCity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    _status.value = ARG_STATUS_GONE
                     _matchList.value = result
                 },
                     { error ->
                         compositeDisposable.clear()
-                        _status.value = ARG_STATUS_GONE
                         onError(error)
                     })
         )
@@ -40,26 +40,38 @@ class MatchListViewModel(
     }
 
     private fun updateMatchList(matchType: String, role: String) {
+        _pgStatus.value = ARG_STATUS_VISIBLE
         compositeDisposable.add(
             matchListInteractor.updateMatchList(matchType, role, searchCity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
+                    _pgStatus.value = ARG_STATUS_GONE
                     _matchList.value = result
                 },
                     { error ->
-                       onError(error)
+                        _pgStatus.value = ARG_STATUS_GONE
+                        onError(error)
                     })
         )
     }
 
     fun getData(matchType: Int, status: Int) {
+        chMatchType = matchType
+        chStatus = status
         val match = determineMatchType(matchType)
         val role = determineStatus(status)
         updateMatchList(match, role)
     }
 
+    fun getDataAfterBackState(){
+        getDataByCity(chMatchType?:0, chStatus?:0, searchCity)
+        backStatus = true
+    }
+
     fun getDataByCity(matchType: Int, status: Int, city: String){
+        chMatchType = matchType
+        chStatus = status
         val match = determineMatchType(matchType)
         val role = determineStatus(status)
         if(city == "") this.searchCity = "Undefined"

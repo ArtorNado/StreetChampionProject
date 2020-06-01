@@ -32,7 +32,7 @@ class ClubListRepositoryImpl @Inject constructor(
         streetChampionService.getTeams()
             .map { setTeamsLocal(mapTeamsRemoteToTeamsEntity(it)) }
             .onErrorResumeNext { error ->
-                when(error){
+                when (error) {
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
                     else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
                 }
@@ -43,14 +43,14 @@ class ClubListRepositoryImpl @Inject constructor(
         streetChampionService.getTeamsByCity(city)
             .map { mapTeamsRemoteToTeams(it) }
             .onErrorResumeNext { error ->
-                when(error){
+                when (error) {
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
                     is HttpException -> Single.error(Exceptions.error(ResponseCode.CITY_NOT_FOUND))
                     else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
                 }
             }
 
-    private fun setTeamsLocal(teamsEntity: List<TeamsEntity>){
+    private fun setTeamsLocal(teamsEntity: List<TeamsEntity>) {
         teamsDao.clear()
         teamsDao.setTeams(teamsEntity)
     }

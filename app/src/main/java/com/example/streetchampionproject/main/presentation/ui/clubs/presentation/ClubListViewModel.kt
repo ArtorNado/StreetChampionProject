@@ -1,18 +1,15 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Teams
-import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.main.presentation.ui.clubs.domain.interfaces.ClubListInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class ClubListViewModel(
-    private val clubListInteractor: ClubListInteractor,
-    private val navigator: Navigator
+    private val clubListInteractor: ClubListInteractor
 ) : BaseViewModel() {
 
     private val _clubList by lazy { MutableLiveData<List<Teams>>() }
@@ -26,10 +23,10 @@ class ClubListViewModel(
 
     init {
         getData()
+        updateTeams()
     }
 
     private fun getData() {
-        updateTeams()
         compositeDisposable.add(
             clubListInteractor.getAllTeams()
                 .subscribeOn(Schedulers.io())
@@ -44,19 +41,21 @@ class ClubListViewModel(
     }
 
     fun getTeamsByCity(city: String) {
-        updateTeamsByCity(city)
-        compositeDisposable.add(
-            clubListInteractor.getTeamsByCity(city)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    _clubList.value = result
-                },
-                    { error ->
-                        Log.e("ERROR11", error.toString())
-                        onError(error)
-                    })
-        )
+        if (city.isEmpty()) updateTeams()
+        else {
+            updateTeamsByCity(city)
+            compositeDisposable.add(
+                clubListInteractor.getTeamsByCity(city)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ result ->
+                        _clubList.value = result
+                    },
+                        { error ->
+                            onError(error)
+                        })
+            )
+        }
     }
 
     private fun updateTeams() {
@@ -66,7 +65,7 @@ class ClubListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                 },
-                    {error ->
+                    { error ->
                         onError(error)
                     })
         )
@@ -84,11 +83,6 @@ class ClubListViewModel(
                         onError(error)
                     })
         )
-    }
-
-    companion object {
-        private const val EMPTY_FIELD = "Enter the city name"
-        private const val CITY_NOT_FOUND = "City not found"
     }
 
 }

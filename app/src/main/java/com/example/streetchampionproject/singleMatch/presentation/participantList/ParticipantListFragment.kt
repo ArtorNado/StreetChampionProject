@@ -27,7 +27,7 @@ class ParticipantListFragment : BaseFragment<ParticipantListViewModel>() {
     override fun inject() {
         bundle = this.arguments
         matchId = bundle?.getInt("matchId")
-        Injector.plusParticipantListFeatureComponent(matchId?: 0, this).inject(this)
+        Injector.plusParticipantListFeatureComponent(matchId ?: 0, this).inject(this)
     }
 
     override fun initClickListeners() {

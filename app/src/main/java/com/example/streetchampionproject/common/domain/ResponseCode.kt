@@ -11,5 +11,6 @@ enum class ResponseCode(val stringResource: Int) {
     MATCH_TYPE_ERROR(R.string.match_type_error),
     USER_NOT_ADMIN(R.string.create_not_enough_rights),
     USER_ALREADY_HAVE_TEAM(R.string.already_have_team),
-    LOGIN_ALREADY_EXIST(R.string.already_have_team)
+    LOGIN_ALREADY_EXIST(R.string.already_have_team),
+    MAX_PLAYERS(R.string.max_players)
 }

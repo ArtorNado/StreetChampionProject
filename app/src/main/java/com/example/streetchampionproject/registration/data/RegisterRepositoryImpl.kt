@@ -4,7 +4,6 @@ import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.domain.ResponseCode
-import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.example.streetchampionproject.registration.data.interfaces.RegisterRepository
 import com.example.streetchampionproject.registration.data.model.User
 import io.reactivex.Single
@@ -13,8 +12,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class RegisterRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
-    private val localStorage: LocalStorage
+    private val streetChampionService: StreetChampionService
 ) : RegisterRepository {
 
     override fun registration(u: User): Single<StreetChampionResponse> =

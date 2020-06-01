@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.singleMatch.presentation.participantList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Participants
@@ -33,7 +32,7 @@ class ParticipantListViewModel(
                     _participants.value = result
                 },
                     { error ->
-                        Log.e("PART_LIST", "ERROR")
+                        onError(error)
                     })
         )
     }
@@ -46,7 +45,7 @@ class ParticipantListViewModel(
                 .subscribe({
                 },
                     { error ->
-                        Log.e("UPDATE_PART_LIST", "ERROR")
+                        onError(error)
                     })
         )
     }

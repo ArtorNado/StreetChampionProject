@@ -28,26 +28,31 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     override fun inject() {
         bundle = this.arguments
-        if(bundle?.getInt("id") == null)  userId = activity?.intent?.extras?.getInt("id") ?: 0
-        else{
+        if (bundle?.getInt("id") == null) userId = activity?.intent?.extras?.getInt("id") ?: 0
+        else {
             userId = bundle?.getInt("id")
             tb = true
         }
-        Injector.plusProfileFeatureComponent(userId?:0, this)
+        Injector.plusProfileFeatureComponent(userId ?: 0, this)
             .inject(this)
         bundle?.remove("id")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(tb) initToolbar(view)
+        if (tb) initToolbar(view)
     }
 
     override fun initClickListeners() {
         tv_club_name.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("teamId", teamId ?: 0)
-            findNavController().navigate(R.id.action_navigation_home_to_clubPageFragment, bundle)
+            if (teamId != null) {
+                val bundle = Bundle()
+                bundle.putInt("teamId", teamId ?: 0)
+                findNavController().navigate(
+                    R.id.action_navigation_home_to_clubPageFragment,
+                    bundle
+                )
+            }
         }
         toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -69,6 +74,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
     }
 
     private fun initToolbar(view: View) {
+        toolbar.visibility = View.VISIBLE
         toolbar.navigationIcon =
             ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }

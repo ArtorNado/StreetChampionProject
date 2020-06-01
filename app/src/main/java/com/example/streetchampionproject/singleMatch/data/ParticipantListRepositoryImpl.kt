@@ -20,10 +20,12 @@ class ParticipantListRepositoryImpl @Inject constructor(
         participantsDao.getParticipants(matchId)
             .map { mapParticipantsEntityToUserParticipants(it) }
 
-    override fun updateParticipants(matchId: Int): Completable =
-        streetChampionService.getParticipants(matchId)
-            .map { setParticipantsLocal(mapParticipantsRemoteToPartEntity(it, matchId)) }
+    override fun updateParticipants(matchId: Int): Completable {
+        return streetChampionService.getParticipants(matchId)
+            .map {
+                setParticipantsLocal(mapParticipantsRemoteToPartEntity(it, matchId)) }
             .ignoreElement()
+    }
 
     private fun setParticipantsLocal(participantsEntity: List<ParticipantsEntity>) {
         participantsDao.setParticipants(participantsEntity)

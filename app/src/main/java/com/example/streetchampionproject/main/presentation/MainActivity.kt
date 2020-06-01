@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.streetchampionproject.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -17,14 +16,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-
+/*
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_match, R.id.navigation_clubs,
                 R.id.navigation_create
             )
-        )
-        navView.setupWithNavController(navController)
+        )*/
+        /*navView.setOnNavigationItemReselectedListener {
+        }*/
+        NavigationUI.setupWithNavController(navView, navController)
     }
 
     companion object {

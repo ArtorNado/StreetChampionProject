@@ -14,6 +14,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.commandMatch.presentation.ui.EndMatchDialogFragment
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.main.presentation.MainActivity
 import kotlinx.android.synthetic.main.command_match_fragment.*
 
@@ -50,8 +51,15 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
         })
         observe(viewModel.events, Observer {
             when (it) {
-                EVENT_GO_BACK ->
+                CONSTANTS.ACTION.EVENT_GO_BACK ->
                     findNavController().popBackStack()
+            }
+        })
+        observe(viewModel.pgStatus, Observer {
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                else -> View.GONE
             }
         })
     }
@@ -66,35 +74,32 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
         when (requestCode) {
             1 -> {
                 if (resultCode == Activity.RESULT_OK)
-                    viewModel.endCommandMatch(
-                        data?.extras?.get("first").toString().toInt() ?: 0,
-                        data?.extras?.get("second").toString().toInt() ?: 0
-                    )
+                    try {
+                        viewModel.endCommandMatch(
+                            data?.extras?.get("first").toString().toInt(),
+                            data?.extras?.get("second").toString().toInt()
+                        )
+                    } catch (ex: NumberFormatException) {
+                        snackBar("Проверьте введенные данные")
+                    }
             }
         }
     }
 
     override fun initClickListeners() {
         btn_end.setOnClickListener {
-            val dialog = EndMatchDialogFragment.newInstance()
-            dialog.setTargetFragment(this, 1)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                dialog.show((activity as MainActivity).supportFragmentManager, ARG_DIALOG_TAG)
+            if (viewModel.match.value?.secondTeamId != 0) {
+                val dialog = EndMatchDialogFragment.newInstance()
+                dialog.setTargetFragment(this, 1)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    dialog.show((activity as MainActivity).supportFragmentManager, ARG_DIALOG_TAG)
+                } else {
+                    dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
+                }
             } else {
-                dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
+                viewModel.endCommandMatch(0, 0)
             }
         }
-       /* btn_end.setOnClickListener {
-            val dialogg = MaterialDatePicker.Builder.datePicker().setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
-                .setTheme(MaterialDatePicker.INPUT_MODE_TEXT)
-            val dialog = dialogg.build()
-            dialog.setTargetFragment(this, 1)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                dialog.show((activity as MainActivity).supportFragmentManager, ARG_DIALOG_TAG)
-            } else {
-                dialog.show(fragmentManager!!, ARG_DIALOG_TAG)
-            }
-        }*/
         btn_apply.setOnClickListener {
             viewModel.joinCommandMatch()
         }
@@ -114,7 +119,6 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
     }
 
     companion object {
-        private const val EVENT_GO_BACK = "Go back"
         private const val ARG_DIALOG_TAG = "Dialog"
         private const val ARG_ADMIN_MATCH = "Admin match"
         private const val ARG_ADMIN_TEAM = "Admin another team"

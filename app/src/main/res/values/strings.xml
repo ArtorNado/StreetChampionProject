@@ -16,4 +16,5 @@
     <string name="already_have_team">Пользователь уже состоит в команде</string>
     <string name="login_exist">Данный логин занят</string>
     <string name="mtrl_picker_text_input_date_hint" description="Label for a single date selected by the user [CHAR_LIMIT=60]">Date</string>
+    <string name="max_players">Максимальное количество игроков</string>
 </resources>

@@ -27,8 +27,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateSingleMatchListWithRole(role: String): Single<List<Any?>> =
         streetChampionService.getSingleMatchByRole(userId, role)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchSingleRemoteToMatchSingle(it) }
 
@@ -36,8 +35,7 @@ class MatchListRepositoryImpl @Inject constructor(
         streetChampionService.getMatchSingle()
             .doOnSuccess { setSingleMatchLocal(it) }
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchSingleRemoteToMatchSingle(it) }
 
@@ -63,8 +61,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateCommandMatchWithRole(role: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByRole(userId, role)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
 
@@ -73,8 +70,7 @@ class MatchListRepositoryImpl @Inject constructor(
         streetChampionService.getCommandMatch()
             .doOnSuccess { setCommandMatchLocal(it) }
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
 
@@ -89,16 +85,14 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateCommandMatchByCity(city: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByCity(city)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
 
     override fun updateCommandMatchByRoleAndCity(role: String, city: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByRoleAndCity(userId, role, city)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
 
@@ -113,8 +107,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateSingleMatchByCity(city: String): Single<List<Any?>> =
         streetChampionService.getSingleMatchByCity(city)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchSingleRemoteToMatchSingle(it) }
 
@@ -124,8 +117,7 @@ class MatchListRepositoryImpl @Inject constructor(
     ): Single<List<Any?>> =
         streetChampionService.getSingleMatchByRoleAndCity(userId, role, city)
             .onErrorResumeNext { error ->
-                if (error is Exceptions) Single.error(onError(error))
-                else Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                Single.error(onError(error))
             }
             .map { mapMatchSingleRemoteToMatchSingle(it) }
 

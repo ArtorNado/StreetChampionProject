@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.SearchView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -36,9 +35,10 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        ch_group_match_type.clearCheck()
-        ch_group_status.clearCheck()
         chipChanged()
+        if (viewModel.chMatchType != null || viewModel.chStatus != null) {
+            viewModel.getDataAfterBackState()
+        }
         if (adapter != null) setAdapter(viewModel.matchList.value!!)
     }
 
@@ -51,8 +51,8 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
             if (adapter == null) setAdapter(it)
             else adapter?.updateList(it)
         })
-        observe(viewModel.status, Observer {
-            when(it){
+        observe(viewModel.pgStatus, Observer {
+            when (it) {
                 ARG_STATUS_GONE -> pg.visibility = View.GONE
                 ARG_STATUS_VISIBLE -> pg.visibility = View.VISIBLE
                 else -> pg.visibility = View.GONE
@@ -64,12 +64,16 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
         setSearchListener()
     }
 
-    private fun chipChanged(){
+    private fun chipChanged() {
         ch_group_status.setOnCheckedChangeListener { group, checkedId ->
-            viewModel.getData(ch_group_match_type.checkedChipId, checkedId)
+            if (viewModel.backStatus) {
+                viewModel.getData(ch_group_match_type.checkedChipId, checkedId)
+            }
         }
         ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
-            viewModel.getData(checkedId, ch_group_status.checkedChipId)
+            if (viewModel.backStatus) {
+                viewModel.getData(checkedId, ch_group_status.checkedChipId)
+            }
         }
     }
 
@@ -78,12 +82,12 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
             val bundle = Bundle()
             when (match) {
                 is MatchSingle -> {
-                    bundle.putInt("matchId", match.matchId ?: 0)
+                    bundle.putInt("matchId", match.matchId)
                     view?.findNavController()
                         ?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
                 }
                 is MatchCommand -> {
-                    bundle.putInt("matchId", match.matchId ?: 0)
+                    bundle.putInt("matchId", match.matchId)
                     view?.findNavController()
                         ?.navigate(R.id.action_navigation_match_to_commandMatchFragment, bundle)
                 }
@@ -93,21 +97,6 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
     }
 
     private fun setSearchListener() {
-        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-            override fun onQueryTextChange(s: String): Boolean {
-                return true
-            }
-
-            override fun onQueryTextSubmit(s: String): Boolean {
-                viewModel.getDataByCity(
-                    ch_group_match_type.checkedChipId,
-                    ch_group_status.checkedChipId,
-                    sv.query.toString()
-                )
-                return true
-            }
-        })
         sv.context.resources.getIdentifier("android:id/search_src_text", null, null)
         val searchPlate = sv.findViewById<EditText>(
             sv.context.resources.getIdentifier(
@@ -132,12 +121,17 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.backStatus = false
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         Injector.clearMatchListFeatureComponent()
     }
 
-    companion object{
+    companion object {
         const val ARG_STATUS_GONE = "Gone"
         const val ARG_STATUS_VISIBLE = "Visible"
     }

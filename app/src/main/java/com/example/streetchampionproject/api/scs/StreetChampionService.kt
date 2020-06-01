@@ -226,5 +226,11 @@ interface StreetChampionService {
     ):
             Single<List<MatchSingleRemote>>
 
+    @POST("endSingleMatch/{id}")
+    fun endSingleMatch(
+        @Path("id") id: Int
+    ):
+           Completable
+
 
 }

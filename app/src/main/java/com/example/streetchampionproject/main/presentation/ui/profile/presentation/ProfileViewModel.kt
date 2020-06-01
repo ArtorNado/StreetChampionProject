@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.main.presentation.ui.profile.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.UserData
@@ -26,7 +25,6 @@ class ProfileViewModel(
     }
 
     private fun getUserData() {
-        Log.e("USUUSUSUS", userId.toString())
         compositeDisposable.add(
             profileInteractor.getUserData(userId)
                 .subscribeOn(Schedulers.io())

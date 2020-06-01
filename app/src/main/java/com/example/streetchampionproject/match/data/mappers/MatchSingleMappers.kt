@@ -33,8 +33,8 @@ fun mapMatchSingleRemoteToMatchSingleEntity(
                 it.date,
                 it.time,
                 it.creatorId,
-                it.currentNumberParticipant,
                 it.numberParticipant,
+                it.currentNumberParticipant,
                 it.description ?: "Without description",
                 it.matchCity ?: "Undefined",
                 role
