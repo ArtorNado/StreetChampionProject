@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : BaseFragment<ProfileViewModel>() {
@@ -69,6 +70,13 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
                 tv_user_gender.text = userGender
                 tv_city_name.text = userCity
                 tv_club_name.text = teamName
+            }
+        })
+        observe(viewModel.pgStatus, Observer {
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                else -> View.GONE
             }
         })
     }

@@ -323,4 +323,20 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <com.comix.overwatch.HiveProgressView
+        android:id="@+id/progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:hive_animDuration="1000"
+        app:hive_color="@color/colorPink"
+        app:hive_cornerRadius="20"
+        app:hive_maxAlpha="255"
+        app:hive_shrink="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

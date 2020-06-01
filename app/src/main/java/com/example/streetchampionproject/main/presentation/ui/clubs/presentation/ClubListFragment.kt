@@ -1,9 +1,13 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.presentation
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +15,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.main.presentation.ui.clubs.presentation.recycler.ClubListAdapter
 import kotlinx.android.synthetic.main.fragment_club_list.*
 
@@ -35,10 +40,11 @@ class ClubListFragment : BaseFragment<ClubListViewModel>() {
 
     override fun subscribe(viewModel: ClubListViewModel) {
         observe(viewModel.pgStatus, Observer {
-            progress_bar.visibility = it
-        })
-        observe(viewModel.searchError, Observer {
-            tf_city.error = it.toString()
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                else -> View.GONE
+            }
         })
         observe(viewModel.clubList, Observer {
             if (adapter == null) setAdapter(it)
@@ -60,9 +66,28 @@ class ClubListFragment : BaseFragment<ClubListViewModel>() {
     }
 
     override fun initClickListeners() {
-        btn_apply.setOnClickListener {
-            viewModel.getTeamsByCity(et_city.text.toString())
-        }
+        setSearchListener()
+    }
+
+    private fun setSearchListener() {
+        sv.context.resources.getIdentifier("android:id/search_src_text", null, null)
+        val searchPlate = sv.findViewById<EditText>(
+            sv.context.resources.getIdentifier(
+                "android:id/search_src_text",
+                null,
+                null
+            )
+        )
+        searchPlate.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel.getTeamsByCity(sv.query.toString())
+                    return true
+                }
+                return true
+            }
+
+        })
     }
 
     override fun onDestroy() {

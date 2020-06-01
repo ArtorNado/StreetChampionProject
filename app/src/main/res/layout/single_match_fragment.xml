@@ -57,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/varela_round"
+                        android:text="TextView"
                         android:textColor="@color/colorPurpleDark"
                         android:textSize="28sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -152,21 +153,19 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        ​
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:background="@null" />
 
         <com.comix.overwatch.HiveProgressView
             android:id="@+id/progress_bar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="top|center"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:hive_animDuration="1000"
             app:hive_color="@color/colorPink"
             app:hive_cornerRadius="20"
@@ -174,6 +173,5 @@
             app:hive_shrink="true" />
 
     </FrameLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

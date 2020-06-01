@@ -1,6 +1,7 @@
 package com.example.streetchampionproject.singleMatch.presentation.matchPage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,10 +63,16 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
             }
         })
         observe(viewModel.pgStatus, Observer {
-            progress_bar.visibility = when (it) {
-                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
-                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
-                else -> View.GONE
+            when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE ->{
+                    progress_bar.visibility = View.VISIBLE
+                    Log.e("VISIBLE", "VISIBLE")
+                }
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE ->{
+                    progress_bar.visibility = View.GONE
+                    Log.e("GONE", "GONE")
+                }
+                else -> progress_bar.visibility = View.GONE
             }
         })
     }

@@ -1,6 +1,8 @@
 package com.example.streetchampionproject.creating.createTeam.di
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.creating.createTeam.data.CreateTeamRepositoryImpl
 import com.example.streetchampionproject.creating.createTeam.data.interfaces.CreateTeamRepository
@@ -24,6 +26,14 @@ class CreateTeamFeatureModule {
             createTeamInteractor
         )
     }
+
+    @CreateTeamScope
+    @Provides
+    fun provideViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): CreateTeamViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(CreateTeamViewModel::class.java)
 
     @CreateTeamScope
     @Provides

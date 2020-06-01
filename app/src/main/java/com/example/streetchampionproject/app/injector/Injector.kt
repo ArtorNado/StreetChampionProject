@@ -145,10 +145,10 @@ object Injector {
         notificationFeatureComponent = null
     }
 
-    fun plusCreateTeamFeatureComponent(): CreateTeamFeatureComponent =
+    fun plusCreateTeamFeatureComponent(fragment: Fragment): CreateTeamFeatureComponent =
         createTeamFeatureComponent
             ?: appComponent.provideCreateTeamFeatureComponent()
-                .build().also {
+                .withFragment(fragment).build().also {
                     createTeamFeatureComponent = it
                 }
 
