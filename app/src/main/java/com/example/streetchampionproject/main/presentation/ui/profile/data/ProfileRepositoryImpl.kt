@@ -12,6 +12,7 @@ import com.example.streetchampionproject.main.presentation.ui.profile.data.mappe
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -34,7 +35,12 @@ class ProfileRepositoryImpl @Inject constructor(
     override fun updateUserData(userId: Int): Completable {
         return streetChampionService.getUser(userId)
             .map { mapUserDataRemoteToUserDataEntity(it) }
-            .onErrorResumeNext { error -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR)) }
+            .onErrorResumeNext { error ->
+                when (error) {
+                    is HttpException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
+                    else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                }
+            }
             .doOnSuccess { setUserDataLocal(it) }
             .ignoreElement()
     }

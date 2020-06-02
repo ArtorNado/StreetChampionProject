@@ -89,7 +89,10 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
     override fun initClickListeners() {
         btn_end.setOnClickListener {
             if (viewModel.match.value?.secondTeamId != 0) {
-                val dialog = EndMatchDialogFragment.newInstance()
+                val dialog = EndMatchDialogFragment.newInstance(
+                    viewModel.match.value?.firstTeamName ?: "",
+                    viewModel.match.value?.secondTeamName ?: ""
+                )
                 dialog.setTargetFragment(this, 1)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     dialog.show((activity as MainActivity).supportFragmentManager, ARG_DIALOG_TAG)

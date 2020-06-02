@@ -9,7 +9,8 @@ import com.example.streetchampionproject.creating.createMatch.data.interfaces.Cr
 import com.example.streetchampionproject.creating.createMatch.di.scope.CreateMatchScope
 import com.example.streetchampionproject.creating.createMatch.domain.CreateMatchInteractorImpl
 import com.example.streetchampionproject.creating.createMatch.domain.interfaces.CreateMatchInteractor
-import com.example.streetchampionproject.creating.createMatch.presentation.CreateMatchViewModel
+import com.example.streetchampionproject.creating.createMatch.presentation.commandMatch.CreateCommandMatchViewModel
+import com.example.streetchampionproject.creating.createMatch.presentation.singleMatch.CreateSingleMatchViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -20,20 +21,38 @@ class CreateMatchFeatureModule {
     @CreateMatchScope
     @Provides
     @IntoMap
-    @ViewModelKey(CreateMatchViewModel::class)
-    fun provideCreateMatchViewModel(createMatchInteractor: CreateMatchInteractor): ViewModel {
-        return CreateMatchViewModel(
+    @ViewModelKey(CreateSingleMatchViewModel::class)
+    fun provideCreateSingleMatchViewModel(createMatchInteractor: CreateMatchInteractor): ViewModel {
+        return CreateSingleMatchViewModel(
             createMatchInteractor
         )
     }
 
     @CreateMatchScope
     @Provides
-    fun provideViewModelCreator(
+    fun provideSingleViewModelCreator(
         fragment: Fragment,
         viewModelFactory: ViewModelProvider.Factory
-    ): CreateMatchViewModel =
-        ViewModelProvider(fragment, viewModelFactory).get(CreateMatchViewModel::class.java)
+    ): CreateSingleMatchViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(CreateSingleMatchViewModel::class.java)
+
+    @CreateMatchScope
+    @Provides
+    fun provideCommandViewModelCreator(
+        fragment: Fragment,
+        viewModelFactory: ViewModelProvider.Factory
+    ): CreateCommandMatchViewModel =
+        ViewModelProvider(fragment, viewModelFactory).get(CreateCommandMatchViewModel::class.java)
+
+    @CreateMatchScope
+    @Provides
+    @IntoMap
+    @ViewModelKey(CreateCommandMatchViewModel::class)
+    fun provideCreateCommandMatchViewModel(createMatchInteractor: CreateMatchInteractor): ViewModel {
+        return CreateCommandMatchViewModel(
+            createMatchInteractor
+        )
+    }
 
     @CreateMatchScope
     @Provides

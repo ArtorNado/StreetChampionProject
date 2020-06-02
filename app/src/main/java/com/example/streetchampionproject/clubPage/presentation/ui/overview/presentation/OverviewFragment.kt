@@ -43,7 +43,7 @@ class OverviewFragment : BaseFragment<OverviewViewModel>() {
     }
 
     override fun initClickListeners() {
-        ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
+        ch_group_match_type.setOnCheckedChangeListener { _, checkedId ->
             viewModel.getData(checkedId)
         }
     }

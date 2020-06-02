@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.Participants
@@ -43,7 +44,9 @@ class ParticipantListFragment : BaseFragment<ParticipantListViewModel>() {
 
     private fun setAdapter(list: List<Participants>) {
         rv_participants_list.layoutManager = LinearLayoutManager(context)
-        adapter = ParticipantsListAdapter(list) { players ->
+        adapter = ParticipantsListAdapter(list) { player ->
+            bundle?.putInt("id", player.userId)
+            view?.findNavController()?.navigate(R.id.action_singleMatchFragment_to_navigation_home, bundle)
         }
         rv_participants_list.adapter = adapter
     }

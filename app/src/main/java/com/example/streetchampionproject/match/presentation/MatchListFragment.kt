@@ -16,6 +16,7 @@ import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.api.scs.models.MatchSingle
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.match.presentation.recycler.MatchListAdapter
 import kotlinx.android.synthetic.main.match_list_fragment.*
 
@@ -53,8 +54,8 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
         })
         observe(viewModel.pgStatus, Observer {
             when (it) {
-                ARG_STATUS_GONE -> pg.visibility = View.GONE
-                ARG_STATUS_VISIBLE -> pg.visibility = View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> pg.visibility = View.GONE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> pg.visibility = View.VISIBLE
                 else -> pg.visibility = View.GONE
             }
         })
@@ -65,12 +66,12 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
     }
 
     private fun chipChanged() {
-        ch_group_status.setOnCheckedChangeListener { group, checkedId ->
+        ch_group_status.setOnCheckedChangeListener { _, checkedId ->
             if (viewModel.backStatus) {
                 viewModel.getData(ch_group_match_type.checkedChipId, checkedId)
             }
         }
-        ch_group_match_type.setOnCheckedChangeListener { group, checkedId ->
+        ch_group_match_type.setOnCheckedChangeListener { _, checkedId ->
             if (viewModel.backStatus) {
                 viewModel.getData(checkedId, ch_group_status.checkedChipId)
             }
@@ -85,11 +86,13 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
                     bundle.putInt("matchId", match.matchId)
                     view?.findNavController()
                         ?.navigate(R.id.action_navigation_match_to_singleMatchFragment, bundle)
+                    pg.visibility = View.GONE
                 }
                 is MatchCommand -> {
                     bundle.putInt("matchId", match.matchId)
                     view?.findNavController()
                         ?.navigate(R.id.action_navigation_match_to_commandMatchFragment, bundle)
+                    pg.visibility = View.GONE
                 }
             }
         }
@@ -129,11 +132,6 @@ class MatchListFragment : BaseFragment<MatchListViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         Injector.clearMatchListFeatureComponent()
-    }
-
-    companion object {
-        const val ARG_STATUS_GONE = "Gone"
-        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }

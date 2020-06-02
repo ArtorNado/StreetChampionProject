@@ -10,10 +10,14 @@ import androidx.fragment.app.DialogFragment
 import com.example.streetchampionproject.R
 import kotlinx.android.synthetic.main.dialog_fragment.*
 
-class EndMatchDialogFragment : DialogFragment(){
+class EndMatchDialogFragment(
+    private val firstTeam: String,
+    private val secondTeam: String
+) : DialogFragment() {
 
     companion object {
-        fun newInstance() = EndMatchDialogFragment()
+        fun newInstance(firstTeam: String, secondTeam: String) =
+            EndMatchDialogFragment(firstTeam, secondTeam)
     }
 
     override fun onCreateView(
@@ -23,12 +27,17 @@ class EndMatchDialogFragment : DialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tf_first_team.hint = firstTeam
+        tf_second_team.hint = secondTeam
         btn_accept.setOnClickListener {
             val intent = Intent().apply {
                 putExtra("first", et_first_team.text)
                 putExtra("second", et_second_team.text)
             }
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
+            dismiss()
+        }
+        btn_cancel.setOnClickListener {
             dismiss()
         }
     }

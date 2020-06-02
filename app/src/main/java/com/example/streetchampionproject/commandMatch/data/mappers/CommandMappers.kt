@@ -12,11 +12,11 @@ fun mapCommandMatchEntityToLocal(matchCommandEntity: MatchCommandEntity): MatchC
             time,
             creatorId,
             firstTeamId,
-            secondTeamId,
+            secondTeamId?:0,
             matchCity,
             description,
-            firstTeamName?: "",
-            secondTeamName?: ""
+            firstTeamName,
+            secondTeamName?:""
         )
     }
 }
@@ -29,11 +29,11 @@ fun mapCommandMatchRemoteToEntity(matchCommandRemote: MatchCommandRemote): Match
             time,
             creatorId,
             firstTeamId,
-            secondTeamId,
+            secondTeamId?:0,
             matchCity,
             description,
             "Undefined",
-            firstTeamName?: "",
+            firstTeamName,
             secondTeamName?: ""
         )
     }

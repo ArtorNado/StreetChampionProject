@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.registration.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
@@ -22,7 +21,7 @@ class RegisterFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(RegisterViewModel::class)
-    fun provideRegisterViewModel(registerInteractor: RegisterInteract, navigator: Navigator): ViewModel {
+    fun provideRegisterViewModel(registerInteractor: RegisterInteract): ViewModel {
         return RegisterViewModel(
             registerInteractor
         )

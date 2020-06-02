@@ -53,7 +53,7 @@ fun mapUserDataRemoteToUserDataEntity(userDataRemote: UserDataRemote): UserDataE
             userSecondName,
             userGender,
             userCity,
-            team?.teamName ?: "Dont haveTeam",
+            team?.teamName ?: "Dont have team",
             team?.teamId?:0
         )
     }

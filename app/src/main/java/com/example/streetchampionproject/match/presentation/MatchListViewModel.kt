@@ -3,6 +3,7 @@ package com.example.streetchampionproject.match.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.R
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.match.domain.interfaces.MatchListInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,27 +31,29 @@ class MatchListViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _matchList.value = result
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        compositeDisposable.clear()
                         onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
+                        compositeDisposable.clear()
                     })
         )
         updateMatchList(matchType, role)
     }
 
     private fun updateMatchList(matchType: String, role: String) {
-        _pgStatus.value = ARG_STATUS_VISIBLE
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             matchListInteractor.updateMatchList(matchType, role, searchCity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    _pgStatus.value = ARG_STATUS_GONE
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     _matchList.value = result
                 },
                     { error ->
-                        _pgStatus.value = ARG_STATUS_GONE
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                         onError(error)
                     })
         )
@@ -102,8 +105,6 @@ class MatchListViewModel(
         const val CHIP_PARTICIPANT = R.id.ch_participant
         const val CHIP_SINGLE = R.id.ch_single
         const val CHIP_COMMAND = R.id.ch_team
-        const val ARG_STATUS_GONE = "Gone"
-        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }

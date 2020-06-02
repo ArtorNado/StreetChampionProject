@@ -41,10 +41,7 @@ class ClubPageRepositoryImpl @Inject constructor(
         streetChampionService.getTeam(id)
             .map { setUserLocal(mapTeamsRemoteToTeamsEntity(it)) }
             .onErrorResumeNext { error ->
-                when (error) {
-                    is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
-                    else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
-                }
+                Single.error(onError(error))
             }
             .ignoreElement()
 
@@ -60,10 +57,7 @@ class ClubPageRepositoryImpl @Inject constructor(
         streetChampionService.getUserStatusInTeam(userId, teamId)
             .map { setUserStatusLocal(mapUserStatusRemoteToUserStatusEntity(it, userId, teamId)) }
             .onErrorResumeNext { error ->
-                when (error) {
-                    is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
-                    else -> Single.error(Exceptions.error(ResponseCode.SERVER_ERROR))
-                }
+                Single.error(onError(error))
             }
             .ignoreElement()
 
@@ -80,9 +74,14 @@ class ClubPageRepositoryImpl @Inject constructor(
         )
             .onErrorResumeNext { error ->
                 when (error) {
-                    is UnknownHostException -> Completable.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
                     is HttpException -> Completable.error(Exceptions.error(ResponseCode.JOIN_TEAM_ERROR))
-                    else -> Completable.error(Exceptions.error(ResponseCode.SERVER_ERROR))
+                    else -> Completable.error(onError(error))
                 }
             }
+
+    private fun onError(error: Throwable) =
+        when (error) {
+            is UnknownHostException -> Exceptions.error(ResponseCode.INTERNET_ERROR)
+            else -> Exceptions.error(ResponseCode.SERVER_ERROR)
+        }
 }

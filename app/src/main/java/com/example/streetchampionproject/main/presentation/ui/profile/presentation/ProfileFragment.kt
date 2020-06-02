@@ -46,7 +46,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel>() {
 
     override fun initClickListeners() {
         tv_club_name.setOnClickListener {
-            if (teamId != null) {
+            if (teamId != 0) {
                 val bundle = Bundle()
                 bundle.putInt("teamId", teamId ?: 0)
                 findNavController().navigate(

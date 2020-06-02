@@ -1,5 +1,6 @@
 package com.example.streetchampionproject.match.data
 
+import android.util.Log
 import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.common.data.databse.dao.MatchCommandDao
 import com.example.streetchampionproject.common.data.databse.dao.MatchSingleDao
@@ -61,6 +62,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateCommandMatchWithRole(role: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByRole(userId, role)
             .onErrorResumeNext { error ->
+                Log.e("ER_ER", "ERROR1")
                 Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
@@ -70,6 +72,7 @@ class MatchListRepositoryImpl @Inject constructor(
         streetChampionService.getCommandMatch()
             .doOnSuccess { setCommandMatchLocal(it) }
             .onErrorResumeNext { error ->
+                Log.e("ER_ER - ", error.toString())
                 Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
@@ -85,6 +88,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateCommandMatchByCity(city: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByCity(city)
             .onErrorResumeNext { error ->
+                Log.e("ER_ER", "ERROR4")
                 Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }
@@ -92,6 +96,7 @@ class MatchListRepositoryImpl @Inject constructor(
     override fun updateCommandMatchByRoleAndCity(role: String, city: String): Single<List<Any?>> =
         streetChampionService.getCommandMatchByRoleAndCity(userId, role, city)
             .onErrorResumeNext { error ->
+                Log.e("ER_ER", "ERROR3")
                 Single.error(onError(error))
             }
             .map { mapMatchRemoteToMatch(it) }

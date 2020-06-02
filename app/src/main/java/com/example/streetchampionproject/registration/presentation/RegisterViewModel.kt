@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.registration.presentation
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.common.domain.Exceptions
@@ -22,7 +21,7 @@ class RegisterViewModel(
 
     var userId = 0
 
-    fun clickRegister(u: User, context: Context) {
+    fun clickRegister(u: User) {
         compositeDisposable.add(
             registerInteractor.registration(u)
                 .subscribeOn(Schedulers.io())

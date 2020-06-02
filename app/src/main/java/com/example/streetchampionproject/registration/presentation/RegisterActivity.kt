@@ -56,8 +56,7 @@ class RegisterActivity : AppCompatActivity() {
                     et_login.text.toString(), et_password.text.toString(),
                     et_firstName.text.toString(), et_secondName.text.toString(),
                     filled_gender.editableText.toString(), et_city.text.toString()
-                ),
-                this
+                )
             )
         }
     }

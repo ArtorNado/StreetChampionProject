@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_create
             )
         )*/
-        /*navView.setOnNavigationItemReselectedListener {
-        }*/
+        navView.setOnNavigationItemReselectedListener {
+        }
         NavigationUI.setupWithNavController(navView, navController)
     }
 

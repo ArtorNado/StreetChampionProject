@@ -1,4 +1,4 @@
-package com.example.streetchampionproject.creating.createMatch.presentation
+package com.example.streetchampionproject.creating.createMatch.presentation.commandMatch
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,12 +11,13 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.CreateCommandMatch
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import kotlinx.android.synthetic.main.create_command_match_fragment.*
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
-class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
+class CreateCommandMatchFragment : BaseFragment<CreateCommandMatchViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,15 +28,15 @@ class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
         Injector.plusCreateMatchFeatureComponent(this).inject(this)
     }
 
-    override fun subscribe(viewModel: CreateMatchViewModel) {
+    override fun subscribe(viewModel: CreateCommandMatchViewModel) {
         viewModel.determineUserStatus()
         observe(viewModel.goTo, Observer {
-            if (it == "Go back") findNavController().popBackStack()
+            if (it == CONSTANTS.ACTION.EVENT_GO_BACK) findNavController().popBackStack()
         })
         observe(viewModel.status, Observer {
             when (it) {
-                ARG_STATUS_GONE -> progress_bar.visibility = View.GONE
-                ARG_STATUS_VISIBLE -> progress_bar.visibility = View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> progress_bar.visibility = View.GONE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> progress_bar.visibility = View.VISIBLE
                 else -> progress_bar.visibility = View.GONE
             }
         })
@@ -45,7 +46,7 @@ class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
         et_date.addTextChangedListener {
             try {
                 val df = DateFormat.getDateInstance(DateFormat.SHORT)
-                val myDate = df.parse(et_date.text.toString())
+                df.parse(et_date.text.toString())
                 if (tf_date.isErrorEnabled) tf_date.error = null
             } catch (e: ParseException) {
                 tf_date.error = "Неверный формат: Пример: 29.05.19"
@@ -54,7 +55,7 @@ class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
         et_time.addTextChangedListener {
             try {
                 val format = SimpleDateFormat("hh:mm")
-                val bmyDate = format.parse(et_time.text.toString())
+                format.parse(et_time.text.toString())
                 if (tf_time.isErrorEnabled) tf_time.error = null
             } catch (e: ParseException) {
                 tf_time.error = "Неверный формат. Пример: 18:09"
@@ -62,7 +63,7 @@ class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
         }
         btn_create.setOnClickListener {
             if (checkNullable()) snackBar("Все поля должны быть заполнены")
-             else {
+            else {
                 viewModel.createCommandMatch(
                     CreateCommandMatch(
                         et_date.text.toString(),
@@ -86,11 +87,6 @@ class CreateCommandMatchFragment : BaseFragment<CreateMatchViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         Injector.clearCreateMatchFeatureComponent()
-    }
-
-    companion object {
-        const val ARG_STATUS_GONE = "Gone"
-        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }

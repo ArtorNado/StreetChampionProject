@@ -1,15 +1,15 @@
-package com.example.streetchampionproject.creating.createMatch.presentation
+package com.example.streetchampionproject.creating.createMatch.presentation.commandMatch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.CreateCommandMatch
-import com.example.streetchampionproject.api.scs.models.CreateSingleMatch
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.creating.createMatch.domain.interfaces.CreateMatchInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CreateMatchViewModel(
+class CreateCommandMatchViewModel(
     private val createMatchInteractor: CreateMatchInteractor
 ) : BaseViewModel() {
 
@@ -21,36 +21,18 @@ class CreateMatchViewModel(
 
 
     fun createCommandMatch(createCommandMatch: CreateCommandMatch) {
-        _status.value = ARG_STATUS_VISIBLE
+        _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             createMatchInteractor.createCommandMatch(createCommandMatch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _status.value = ARG_STATUS_GONE
-                    onNotification("Матч создан")
-                    _goTo.value = "Go back"
-                },
-                    {error ->
-                        _status.value = ARG_STATUS_GONE
-                        onError(error)
-                    })
-        )
-    }
-
-    fun createSingleMatch(createSingleMatch: CreateSingleMatch) {
-        _status.value = ARG_STATUS_VISIBLE
-        compositeDisposable.add(
-            createMatchInteractor.createSingleMatch(createSingleMatch)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    _status.value = ARG_STATUS_GONE
+                    _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     onNotification("Матч создан")
                     _goTo.value = "Go back"
                 },
                     { error ->
-                        _status.value = ARG_STATUS_GONE
+                        _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                         onError(error)
                     })
         )
@@ -62,18 +44,13 @@ class CreateMatchViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result.status != "Admin") _goTo.value = "Go back"
+                    if (result.status != "Admin") _goTo.value = CONSTANTS.ACTION.EVENT_GO_BACK
                 },
                     { error ->
-                        _goTo.value = "Go back"
+                        CONSTANTS.ACTION.EVENT_GO_BACK
                         onError(error)
                     })
         )
-    }
-
-    companion object {
-        const val ARG_STATUS_GONE = "Gone"
-        const val ARG_STATUS_VISIBLE = "Visible"
     }
 
 }
