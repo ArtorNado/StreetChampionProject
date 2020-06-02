@@ -13,7 +13,7 @@ import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
 import com.example.streetchampionproject.common.presentation.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_club_page.*
+import kotlinx.android.synthetic.main.club_page_fragment.*
 
 class ClubPageFragment : BaseFragment<ClubPageViewModel>() {
 
@@ -23,7 +23,7 @@ class ClubPageFragment : BaseFragment<ClubPageViewModel>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_club_page, container, false)
+    ): View? = inflater.inflate(R.layout.club_page_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

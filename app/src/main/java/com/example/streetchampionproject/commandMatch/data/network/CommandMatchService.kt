@@ -1,7 +1,7 @@
 package com.example.streetchampionproject.commandMatch.data.network
 
 import com.example.streetchampionproject.api.scs.models.UserTeamRole
-import com.example.streetchampionproject.match.data.models.MatchCommandRemote
+import com.example.streetchampionproject.matches.data.models.MatchCommandRemote
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.GET

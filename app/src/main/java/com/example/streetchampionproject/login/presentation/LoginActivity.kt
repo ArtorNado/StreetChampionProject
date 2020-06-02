@@ -12,7 +12,7 @@ import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.sign_in.*
+import kotlinx.android.synthetic.main.login.*
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.sign_in)
+        setContentView(R.layout.login)
         Injector.plusLoginFeatureComponent().inject(this)
         initViewModel()
         initOnClickListeners()

@@ -2,7 +2,7 @@ package com.example.streetchampionproject.commandMatch.data.mappers
 
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.common.data.databse.models.MatchCommandEntity
-import com.example.streetchampionproject.match.data.models.MatchCommandRemote
+import com.example.streetchampionproject.matches.data.models.MatchCommandRemote
 
 fun mapCommandMatchEntityToLocal(matchCommandEntity: MatchCommandEntity): MatchCommand {
     return with(matchCommandEntity) {

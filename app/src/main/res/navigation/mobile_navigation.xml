@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.streetchampionproject.main.presentation.ui.profile.presentation.ProfileFragment"
+        android:name="com.example.streetchampionproject.profile.presentation.ProfileFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_profile">
+        tools:layout="@layout/profile_fragment">
 
         <action
             android:id="@+id/action_navigation_home_to_clubPageFragment"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/navigation_match"
-        android:name="com.example.streetchampionproject.match.presentation.MatchListFragment"
+        android:name="com.example.streetchampionproject.matches.presentation.MatchListFragment"
         android:label="Match"
         tools:layout="@layout/match_list_fragment">
         <action
@@ -31,9 +31,9 @@
 
     <fragment
         android:id="@+id/navigation_clubs"
-        android:name="com.example.streetchampionproject.main.presentation.ui.clubs.presentation.ClubListFragment"
+        android:name="com.example.streetchampionproject.clubs.presentation.ClubListFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_club_list">
+        tools:layout="@layout/club_list_fragment">
         <action
             android:id="@+id/action_navigation_notifications_to_clubPageFragment"
             app:destination="@id/clubPageFragment"
@@ -43,7 +43,7 @@
         android:id="@+id/clubPageFragment"
         android:name="com.example.streetchampionproject.clubPage.presentation.ClubPageFragment"
         android:label="cleb_page_test_fragment"
-        tools:layout="@layout/fragment_club_page">
+        tools:layout="@layout/club_page_fragment">
         <action
             android:id="@+id/action_clubPageFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
@@ -59,7 +59,7 @@
         android:id="@+id/notificationFragment"
         android:name="com.example.streetchampionproject.notification.presentation.NotificationFragment"
         android:label="cleb_page_test_fragment"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/notification_fragment" />
     <fragment
         android:id="@+id/navigation_create"
         android:name="com.example.streetchampionproject.creating.CreatingFragment"
@@ -79,7 +79,7 @@
         android:id="@+id/createTeamFragment"
         android:name="com.example.streetchampionproject.creating.createTeam.presentation.CreateTeamFragment"
         android:label="CreateTeamFragment"
-        tools:layout="@layout/fragment_create_team" />
+        tools:layout="@layout/create_team_fragment" />
     <fragment
         android:id="@+id/singleMatchFragment"
         android:name="com.example.streetchampionproject.singleMatch.presentation.matchPage.SingleMatchFragment"

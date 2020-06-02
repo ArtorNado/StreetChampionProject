@@ -10,14 +10,14 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
 import com.example.streetchampionproject.common.presentation.CONSTANTS
-import kotlinx.android.synthetic.main.fragment_create_team.*
+import kotlinx.android.synthetic.main.create_team_fragment.*
 
 class CreateTeamFragment : BaseFragment<CreateTeamViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_create_team, container, false)
+    ): View? = inflater.inflate(R.layout.create_team_fragment, container, false)
 
     override fun inject() {
         Injector.plusCreateTeamFeatureComponent(this).inject(this)
