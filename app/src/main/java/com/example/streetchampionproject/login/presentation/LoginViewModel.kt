@@ -3,6 +3,7 @@ package com.example.streetchampionproject.login.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.common.domain.Exceptions
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.login.domain.interfaces.LoginInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +26,7 @@ class LoginViewModel(
 
 
     fun clickLogin(email: String, password: String) {
-        _pgStatus.value = "Visible"
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             loginInteractor.logIn(email, password)
                 .subscribeOn(Schedulers.io())
@@ -33,11 +34,11 @@ class LoginViewModel(
                 .subscribe({
                     userId = it.userId
                     _goTo.value = "Go to main"
-                    _pgStatus.value = "Gone"
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
                         errorMessage(error)
-                        _pgStatus.value = "Gone"
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
         )
     }

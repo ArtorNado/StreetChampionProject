@@ -102,4 +102,9 @@
         android:name="com.example.streetchampionproject.creating.createMatch.presentation.singleMatch.CreateSingleMatchFragment"
         android:label="CreateSingleMatchFragment"
         tools:layout="@layout/create_single_match_fragment"/>
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.streetchampionproject.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
 </navigation>

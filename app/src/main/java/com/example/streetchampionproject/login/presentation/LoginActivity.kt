@@ -10,15 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.login.*
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var localStorage: LocalStorage
 
     @Inject
     lateinit var navigator: Navigator
@@ -60,9 +57,10 @@ class LoginActivity : AppCompatActivity() {
             if (it == "Go to main") navigator.openMain(this, viewModel?.userId ?: 0)
         })
         viewModel?.pgStatus?.observe(this, Observer {
-            when (it) {
-                "Visible" -> pg_logIn.visibility = View.VISIBLE
-                "Gone" -> pg_logIn.visibility = View.GONE
+            pg_logIn.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE-> View.GONE
+                else -> View.GONE
             }
         })
         viewModel?.error?.observe(this, Observer {

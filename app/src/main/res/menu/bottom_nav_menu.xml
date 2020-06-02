@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Create" />
 
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings" />
+
 </menu>
