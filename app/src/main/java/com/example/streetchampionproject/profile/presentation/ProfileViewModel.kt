@@ -36,6 +36,7 @@ class ProfileViewModel(
                     _user.value = result
                 },
                     { error ->
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                         onError(error)
                     })
         )

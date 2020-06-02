@@ -29,7 +29,7 @@ class CreateTeamViewModel(
                     _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     _goTo.value = CONSTANTS.ACTION.EVENT_GO_BACK
                 },
-                    {error ->
+                    { error ->
                         onError(error)
                         _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })

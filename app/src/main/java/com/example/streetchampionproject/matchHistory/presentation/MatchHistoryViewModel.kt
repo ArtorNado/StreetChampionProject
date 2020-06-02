@@ -29,7 +29,6 @@ class MatchHistoryViewModel(
                     _matchList.value = result
                 },
                     { error ->
-                        Log.e("ERROR_GET", error.toString())
                         onError(error)
                         compositeDisposable.clear()
                     })
@@ -46,7 +45,6 @@ class MatchHistoryViewModel(
                 },
                     { error ->
                         onError(error)
-                        Log.e("ERROR_UPDATE", error.toString())
                     })
         )
     }

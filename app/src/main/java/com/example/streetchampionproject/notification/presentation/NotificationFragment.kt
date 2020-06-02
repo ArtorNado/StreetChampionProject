@@ -12,6 +12,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.notification.presentation.recycler.NotificationListAdapter
 import kotlinx.android.synthetic.main.notification_fragment.*
 
@@ -42,10 +43,10 @@ class NotificationFragment : BaseFragment<NotificationViewModel>() {
     override fun subscribe(viewModel: NotificationViewModel) {
         viewModel.getData()
         viewModel.pgStatus.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                ARG_STATUS_GONE -> progress_bar.visibility = View.GONE
-                ARG_STATUS_VISIBLE -> progress_bar.visibility = View.VISIBLE
-                else -> progress_bar.visibility = View.GONE
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                else -> View.GONE
             }
         })
         viewModel.notifications.observe(viewLifecycleOwner, Observer {
@@ -75,11 +76,6 @@ class NotificationFragment : BaseFragment<NotificationViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         Injector.clearNotificationFeatureComponent()
-    }
-
-    companion object {
-        const val ARG_STATUS_VISIBLE = "Visible"
-        const val ARG_STATUS_GONE = "Gone"
     }
 
 }

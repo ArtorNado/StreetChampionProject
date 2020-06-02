@@ -66,12 +66,15 @@ class RegisterActivity : AppCompatActivity() {
         viewModel?.pgStatus?.observe(this, Observer {
             progress_bar.visibility = when (it) {
                 CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
-                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE-> View.GONE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
                 else -> View.GONE
             }
         })
         viewModel?.goTo?.observe(this, Observer {
-            if (it == "Go to main") navigator.openMain(this, viewModel?.userId ?: 0)
+            if (it == CONSTANTS.ACTION.EVENT_GO_MAIN) navigator.openMain(
+                this,
+                viewModel?.userId ?: 0
+            )
         })
     }
 

@@ -46,7 +46,7 @@ class MatchHistoryRepositoryImpl @Inject constructor(
         endedCommandMatchDao.setEndedMatch(endedCommandMatchEntity)
     }
 
-    private fun setFeatureCommandMatchLocal(matchCommandEntity: List<MatchCommandEntity>){
+    private fun setFeatureCommandMatchLocal(matchCommandEntity: List<MatchCommandEntity>) {
         commandMatchDao.setCommandMatchList(matchCommandEntity)
     }
 

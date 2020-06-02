@@ -16,9 +16,6 @@ class SquadViewModel(
     private val _players by lazy { MutableLiveData<List<Players>>() }
     val players: LiveData<List<Players>> = _players
 
-    private val _error by lazy { MutableLiveData<String>() }
-    val error: LiveData<String> = _error
-
     init {
         getPlayers()
     }

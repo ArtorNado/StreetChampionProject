@@ -29,7 +29,7 @@ class RegisterViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     userId = result.userId
-                    _goTo.value = "Go to main"
+                    _goTo.value = CONSTANTS.ACTION.EVENT_GO_MAIN
                     _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->

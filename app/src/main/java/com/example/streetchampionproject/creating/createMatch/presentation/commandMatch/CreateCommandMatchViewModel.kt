@@ -29,7 +29,7 @@ class CreateCommandMatchViewModel(
                 .subscribe({
                     _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     onNotification("Матч создан")
-                    _goTo.value = "Go back"
+                    _goTo.value = CONSTANTS.ACTION.EVENT_GO_BACK
                 },
                     { error ->
                         _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE

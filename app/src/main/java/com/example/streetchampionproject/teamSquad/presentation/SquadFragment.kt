@@ -50,7 +50,6 @@ class SquadFragment : BaseFragment<SquadViewModel>() {
     override fun inject() {
         bundle = this.arguments
         teamId = bundle?.getInt("teamId")
-        Log.e("TEAM_ID", teamId.toString())
         Injector.plusSquadFeatureComponent(teamId?:0, this).inject(this)
     }
 
