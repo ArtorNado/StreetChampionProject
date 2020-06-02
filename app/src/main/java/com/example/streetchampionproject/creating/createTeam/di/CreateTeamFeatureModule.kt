@@ -3,6 +3,7 @@ package com.example.streetchampionproject.creating.createTeam.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.creating.createTeam.data.CreateTeamRepositoryImpl
 import com.example.streetchampionproject.creating.createTeam.data.interfaces.CreateTeamRepository
@@ -44,4 +45,8 @@ class CreateTeamFeatureModule {
     @Provides
     fun provideCreateTeamRepository(createTeamRepository: CreateTeamRepositoryImpl): CreateTeamRepository =
         createTeamRepository
+
+    @CreateTeamScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.createTeamService
 }

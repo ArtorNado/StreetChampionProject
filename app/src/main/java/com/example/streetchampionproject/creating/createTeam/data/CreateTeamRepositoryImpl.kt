@@ -1,23 +1,23 @@
 package com.example.streetchampionproject.creating.createTeam.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.CreateTeam
 import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.domain.ResponseCode
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.example.streetchampionproject.creating.createTeam.data.interfaces.CreateTeamRepository
+import com.example.streetchampionproject.creating.createTeam.data.network.CreateTeamService
 import io.reactivex.Completable
 import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class CreateTeamRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val createTeamService: CreateTeamService,
     private val localStorage: LocalStorage
 ) : CreateTeamRepository {
 
     override fun createTeam(teamName: String, teamCity: String): Completable =
-        streetChampionService.createTeam(
+        createTeamService.createTeam(
             CreateTeam(
                 teamName,
                 teamCity,
@@ -39,7 +39,7 @@ class CreateTeamRepositoryImpl @Inject constructor(
                                     ResponseCode.TEAM_NAME_ALREADY_EXIST
                                 )
                             )
-                            else ->{
+                            else -> {
                                 Completable.error(Exceptions.error(ResponseCode.SERVER_ERROR))
                             }
                         }

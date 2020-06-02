@@ -3,6 +3,7 @@ package com.example.streetchampionproject.match.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.match.data.MatchListRepositoryImpl
 import com.example.streetchampionproject.match.data.interfaces.MatchListRepository
@@ -45,4 +46,8 @@ class MatchListFeatureModule {
     @Provides
     fun provideMatchListRepository(matchListRepository: MatchListRepositoryImpl): MatchListRepository =
         matchListRepository
+
+    @MatchListScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.matchListService
 }

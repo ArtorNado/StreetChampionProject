@@ -3,6 +3,7 @@ package com.example.streetchampionproject.notification.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.notification.data.NotificationRepository
 import com.example.streetchampionproject.notification.data.NotificationRepositoryImpl
@@ -49,4 +50,8 @@ class NotificationFeatureModule {
     @Provides
     fun provideNotificationRepository(notificationRepository: NotificationRepositoryImpl):
             NotificationRepository = notificationRepository
+
+    @NotificationScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.notificationService
 }

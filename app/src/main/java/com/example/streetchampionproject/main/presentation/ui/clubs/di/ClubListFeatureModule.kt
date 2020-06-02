@@ -3,6 +3,7 @@ package com.example.streetchampionproject.main.presentation.ui.clubs.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.ClubListRepositoryImpl
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.interfaces.ClubListRepository
@@ -46,5 +47,9 @@ class ClubListFeatureModule {
     @Provides
     fun provideClubListRepository(clubListRepository: ClubListRepositoryImpl): ClubListRepository =
         clubListRepository
+
+    @ClubListScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.clubsService
 
 }

@@ -2,7 +2,20 @@ package com.example.streetchampionproject.api.apiFactory
 
 import com.example.streetchampionproject.BuildConfig
 import com.example.streetchampionproject.api.apiFactory.authenticator.TokenAuthenticator
-import com.example.streetchampionproject.api.scs.StreetChampionService
+import com.example.streetchampionproject.clubPage.data.network.ClubPageService
+import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.network.OverviewService
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.network.SquadService
+import com.example.streetchampionproject.commandMatch.data.network.CommandMatchService
+import com.example.streetchampionproject.creating.createMatch.data.network.CreateMatchService
+import com.example.streetchampionproject.creating.createTeam.data.network.CreateTeamService
+import com.example.streetchampionproject.login.data.network.LoginService
+import com.example.streetchampionproject.main.presentation.ui.clubs.data.network.ClubsService
+import com.example.streetchampionproject.main.presentation.ui.profile.data.network.ProfileService
+import com.example.streetchampionproject.match.data.network.MatchListService
+import com.example.streetchampionproject.notification.data.network.NotificationService
+import com.example.streetchampionproject.registration.data.network.RegisterService
+import com.example.streetchampionproject.singleMatch.data.network.ParticipantService
+import com.example.streetchampionproject.singleMatch.data.network.SingleMatchService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,10 +51,90 @@ class ApiFactory(
             .build()
     }
 
-    val streetChampionService: StreetChampionService by lazy {
+
+    val clubPageService: ClubPageService by lazy {
         retrofit.create(
-            StreetChampionService::class.java
+            ClubPageService::class.java
         )
     }
+
+    val createMatchService: CreateMatchService by lazy {
+        retrofit.create(
+            CreateMatchService::class.java
+        )
+    }
+
+    val createTeamService: CreateTeamService by lazy {
+        retrofit.create(
+            CreateTeamService::class.java
+        )
+    }
+
+    val loginService: LoginService by lazy {
+        retrofit.create(
+            LoginService::class.java
+        )
+    }
+
+    val clubsService: ClubsService by lazy {
+        retrofit.create(
+            ClubsService::class.java
+        )
+    }
+
+    val profileService: ProfileService by lazy {
+        retrofit.create(
+            ProfileService::class.java
+        )
+    }
+
+    val commandMatchService: CommandMatchService by lazy {
+        retrofit.create(
+            CommandMatchService::class.java
+        )
+    }
+
+    val matchListService: MatchListService by lazy {
+        retrofit.create(
+            MatchListService::class.java
+        )
+    }
+
+    val notificationService: NotificationService by lazy {
+        retrofit.create(
+            NotificationService::class.java
+        )
+    }
+
+    val registerService: RegisterService by lazy {
+        retrofit.create(
+            RegisterService::class.java
+        )
+    }
+
+    val participantService: ParticipantService by lazy {
+        retrofit.create(
+            ParticipantService::class.java
+        )
+    }
+
+    val singleMatchService: SingleMatchService by lazy {
+        retrofit.create(
+            SingleMatchService::class.java
+        )
+    }
+
+    val squadService: SquadService by lazy {
+        retrofit.create(
+            SquadService::class.java
+        )
+    }
+
+    val overviewService: OverviewService by lazy {
+        retrofit.create(
+            OverviewService::class.java
+        )
+    }
+
 }
 

@@ -1,9 +1,9 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.overview.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.interfaces.OverviewRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.mappers.mapEndedEntityToLocal
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.mappers.mapEndedRemoteToEntity
+import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.network.OverviewService
 import com.example.streetchampionproject.common.data.databse.dao.EndedCommandMatchDao
 import com.example.streetchampionproject.common.data.databse.dao.MatchCommandDao
 import com.example.streetchampionproject.common.data.databse.models.EndedCommandMatchEntity
@@ -15,7 +15,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class OverviewRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val overviewService: OverviewService,
     private val endedCommandMatchDao: EndedCommandMatchDao,
     private val commandMatchDao: MatchCommandDao
 ) : OverviewRepository {
@@ -26,7 +26,7 @@ class OverviewRepositoryImpl @Inject constructor(
 
 
     override fun updateEndedMatchList(teamId: Int): Completable =
-        streetChampionService.getEndedCommandMatches(teamId)
+        overviewService.getEndedCommandMatches(teamId)
             .doOnSuccess { commandMatchDao.clear() }
             .map { setEndedCommandMatchLocal(mapEndedRemoteToEntity(it)) }
             .ignoreElement()
@@ -36,7 +36,7 @@ class OverviewRepositoryImpl @Inject constructor(
             .map { mapMatchEntityToCommand(it) }
 
     override fun updateFeatureMatchList(teamId: Int): Completable =
-        streetChampionService.getFeatureCommandMatches(teamId)
+        overviewService.getFeatureCommandMatches(teamId)
             .doOnSuccess { commandMatchDao.clear() }
             .map { setFeatureCommandMatchLocal(mapMatchRemoteToEntity(it, "Undefined")) }
             .ignoreElement()

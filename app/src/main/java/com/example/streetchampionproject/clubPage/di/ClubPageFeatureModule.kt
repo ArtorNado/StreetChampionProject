@@ -3,6 +3,7 @@ package com.example.streetchampionproject.clubPage.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.clubPage.data.ClubPageRepositoryImpl
 import com.example.streetchampionproject.clubPage.data.interfaces.ClubPageRepository
 import com.example.streetchampionproject.clubPage.di.scope.ClubPageScope
@@ -46,5 +47,9 @@ class ClubPageFeatureModule {
     @Provides
     fun provideClubPageRepository(clubPageRepository: ClubPageRepositoryImpl): ClubPageRepository =
         clubPageRepository
+
+    @ClubPageScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.clubPageService
 }
 

@@ -1,21 +1,21 @@
 package com.example.streetchampionproject.notification.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.api.scs.models.StreetChampionResponse
 import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.domain.ResponseCode
+import com.example.streetchampionproject.notification.data.network.NotificationService
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService
+    private val notificationService: NotificationService
 ) : NotificationRepository {
 
     override fun getNotification(recipientId: Int): Single<List<Notification>> =
-        streetChampionService.getNotificationByRecipientId(recipientId)
+        notificationService.getNotificationByRecipientId(recipientId)
             .onErrorResumeNext { error ->
                 when (error) {
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
@@ -27,7 +27,7 @@ class NotificationRepositoryImpl @Inject constructor(
         notificationId: Int,
         answer: Int
     ): Single<StreetChampionResponse> =
-        streetChampionService.sendAnswerToNotif(notificationId, answer)
+        notificationService.sendAnswerToNotif(notificationId, answer)
             .onErrorResumeNext { error ->
                 when (error) {
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))

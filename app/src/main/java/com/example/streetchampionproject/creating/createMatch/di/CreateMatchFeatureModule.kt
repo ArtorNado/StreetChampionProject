@@ -3,6 +3,7 @@ package com.example.streetchampionproject.creating.createMatch.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.creating.createMatch.data.CreateMatchRepositoryImpl
 import com.example.streetchampionproject.creating.createMatch.data.interfaces.CreateMatchRepository
@@ -63,4 +64,8 @@ class CreateMatchFeatureModule {
     @Provides
     fun provideCreateMatchRepository(createMatchRepository: CreateMatchRepositoryImpl): CreateMatchRepository =
         createMatchRepository
+
+    @CreateMatchScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.createMatchService
 }

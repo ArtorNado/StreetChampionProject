@@ -3,6 +3,7 @@ package com.example.streetchampionproject.clubPage.presentation.ui.overview.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.OverviewRepositoryImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.data.interfaces.OverviewRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.scope.OverviewScope
@@ -46,4 +47,8 @@ class OverviewFeatureModule {
     @Provides
     fun provideOverviewRepository(overviewRepository: OverviewRepositoryImpl):
             OverviewRepository = overviewRepository
+
+    @OverviewScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.overviewService
 }

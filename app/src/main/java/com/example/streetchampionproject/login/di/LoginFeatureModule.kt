@@ -1,6 +1,7 @@
 package com.example.streetchampionproject.login.di
 
 import androidx.lifecycle.ViewModel
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.login.data.LoginRepositoryImpl
 import com.example.streetchampionproject.login.data.interfaces.LoginRepository
@@ -29,6 +30,10 @@ class LoginFeatureModule {
 
     @LoginActivityScope
     @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.loginService
+
+    @LoginActivityScope
+    @Provides
     fun provideLoginInteractor(loginInteractor: LoginInteractorImpl): LoginInteractor =
         loginInteractor
 
@@ -36,4 +41,5 @@ class LoginFeatureModule {
     @Provides
     fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository =
         loginRepositoryImpl
+
 }

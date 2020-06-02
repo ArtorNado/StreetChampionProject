@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.main.presentation.ui.clubs.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.common.data.databse.dao.TeamsDao
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
@@ -10,6 +9,7 @@ import com.example.streetchampionproject.main.presentation.ui.clubs.data.interfa
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsEntityToTeams
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsRemoteToTeams
 import com.example.streetchampionproject.main.presentation.ui.clubs.data.mappers.mapTeamsRemoteToTeamsEntity
+import com.example.streetchampionproject.main.presentation.ui.clubs.data.network.ClubsService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,7 +18,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ClubListRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val clubsService: ClubsService,
     private val teamsDao: TeamsDao
 ) : ClubListRepository {
 
@@ -29,7 +29,7 @@ class ClubListRepositoryImpl @Inject constructor(
         teamsDao.getTeamsByCity(city).map { mapTeamsEntityToTeams(it) }
 
     override fun updateTeams(): Completable =
-        streetChampionService.getTeams()
+        clubsService.getTeams()
             .map { setTeamsLocal(mapTeamsRemoteToTeamsEntity(it)) }
             .onErrorResumeNext { error ->
                 Single.error(onError(error))
@@ -37,7 +37,7 @@ class ClubListRepositoryImpl @Inject constructor(
             .ignoreElement()
 
     override fun updateTeamsByCity(city: String): Single<List<Teams>> =
-        streetChampionService.getTeamsByCity(city)
+        clubsService.getTeamsByCity(city)
             .map { mapTeamsRemoteToTeams(it) }
             .onErrorResumeNext { error ->
                 Single.error(onError(error))

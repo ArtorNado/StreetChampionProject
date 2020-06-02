@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.creating.createMatch.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.CreateCommandMatch
 import com.example.streetchampionproject.api.scs.models.CreateSingleMatch
 import com.example.streetchampionproject.api.scs.models.UserTeamRole
@@ -8,13 +7,14 @@ import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.domain.ResponseCode
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.example.streetchampionproject.creating.createMatch.data.interfaces.CreateMatchRepository
+import com.example.streetchampionproject.creating.createMatch.data.network.CreateMatchService
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class CreateMatchRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val createMatchService: CreateMatchService,
     private val localStorage: LocalStorage
 ) : CreateMatchRepository {
 
@@ -22,7 +22,7 @@ class CreateMatchRepositoryImpl @Inject constructor(
 
     override fun createCommandMatch(createCommandMatch: CreateCommandMatch): Completable {
         createCommandMatch.creatorId = userId
-        return streetChampionService.createCommandMatch(createCommandMatch)
+        return createMatchService.createCommandMatch(createCommandMatch)
             .onErrorResumeNext { error ->
                 when (error) {
                     is UnknownHostException -> Completable.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
@@ -33,7 +33,7 @@ class CreateMatchRepositoryImpl @Inject constructor(
 
     override fun createSingleMatch(createSingleMatch: CreateSingleMatch): Completable {
         createSingleMatch.creatorId = userId
-        return streetChampionService.createSingleMatch(createSingleMatch)
+        return createMatchService.createSingleMatch(createSingleMatch)
             .onErrorResumeNext { error ->
                 when (error) {
                     is UnknownHostException -> Completable.error(Exceptions.error(ResponseCode.INTERNET_ERROR))
@@ -43,7 +43,7 @@ class CreateMatchRepositoryImpl @Inject constructor(
     }
 
     override fun determineUserStatus(): Single<UserTeamRole> =
-        streetChampionService.determineUserStatus(userId)
+        createMatchService.determineUserStatus(userId)
             .onErrorResumeNext { error ->
                 when (error) {
                     is UnknownHostException -> Single.error(Exceptions.error(ResponseCode.INTERNET_ERROR))

@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.singleMatch.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.MatchSingleDetailInfo
 import com.example.streetchampionproject.api.scs.models.UserStatusInPlace
 import com.example.streetchampionproject.common.data.databse.dao.MatchSingleDao
@@ -14,6 +13,7 @@ import com.example.streetchampionproject.common.domain.ResponseCode
 import com.example.streetchampionproject.common.domain.sharedPreference.LocalStorage
 import com.example.streetchampionproject.singleMatch.data.interfaces.SingleMatchRepository
 import com.example.streetchampionproject.singleMatch.data.mappers.*
+import com.example.streetchampionproject.singleMatch.data.network.SingleMatchService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -21,7 +21,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class SingleMatchRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val singleMatchService: SingleMatchService,
     private val matchSingleDao: MatchSingleDao,
     private val userStatusInPlaceDao: UserStatusInPlaceDao,
     private val localStorage: LocalStorage,
@@ -35,7 +35,7 @@ class SingleMatchRepositoryImpl @Inject constructor(
             .map { mapMatchEntityToMatchSingle(it) }
 
     override fun updateSingleMatchInfo(matchId: Int): Completable =
-        streetChampionService.getSingleMatchById(matchId)
+        singleMatchService.getSingleMatchById(matchId)
             .map { setSingleMatchLocal(mapMatchSingleRemoteToMatchSingleEntity(it)) }
             .ignoreElement()
             .onErrorResumeNext { Completable.error(onError(it)) }
@@ -51,17 +51,17 @@ class SingleMatchRepositoryImpl @Inject constructor(
             .map { mapUserStatusEntityToUserStatusInPlace(it) }
 
     override fun updateUserStatusInMatch(matchId: Int): Completable =
-        streetChampionService.getUserStatusInMatch(matchId, userId)
+        singleMatchService.getUserStatusInMatch(matchId, userId)
             .map { setUserStatusLocal(mapUserStatusRemoteToUserStatusEntity(it, userId, matchId)) }
             .ignoreElement()
             .onErrorResumeNext { Completable.error(onError(it)) }
 
     override fun joinInMatch(matchId: Int): Completable =
-        streetChampionService.joinSingleMatch(matchId, userId)
+        singleMatchService.joinSingleMatch(matchId, userId)
             .onErrorResumeNext { Completable.error(onError(it)) }
 
     override fun endSingleMatch(matchId: Int): Completable =
-        streetChampionService.endSingleMatch(matchId)
+        singleMatchService.endSingleMatch(matchId)
             .onErrorResumeNext { Completable.error(onError(it)) }
 
     private fun setUserStatusLocal(userStatusInPlaceEntity: UserStatusInPlaceEntity) {
@@ -75,7 +75,7 @@ class SingleMatchRepositoryImpl @Inject constructor(
         }
 
     override fun updateParticipants(matchId: Int): Single<Unit> {
-        return streetChampionService.getParticipants(matchId)
+        return singleMatchService.getParticipants(matchId)
             .map {
                 setParticipantsLocal(mapParticipantsRemoteToPartEntity(it, matchId))
             }

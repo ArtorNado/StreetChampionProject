@@ -3,6 +3,7 @@ package com.example.streetchampionproject.clubPage.presentation.ui.squad.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.SquadRepositoryImpl
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.interfaces.SquadRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.scope.SquadScope
@@ -46,4 +47,8 @@ class SquadFeatureModule {
     @Provides
     fun provideSquadRepository(squadRepository: SquadRepositoryImpl): SquadRepository =
         squadRepository
+
+    @SquadScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.squadService
 }

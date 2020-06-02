@@ -60,6 +60,14 @@ class CreateSingleMatchFragment : BaseFragment<CreateSingleMatchViewModel>() {
                 tf_time.error = "Неверный формат. Пример: 18:09"
             }
         }
+        et_participants.addTextChangedListener {
+            try {
+                et_participants.text.toString().toInt()
+                if (tf_participants.isErrorEnabled) tf_participants.error = null
+            }catch (e: NumberFormatException){
+                tf_participants.error = "Введите число участников"
+            }
+        }
         btn_create.setOnClickListener {
             if (checkNullable()) snackBar("Все поля должны быть заполнены")
             else {

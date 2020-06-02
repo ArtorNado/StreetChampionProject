@@ -1,10 +1,10 @@
 package com.example.streetchampionproject.clubPage.presentation.ui.squad.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.Players
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.interfaces.SquadRepository
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.mappers.mapSquadEntityToPlayers
 import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.mappers.mapSquadRemoteToSquadEntity
+import com.example.streetchampionproject.clubPage.presentation.ui.squad.data.network.SquadService
 import com.example.streetchampionproject.common.data.databse.dao.SquadDao
 import com.example.streetchampionproject.common.data.databse.models.SquadEntity
 import io.reactivex.Completable
@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class SquadRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val squadService: SquadService,
     private val squadDao: SquadDao
 ) : SquadRepository {
 
@@ -23,7 +23,7 @@ class SquadRepositoryImpl @Inject constructor(
             }
 
     override fun updatePlayers(teamId: Int): Completable =
-        streetChampionService.getPlayers(teamId)
+        squadService.getPlayers(teamId)
             .map {
                 setPlayersLocal(mapSquadRemoteToSquadEntity(it, teamId))
             }
