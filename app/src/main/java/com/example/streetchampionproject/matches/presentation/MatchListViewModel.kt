@@ -67,17 +67,17 @@ class MatchListViewModel(
         updateMatchList(match, role)
     }
 
-    fun getDataAfterBackState(){
-        getDataByCity(chMatchType?:0, chStatus?:0, searchCity)
+    fun getDataAfterBackState() {
+        getDataByCity(chMatchType ?: 0, chStatus ?: 0, searchCity)
         backStatus = true
     }
 
-    fun getDataByCity(matchType: Int, status: Int, city: String){
+    fun getDataByCity(matchType: Int, status: Int, city: String) {
         chMatchType = matchType
         chStatus = status
         val match = determineMatchType(matchType)
         val role = determineStatus(status)
-        if(city == "") this.searchCity = "Undefined"
+        if (city == "") this.searchCity = "Undefined"
         else this.searchCity = city
         getMatchList(match, role)
     }

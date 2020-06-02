@@ -12,6 +12,7 @@ import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.clubPage.presentation.ui.ViewPagerAdapter
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.club_page_fragment.*
 
@@ -41,9 +42,10 @@ class ClubPageFragment : BaseFragment<ClubPageViewModel>() {
 
     override fun subscribe(viewModel: ClubPageViewModel) {
         observe(viewModel.pgStatus, Observer {
-            when (it) {
-                "visible" -> progress_bar.visibility = View.VISIBLE
-                "gone" -> progress_bar.visibility = View.GONE
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                else -> View.GONE
             }
         })
         observe(viewModel.team, Observer {

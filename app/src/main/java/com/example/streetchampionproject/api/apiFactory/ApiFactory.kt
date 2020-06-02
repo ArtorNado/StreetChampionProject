@@ -13,6 +13,7 @@ import com.example.streetchampionproject.matches.data.network.MatchListService
 import com.example.streetchampionproject.notification.data.network.NotificationService
 import com.example.streetchampionproject.profile.data.network.ProfileService
 import com.example.streetchampionproject.registration.data.network.RegisterService
+import com.example.streetchampionproject.settings.editData.data.network.EditDataService
 import com.example.streetchampionproject.singleMatch.data.network.ParticipantService
 import com.example.streetchampionproject.singleMatch.data.network.SingleMatchService
 import com.example.streetchampionproject.teamSquad.data.network.SquadService
@@ -133,6 +134,12 @@ class ApiFactory(
     val matchHistoryService: MatchHistoryService by lazy {
         retrofit.create(
             MatchHistoryService::class.java
+        )
+    }
+
+    val editDataService: EditDataService by lazy {
+        retrofit.create(
+            EditDataService::class.java
         )
     }
 

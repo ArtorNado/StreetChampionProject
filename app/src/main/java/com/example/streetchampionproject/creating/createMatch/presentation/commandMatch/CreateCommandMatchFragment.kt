@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,6 +27,11 @@ class CreateCommandMatchFragment : BaseFragment<CreateCommandMatchViewModel>() {
 
     override fun inject() {
         Injector.plusCreateMatchFeatureComponent(this).inject(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initToolbar(view)
     }
 
     override fun subscribe(viewModel: CreateCommandMatchViewModel) {
@@ -75,6 +81,9 @@ class CreateCommandMatchFragment : BaseFragment<CreateCommandMatchViewModel>() {
                 )
             }
         }
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun checkNullable(): Boolean {
@@ -82,6 +91,11 @@ class CreateCommandMatchFragment : BaseFragment<CreateCommandMatchViewModel>() {
                 || et_match_city.text.toString() == "" || et_description.text.toString() == ""
                 || tf_time.error != null || tf_date.error != null)
 
+    }
+
+    private fun initToolbar(view: View) {
+        toolbar.navigationIcon =
+            ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
     override fun onDestroy() {

@@ -62,11 +62,11 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
             }
         })
         observe(viewModel.pgStatus, Observer {
-            progress_bar.visibility =when (it) {
-                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE ->{
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> {
                     View.VISIBLE
                 }
-                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE ->{
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> {
                     View.GONE
                 }
                 else -> View.GONE

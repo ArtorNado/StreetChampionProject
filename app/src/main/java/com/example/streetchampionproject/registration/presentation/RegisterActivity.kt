@@ -3,6 +3,7 @@ package com.example.streetchampionproject.registration.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -10,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.app.navigation.Navigator
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.registration.data.model.User
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.registration.*
 import javax.inject.Inject
 
@@ -62,15 +63,18 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel?.error?.observe(this, Observer {
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                getString(it),
-                Snackbar.LENGTH_SHORT
-            ).show()
+        viewModel?.pgStatus?.observe(this, Observer {
+            progress_bar.visibility = when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> View.VISIBLE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> View.GONE
+                else -> View.GONE
+            }
         })
         viewModel?.goTo?.observe(this, Observer {
-            if (it == "Go to main") navigator.openMain(this, viewModel?.userId ?: 0)
+            if (it == CONSTANTS.ACTION.EVENT_GO_MAIN) navigator.openMain(
+                this,
+                viewModel?.userId ?: 0
+            )
         })
     }
 

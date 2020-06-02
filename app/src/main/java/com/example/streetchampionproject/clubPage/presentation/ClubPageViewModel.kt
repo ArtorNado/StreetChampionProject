@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Teams
 import com.example.streetchampionproject.clubPage.domain.interfaces.ClubPageInteractor
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,7 +33,7 @@ class ClubPageViewModel(
     }
 
     private fun getTeamData() {
-        _pgStatus.value = "visible"
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             clubPageInteractor.getTeamLocal(teamId)
                 .subscribeOn(Schedulers.io())
@@ -40,11 +41,11 @@ class ClubPageViewModel(
                 .subscribe({ result ->
                     _team.value = result
                     if (result.teamName.isEmpty())
-                        _pgStatus.value = "gone"
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
                         onError(error)
-                        _pgStatus.value = "gone"
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
         )
     }
@@ -56,10 +57,10 @@ class ClubPageViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _userStatus.value = result.status
-                    _pgStatus.value = "gone"
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        _pgStatus.value = "gone"
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                         onError(error)
                     })
         )
@@ -92,19 +93,19 @@ class ClubPageViewModel(
     }
 
     fun applyForMembership() {
-        _pgStatus.value = "visible"
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             clubPageInteractor.sendNotif(teamId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _pgStatus.value = "gone"
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     _applyButton.value = "gone"
                     onNotification("Заявка отправлена успешно")
                 },
                     { error ->
                         onError(error)
-                        _pgStatus.value = "gone"
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
 
         )

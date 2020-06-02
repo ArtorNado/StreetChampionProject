@@ -34,9 +34,11 @@ class MatchListAdapter(
             com.example.streetchampionproject.common.presentation.diff.DiffUtil(
                 this.dataSet,
                 newList
-            ), false)
+            ), false
+        )
             .dispatchUpdatesTo(this)
-        this.dataSet = newList   }
+        this.dataSet = newList
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (dataSet[position]) {

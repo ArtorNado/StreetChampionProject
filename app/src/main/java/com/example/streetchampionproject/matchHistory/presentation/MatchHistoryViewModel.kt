@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.matchHistory.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.R
@@ -29,7 +28,6 @@ class MatchHistoryViewModel(
                     _matchList.value = result
                 },
                     { error ->
-                        Log.e("ERROR_GET", error.toString())
                         onError(error)
                         compositeDisposable.clear()
                     })
@@ -46,7 +44,6 @@ class MatchHistoryViewModel(
                 },
                     { error ->
                         onError(error)
-                        Log.e("ERROR_UPDATE", error.toString())
                     })
         )
     }

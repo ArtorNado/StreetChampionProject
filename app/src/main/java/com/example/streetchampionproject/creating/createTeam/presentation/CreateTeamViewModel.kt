@@ -25,10 +25,11 @@ class CreateTeamViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    onNotification("Команда создана")
                     _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     _goTo.value = CONSTANTS.ACTION.EVENT_GO_BACK
                 },
-                    {error ->
+                    { error ->
                         onError(error)
                         _status.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })

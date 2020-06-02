@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pb"
+    android:orientation="vertical">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_profile_data"
+        style="@style/GreenButtonThemeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPink"
+        android:fontFamily="@font/varela_round"
+        android:text="Edit profile data"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPurpleDark"
+        android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_change_password"
+        style="@style/GreenButtonThemeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPink"
+        android:fontFamily="@font/varela_round"
+        android:text="Change password"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPurpleDark"
+        android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_log_out"
+        style="@style/GreenButtonThemeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPink"
+        android:fontFamily="@font/varela_round"
+        android:text="Log out"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPurpleDark"
+        android:textSize="14sp" />
+
+</LinearLayout>

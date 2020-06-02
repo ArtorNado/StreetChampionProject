@@ -31,7 +31,7 @@ class ClubListFragment : BaseFragment<ClubListViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        if(adapter != null) setAdapter(viewModel.clubList.value!!)
+        if (adapter != null) setAdapter(viewModel.clubList.value!!)
     }
 
     override fun inject() {

@@ -1,7 +1,6 @@
 package com.example.streetchampionproject.teamSquad.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,6 @@ class SquadFragment : BaseFragment<SquadViewModel>() {
     override fun inject() {
         bundle = this.arguments
         teamId = bundle?.getInt("teamId")
-        Log.e("TEAM_ID", teamId.toString())
         Injector.plusSquadFeatureComponent(teamId?:0, this).inject(this)
     }
 
