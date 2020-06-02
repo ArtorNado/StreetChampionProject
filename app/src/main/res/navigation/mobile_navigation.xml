@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/singleMatchFragment"
         android:name="com.example.streetchampionproject.singleMatch.presentation.matchPage.SingleMatchFragment"
-        android:label="SingleMatchFragment" >
+        android:label="SingleMatchFragment">
         <action
             android:id="@+id/action_singleMatchFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -96,15 +96,30 @@
         android:id="@+id/createCommandMatchFragment"
         android:name="com.example.streetchampionproject.creating.createMatch.presentation.commandMatch.CreateCommandMatchFragment"
         android:label="CreateCommandMatchFragment"
-        tools:layout="@layout/create_command_match_fragment"/>
+        tools:layout="@layout/create_command_match_fragment" />
     <fragment
         android:id="@+id/createSingleMatchFragment"
         android:name="com.example.streetchampionproject.creating.createMatch.presentation.singleMatch.CreateSingleMatchFragment"
         android:label="CreateSingleMatchFragment"
-        tools:layout="@layout/create_single_match_fragment"/>
+        tools:layout="@layout/create_single_match_fragment" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.streetchampionproject.settings.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" />
+        tools:layout="@layout/settings_fragment">
+        <action
+            android:id="@+id/action_navigation_settings_to_editProfileDataFragment"
+            app:destination="@id/editProfileDataFragment" />
+        <action
+            android:id="@+id/action_navigation_settings_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileDataFragment"
+        android:name="com.example.streetchampionproject.settings.editData.presentation.editProfileData.EditProfileDataFragment"
+        android:label="EditProfileDataFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.streetchampionproject.settings.editData.presentation.changePassword.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
 </navigation>

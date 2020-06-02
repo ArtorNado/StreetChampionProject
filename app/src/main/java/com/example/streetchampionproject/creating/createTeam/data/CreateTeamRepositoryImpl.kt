@@ -31,7 +31,7 @@ class CreateTeamRepositoryImpl @Inject constructor(
                         when (it.message.toString()) {
                             "HTTP 403 " -> Completable.error(
                                 Exceptions.error(
-                                    ResponseCode.USER_ALREADY_HAVE_TEAM
+                                    ResponseCode.YOU_ALREADY_HAVE_TEAM
                                 )
                             )
                             "HTTP 500 " -> Completable.error(

@@ -25,11 +25,6 @@ class MatchHistoryFragment : BaseFragment<MatchHistoryViewModel>() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.match_history_fragment, container, false)
 
-    override fun onResume() {
-        super.onResume()
-        ch_group_match_type.clearCheck()
-    }
-
     override fun inject() {
         bundle = this.arguments
         teamId = bundle?.getInt("teamId")

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.streetchampionproject.R
@@ -23,6 +24,11 @@ class CreateTeamFragment : BaseFragment<CreateTeamViewModel>() {
         Injector.plusCreateTeamFeatureComponent(this).inject(this)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initToolbar(view)
+    }
+
     override fun subscribe(viewModel: CreateTeamViewModel) {
         observe(viewModel.goTo, Observer {
             if (it == CONSTANTS.ACTION.EVENT_GO_BACK) findNavController().popBackStack()
@@ -40,6 +46,14 @@ class CreateTeamFragment : BaseFragment<CreateTeamViewModel>() {
         btn_create.setOnClickListener {
             viewModel.createTeam(et_club_name.text.toString(), et_club_city.text.toString())
         }
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun initToolbar(view: View) {
+        toolbar.navigationIcon =
+            ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
     override fun onDestroy() {

@@ -11,6 +11,14 @@
         android:background="@drawable/pb"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPurpleDark"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        </androidx.appcompat.widget.Toolbar>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tf_date"
             style="@style/Widget.MaterialComponents.MaterialCalendar.Day"
@@ -39,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:hint="Match time"
             android:textColorHint="@color/colorPurpleDark"
@@ -60,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:hint="Number participants"
             android:textColorHint="@color/colorPurpleDark"
@@ -80,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:hint="Match city"
             android:textColorHint="@color/colorPurpleDark"
@@ -101,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:hint="White place of the match and other inf"
             android:textColorHint="@color/colorPurpleDark"

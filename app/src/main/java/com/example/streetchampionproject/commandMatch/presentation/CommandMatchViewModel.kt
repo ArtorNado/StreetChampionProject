@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.commandMatch.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.MatchCommand
@@ -43,7 +42,6 @@ class CommandMatchViewModel(
                     setUserStatus(result)
                 },
                     { error ->
-                        Log.e("GET_STATUS_M_ERROR", error.toString())
                         onError(error)
                     })
         )
@@ -75,7 +73,6 @@ class CommandMatchViewModel(
                 .subscribe({
                 },
                     { error ->
-                        Log.e("ERROR_UPDATE_CMD", error.toString())
                         onError(error)
                     })
         )
@@ -87,7 +84,8 @@ class CommandMatchViewModel(
             "Admin" -> {
                 if (match.value?.firstTeamId == userTeamRole.teamId) "Admin match"
                 else if (match.value?.secondTeamId == userTeamRole.teamId) "Participant"
-                else "Admin another team"
+                else if(match.value?.secondTeamId == 0) "Admin another team"
+                else "Undefined"
             }
             else -> "Undefined"
         }

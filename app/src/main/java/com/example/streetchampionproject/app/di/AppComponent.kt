@@ -17,6 +17,8 @@ import com.example.streetchampionproject.matches.di.MatchListFeatureComponent
 import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
 import com.example.streetchampionproject.profile.di.ProfileFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
+import com.example.streetchampionproject.settings.di.SettingsFeatureComponent
+import com.example.streetchampionproject.settings.editData.di.EditDataFeatureComponent
 import com.example.streetchampionproject.singleMatch.di.interfaces.ParticipantListFeatureComponent
 import com.example.streetchampionproject.singleMatch.di.interfaces.SingleMatchFeatureComponent
 import com.example.streetchampionproject.teamSquad.di.SquadFeatureComponent
@@ -57,6 +59,10 @@ interface AppComponent {
     fun provideCommandMatchFeatureComponent(): CommandMatchFeatureComponent.Builder
 
     fun provideCreateMatchFeatureComponent(): CreateMatchFeatureComponent.Builder
+
+    fun provideEditDataFeatureComponent(): EditDataFeatureComponent.Builder
+
+    fun provideSettingsFeatureComponent(): SettingsFeatureComponent.Builder
 
     @Component.Builder
     interface Builder {

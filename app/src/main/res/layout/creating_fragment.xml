@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".creating.CreatingFragment">
 
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_create_team"
         style="@style/GreenButtonThemeOverlay"

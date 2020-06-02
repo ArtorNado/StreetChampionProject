@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,6 +27,11 @@ class CreateSingleMatchFragment : BaseFragment<CreateSingleMatchViewModel>() {
 
     override fun inject() {
         Injector.plusCreateMatchFeatureComponent(this).inject(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initToolbar(view)
     }
 
     override fun subscribe(viewModel: CreateSingleMatchViewModel) {
@@ -64,7 +70,7 @@ class CreateSingleMatchFragment : BaseFragment<CreateSingleMatchViewModel>() {
             try {
                 et_participants.text.toString().toInt()
                 if (tf_participants.isErrorEnabled) tf_participants.error = null
-            }catch (e: NumberFormatException){
+            } catch (e: NumberFormatException) {
                 tf_participants.error = "Введите число участников"
             }
         }
@@ -83,12 +89,20 @@ class CreateSingleMatchFragment : BaseFragment<CreateSingleMatchViewModel>() {
                 )
             }
         }
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun checkNullable(): Boolean {
         return (et_date.text.toString() == "" || et_time.text.toString() == ""
                 || et_match_city.text.toString() == "" || et_description.text.toString() == ""
                 || et_participants.text.toString() == "" || tf_time.error != null || tf_date.error != null)
+    }
+
+    private fun initToolbar(view: View) {
+        toolbar.navigationIcon =
+            ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_back_light24dp)
     }
 
     override fun onDestroy() {
