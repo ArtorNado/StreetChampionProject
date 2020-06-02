@@ -2,7 +2,6 @@ package com.example.streetchampionproject.common.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -27,16 +26,22 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
         subscribe(viewModel)
         initClickListeners()
         observe(viewModel.errorLiveData, Observer {
-            Snackbar.make(
-                activity!!.findViewById(android.R.id.content),
-                getString(it),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            snackBar(getText(it).toString())
+        })
+        observe(viewModel.notificationLiveData, Observer {
+            snackBar(it)
         })
     }
 
+    fun snackBar(text: String){
+        Snackbar.make(
+            activity!!.findViewById(android.R.id.content),
+            text,
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
     override fun onDestroyView() {
-        Log.e("onDestroyView", "onDestroyView")
         observables.forEach { it.removeObservers(this) }
         super.onDestroyView()
     }

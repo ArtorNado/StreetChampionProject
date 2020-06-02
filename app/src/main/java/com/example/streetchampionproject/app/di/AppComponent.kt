@@ -4,8 +4,7 @@ import com.example.streetchampionproject.api.apiFactory.di.ApiFactoryModule
 import com.example.streetchampionproject.app.App
 import com.example.streetchampionproject.app.di.scope.ApplicationScope
 import com.example.streetchampionproject.clubPage.di.ClubPageFeatureComponent
-import com.example.streetchampionproject.clubPage.presentation.ui.overview.di.OverviewFeatureComponent
-import com.example.streetchampionproject.clubPage.presentation.ui.squad.di.SquadFeatureComponent
+import com.example.streetchampionproject.clubs.di.ClubListFeatureComponent
 import com.example.streetchampionproject.commandMatch.di.CommandMatchFeatureComponent
 import com.example.streetchampionproject.common.di.DatabaseModule
 import com.example.streetchampionproject.common.di.LocalStorageModule
@@ -13,13 +12,14 @@ import com.example.streetchampionproject.common.di.ViewModelFactoryModule
 import com.example.streetchampionproject.creating.createMatch.di.CreateMatchFeatureComponent
 import com.example.streetchampionproject.creating.createTeam.di.CreateTeamFeatureComponent
 import com.example.streetchampionproject.login.di.LoginFeatureComponent
-import com.example.streetchampionproject.main.presentation.ui.clubs.di.ClubListFeatureComponent
-import com.example.streetchampionproject.main.presentation.ui.profile.di.ProfileFeatureComponent
-import com.example.streetchampionproject.match.di.MatchListFeatureComponent
+import com.example.streetchampionproject.matchHistory.di.MatchHistoryFeatureComponent
+import com.example.streetchampionproject.matches.di.MatchListFeatureComponent
 import com.example.streetchampionproject.notification.di.NotificationFeatureComponent
+import com.example.streetchampionproject.profile.di.ProfileFeatureComponent
 import com.example.streetchampionproject.registration.di.RegisterFeatureComponent
 import com.example.streetchampionproject.singleMatch.di.interfaces.ParticipantListFeatureComponent
 import com.example.streetchampionproject.singleMatch.di.interfaces.SingleMatchFeatureComponent
+import com.example.streetchampionproject.teamSquad.di.SquadFeatureComponent
 import dagger.BindsInstance
 import dagger.Component
 
@@ -42,7 +42,7 @@ interface AppComponent {
 
     fun provideClubListFeatureComponent(): ClubListFeatureComponent.Builder
 
-    fun provideOverviewFeatureComponent(): OverviewFeatureComponent.Builder
+    fun provideOverviewFeatureComponent(): MatchHistoryFeatureComponent.Builder
 
     fun provideNotificationFeatureComponent(): NotificationFeatureComponent.Builder
 

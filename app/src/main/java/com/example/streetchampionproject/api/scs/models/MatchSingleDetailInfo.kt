@@ -6,7 +6,7 @@ data class MatchSingleDetailInfo(
     val time: String,
     val creatorId: Int,
     var numberParticipant: Int,
-    val currentNumberParticipant: Int,
+    var currentNumberParticipant: Int,
     val description: String?,
     val matchCity: String?
 )

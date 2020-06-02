@@ -1,80 +1,53 @@
 package com.example.streetchampionproject.login.presentation
 
-import android.content.Context
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.streetchampionproject.app.navigation.Navigator
-import com.example.streetchampionproject.common.domain.ERRORS
+import com.example.streetchampionproject.common.domain.Exceptions
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import com.example.streetchampionproject.login.domain.interfaces.LoginInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class LoginViewModel(
-    private val loginInteractor: LoginInteractor,
-    private val navigator: Navigator
+    private val loginInteractor: LoginInteractor
 ) : BaseViewModel() {
 
-    private val _pgStatus by lazy { MutableLiveData<Int>() }
-    val pgStatus: LiveData<Int> = _pgStatus
+    private val _pgStatus by lazy { MutableLiveData<String>() }
+    val pgStatus: LiveData<String> = _pgStatus
 
-    private val _error by lazy { MutableLiveData<String>() }
-    val error: LiveData<String> = _error
+    private val _error by lazy { MutableLiveData<Int>() }
+    val error: LiveData<Int> = _error
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
+    private val _goTo by lazy { MutableLiveData<String>() }
+    val goTo: LiveData<String> = _goTo
 
-    fun clickLogin(email: String, password: String, context: Context) {
-        _pgStatus.value = View.VISIBLE
+    var userId = 0
+
+
+    fun clickLogin(email: String, password: String) {
+        _pgStatus.value = "Visible"
         compositeDisposable.add(
             loginInteractor.logIn(email, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    loginInteractor.writeInStorage("AuthToken", result.token)
-                    _pgStatus.value = View.GONE
+                .subscribe({
+                    userId = it.userId
+                    _goTo.value = "Go to main"
+                    _pgStatus.value = "Gone"
                 },
                     { error ->
                         errorMessage(error)
-                        _pgStatus.value = View.GONE
-                    })
-        )
-        getUserId(email, context)
-    }
-
-    fun clickRegistr(context: Context) {
-        navigator.openRegister(context)
-    }
-
-    private fun getUserId(userLogin: String, context: Context) {
-        compositeDisposable.add(
-            loginInteractor.userId(userLogin)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    navigator.openMain(context, result.userId)
-                    Log.e("USERID_WRITE", result.userId.toString())
-                    writeInStorage("userId", result.userId.toString())
-                    _pgStatus.value = View.GONE
-                },
-                    { error ->
-                        errorMessage(error)
-                        _pgStatus.value = View.GONE
+                        _pgStatus.value = "Gone"
                     })
         )
     }
 
-    private fun writeInStorage(name: String, value: String) =
-        loginInteractor.writeInStorage(name, value)
-
-    private fun errorMessage(error: Throwable) {
-        when (error.localizedMessage.toString()) {
-            ERRORS.NAME.HTTP_500 -> {
-                _error.value = ERRORS.MESSAGE.WRONG_LOG_PAS
+    private fun errorMessage(throwable: Throwable) {
+        if (throwable is Exceptions) {
+            when (throwable.kind) {
+                Exceptions.Kind.BUSINESS -> {
+                    _error.value = throwable.errorResponseCode?.stringResource
+                }
             }
         }
     }

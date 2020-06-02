@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 open class BaseViewModel : ViewModel() {
 
     val errorLiveData = MutableLiveData<Int>()
+    val notificationLiveData = MutableLiveData<String>()
 
     protected val compositeDisposable = CompositeDisposable()
 
@@ -19,6 +20,10 @@ open class BaseViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun onNotification(text: String){
+        notificationLiveData.value = text
     }
 
     override fun onCleared() {

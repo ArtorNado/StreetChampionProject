@@ -1,115 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/pb"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tf_date"
-        style="@style/Widget.MaterialComponents.MaterialCalendar.Day"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:hint="Match date"
-        android:textColorHint="@color/colorPurpleDark"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:helperTextEnabled="true"
-        app:hintTextColor="@color/colorPink">
+        android:layout_height="match_parent"
+        android:background="@drawable/pb"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_date"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPurpleDark" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:hint="Match date"
+            android:textColorHint="@color/colorPurpleDark"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:helperText="Format: dd.mm.yy"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/colorPink">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPurpleDark" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tf_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:hint="Match time"
-        android:textColorHint="@color/colorPurpleDark"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:helperTextEnabled="true"
-        app:hintTextColor="@color/colorPink">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_time"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPurpleDark" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:hint="Match time"
+            android:textColorHint="@color/colorPurpleDark"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:helperText="Format: hh:mm"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/colorPink">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tf_match_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:hint="Match city"
-        android:textColorHint="@color/colorPurpleDark"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:helperTextEnabled="true"
-        app:hintTextColor="@color/colorPink">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPurpleDark" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_match_city"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_match_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPurpleDark" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:hint="Match city"
+            android:textColorHint="@color/colorPurpleDark"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/colorPink">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_match_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPurpleDark" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tf_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:hint="White place of the match and other inf"
-        android:textColorHint="@color/colorPurpleDark"
-        app:boxBackgroundColor="@color/colorWhite"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:helperTextEnabled="true"
-        app:hintTextColor="@color/colorPink">
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPurpleDark" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tf_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:hint="Write place of the match and other inf"
+            android:textColorHint="@color/colorPurpleDark"
+            app:boxBackgroundColor="@color/colorWhite"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/colorPink">
 
-    <Button
-        android:id="@+id/btn_create"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:backgroundTint="@color/colorPink"
-        android:fontFamily="@font/varela_round"
-        android:text="Create"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPurpleDark"
-        android:textSize="14sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPurpleDark" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_create"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/colorPink"
+            android:fontFamily="@font/varela_round"
+            android:text="Create"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPurpleDark"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    <com.comix.overwatch.HiveProgressView
+        android:id="@+id/progress_bar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:hive_animDuration="1000"
+        app:hive_color="@color/colorPink"
+        app:hive_cornerRadius="20"
+        app:hive_maxAlpha="255"
+        app:hive_shrink="true" />
+</FrameLayout>

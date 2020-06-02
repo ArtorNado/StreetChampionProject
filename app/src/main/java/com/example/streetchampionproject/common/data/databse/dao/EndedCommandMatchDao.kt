@@ -15,4 +15,7 @@ interface EndedCommandMatchDao {
 
     @Query("SELECT * FROM ended_command_match WHERE (firstTeamId = :teamId OR secondTeamId = :teamId)")
     fun getEndedMatch(teamId: Int): Observable<List<EndedCommandMatchEntity>>
+
+    @Query("DELETE FROM ended_command_match")
+    fun clear()
 }

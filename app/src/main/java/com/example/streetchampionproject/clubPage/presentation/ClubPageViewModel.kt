@@ -1,6 +1,5 @@
 package com.example.streetchampionproject.clubPage.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.Teams
@@ -22,6 +21,9 @@ class ClubPageViewModel(
 
     private val _pgStatus by lazy { MutableLiveData<String>() }
     val pgStatus: LiveData<String> = _pgStatus
+
+    private val _applyButton by lazy { MutableLiveData<String>() }
+    val applyButton: LiveData<String> = _applyButton
 
 
     init {
@@ -97,9 +99,10 @@ class ClubPageViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _pgStatus.value = "gone"
+                    _applyButton.value = "gone"
+                    onNotification("Заявка отправлена успешно")
                 },
                     { error ->
-                        Log.e("ERROR_APPLY", error.toString())
                         onError(error)
                         _pgStatus.value = "gone"
                     })

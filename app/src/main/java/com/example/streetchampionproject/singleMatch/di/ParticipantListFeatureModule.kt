@@ -3,6 +3,7 @@ package com.example.streetchampionproject.singleMatch.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
 import com.example.streetchampionproject.singleMatch.data.ParticipantListRepositoryImpl
 import com.example.streetchampionproject.singleMatch.data.interfaces.ParticipantListRepository
@@ -51,4 +52,8 @@ class ParticipantListFeatureModule {
     fun provideParticipantRepository(participantListRepository: ParticipantListRepositoryImpl)
             : ParticipantListRepository =
         participantListRepository
+
+    @ParticipantListScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.participantService
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.streetchampionproject">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.streetchampionproject"
+    tools:ignore="LockedOrientationActivity">
 
     <application
         android:name=".app.App"
@@ -12,9 +14,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".main.presentation.MainActivity"
-            android:label="@string/title_activity_main"></activity>
-        <activity android:name=".registration.presentation.RegisterActivity" />
-        <activity android:name=".login.presentation.LoginActivity">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".registration.presentation.RegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.presentation.LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

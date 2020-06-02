@@ -57,7 +57,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/varela_round"
-                        android:text="TextView"
                         android:textColor="@color/colorPurpleDark"
                         android:textSize="28sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -71,9 +70,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/varela_round"
-                        android:text="Date:"
                         android:textColor="@color/colorPurpleDark"
                         android:textSize="20sp"
+                        android:text="Date:"
                         app:layout_constraintEnd_toEndOf="@id/tv_city"
                         app:layout_constraintStart_toStartOf="@id/tv_city"
                         app:layout_constraintTop_toBottomOf="@id/tv_city" />
@@ -84,7 +83,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:fontFamily="@font/varela_round"
-                        android:text="Team"
                         android:textColor="@color/colorPurpleDark"
                         android:textSize="28sp"
                         android:textStyle="bold"
@@ -112,7 +110,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/varela_round"
-                        android:text="Team"
                         android:textColor="@color/colorPurpleDark"
                         android:textSize="28sp"
                         android:textStyle="bold"
@@ -164,45 +161,51 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    ​
 
-    <com.comix.overwatch.HiveProgressView
-        android:id="@+id/progress_bar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        app:hive_animDuration="1000"
-        app:hive_color="@color/colorPink"
-        app:hive_cornerRadius="20"
-        app:hive_maxAlpha="255"
-        app:hive_shrink="true" />
-
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:background="@null"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite">
+            android:background="@null">
 
-            <TextView
-                android:id="@+id/tv_description"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/varela_round"
-                android:text=""
-                android:textColor="@color/colorPurpleDark"
-                android:textSize="20sp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"/>
-        </LinearLayout>
+                android:background="@color/colorWhite">
 
-    </ScrollView>
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text=""
+                    android:textColor="@color/colorPurpleDark"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.comix.overwatch.HiveProgressView
+            android:id="@+id/progress_bar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="top|center"
+            android:visibility="invisible"
+            android:layout_marginTop="100dp"
+            app:hive_animDuration="1000"
+            app:hive_color="@color/colorPink"
+            app:hive_cornerRadius="20"
+            app:hive_maxAlpha="255"
+            app:hive_shrink="true" />
+
+    </FrameLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

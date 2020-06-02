@@ -1,18 +1,18 @@
 package com.example.streetchampionproject.singleMatch.data
 
-import com.example.streetchampionproject.api.scs.StreetChampionService
 import com.example.streetchampionproject.api.scs.models.Participants
 import com.example.streetchampionproject.common.data.databse.dao.ParticipantsDao
 import com.example.streetchampionproject.common.data.databse.models.ParticipantsEntity
 import com.example.streetchampionproject.singleMatch.data.interfaces.ParticipantListRepository
 import com.example.streetchampionproject.singleMatch.data.mappers.mapParticipantsEntityToUserParticipants
 import com.example.streetchampionproject.singleMatch.data.mappers.mapParticipantsRemoteToPartEntity
+import com.example.streetchampionproject.singleMatch.data.network.ParticipantService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class ParticipantListRepositoryImpl @Inject constructor(
-    private val streetChampionService: StreetChampionService,
+    private val participantService: ParticipantService,
     private val participantsDao: ParticipantsDao
 ) : ParticipantListRepository {
 
@@ -20,10 +20,12 @@ class ParticipantListRepositoryImpl @Inject constructor(
         participantsDao.getParticipants(matchId)
             .map { mapParticipantsEntityToUserParticipants(it) }
 
-    override fun updateParticipants(matchId: Int): Completable =
-        streetChampionService.getParticipants(matchId)
-            .map { setParticipantsLocal(mapParticipantsRemoteToPartEntity(it, matchId)) }
+    override fun updateParticipants(matchId: Int): Completable {
+        return participantService.getParticipants(matchId)
+            .map {
+                setParticipantsLocal(mapParticipantsRemoteToPartEntity(it, matchId)) }
             .ignoreElement()
+    }
 
     private fun setParticipantsLocal(participantsEntity: List<ParticipantsEntity>) {
         participantsDao.setParticipants(participantsEntity)

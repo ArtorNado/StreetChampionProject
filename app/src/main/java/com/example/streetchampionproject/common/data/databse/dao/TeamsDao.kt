@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.streetchampionproject.common.data.databse.models.TeamsEntity
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface TeamsDao {
@@ -23,7 +24,7 @@ interface TeamsDao {
     fun setTeams(teamsEntity: List<TeamsEntity>)
 
     @Query("SELECT * FROM teams WHERE teamCity = :teamCity")
-    fun getTeamsByCity(teamCity: String): Observable<List<TeamsEntity>>
+    fun getTeamsByCity(teamCity: String): Single<List<TeamsEntity>>
 
     @Query("DELETE FROM teams")
     fun clear()

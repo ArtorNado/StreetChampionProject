@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/navigation_match"
+        android:icon="@drawable/ic_sports_soccer_24px"
+        android:title="Match" />
+
+    <item
+        android:id="@+id/navigation_clubs"
+        android:icon="@drawable/ic_people_black_24dp"
+        android:title="Clubs" />
+
+    <item
+        android:id="@+id/navigation_create"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Create" />
+
+</menu>

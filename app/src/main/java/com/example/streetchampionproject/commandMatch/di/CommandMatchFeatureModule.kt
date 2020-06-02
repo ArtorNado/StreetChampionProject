@@ -3,6 +3,7 @@ package com.example.streetchampionproject.commandMatch.di
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.commandMatch.data.CommandMatchRepositoryImpl
 import com.example.streetchampionproject.commandMatch.data.interfaces.CommandMatchRepository
 import com.example.streetchampionproject.commandMatch.di.scope.CommandMatchScope
@@ -49,5 +50,9 @@ class CommandMatchFeatureModule {
     @Provides
     fun provideCommandMatchRepository(commandMatchRepository: CommandMatchRepositoryImpl): CommandMatchRepository =
         commandMatchRepository
+
+    @CommandMatchScope
+    @Provides
+    fun provideService(apiFactory: ApiFactory) = apiFactory.commandMatchService
 
 }

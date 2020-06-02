@@ -16,4 +16,6 @@ interface SingleMatchInteractor {
     fun updateUserStatusInMatch(matchId: Int): Completable
 
     fun joinInMatch(matchSingle: MatchSingleDetailInfo?): Completable
+
+    fun endSingleMatch(matchId: Int): Completable
 }

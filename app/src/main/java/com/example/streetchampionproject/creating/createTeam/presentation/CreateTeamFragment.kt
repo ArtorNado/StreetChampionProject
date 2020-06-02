@@ -1,52 +1,44 @@
 package com.example.streetchampionproject.creating.createTeam.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
-import kotlinx.android.synthetic.main.fragment_create_team.*
-import javax.inject.Inject
+import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
+import kotlinx.android.synthetic.main.create_team_fragment.*
 
-class CreateTeamFragment : Fragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private var viewModel: CreateTeamViewModel? = null
+class CreateTeamFragment : BaseFragment<CreateTeamViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_create_team, container, false)
+    ): View? = inflater.inflate(R.layout.create_team_fragment, container, false)
 
-    override fun onAttach(context: Context) {
-        Injector.plusCreateTeamFeatureComponent().inject(this)
-        super.onAttach(context)
-        initViewModel()
+    override fun inject() {
+        Injector.plusCreateTeamFeatureComponent(this).inject(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initClickListeners()
+    override fun subscribe(viewModel: CreateTeamViewModel) {
+        observe(viewModel.goTo, Observer {
+            if (it == CONSTANTS.ACTION.EVENT_GO_BACK) findNavController().popBackStack()
+        })
+        observe(viewModel.status, Observer {
+            when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE -> progress_bar.visibility = View.GONE
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE -> progress_bar.visibility = View.VISIBLE
+                else -> progress_bar.visibility = View.GONE
+            }
+        })
     }
 
-    private fun initViewModel() {
-        val viewModel by lazy {
-            ViewModelProvider(
-                this,
-                viewModelFactory
-            ).get(CreateTeamViewModel::class.java)
-        }
-        this.viewModel = viewModel
-    }
-
-    private fun initClickListeners() {
+    override fun initClickListeners() {
         btn_create.setOnClickListener {
-            viewModel?.createTeam(et_club_name.text.toString(), et_club_city.text.toString())
+            viewModel.createTeam(et_club_name.text.toString(), et_club_city.text.toString())
         }
     }
 

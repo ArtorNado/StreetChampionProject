@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.streetchampionproject.api.scs.models.MatchCommand
 import com.example.streetchampionproject.api.scs.models.UserTeamRole
 import com.example.streetchampionproject.commandMatch.domain.CommandMatchInteractor
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.common.presentation.viewModel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,8 +25,13 @@ class CommandMatchViewModel(
     private val _events: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val events: LiveData<String> = _events
 
+    private val _pgStatus: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val pgStatus: LiveData<String> = _pgStatus
+
+
     init {
         getCommandMatch()
+        determineUserStatus()
     }
 
     private fun determineUserStatus() {
@@ -45,17 +51,18 @@ class CommandMatchViewModel(
     }
 
     private fun getCommandMatch() {
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             commandMatchInteractor.getCommandMatch(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _match.value = result
-                    determineUserStatus()
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        Log.e("GET_COM_M_ERROR", error.toString())
                         onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
         )
     }
@@ -66,7 +73,6 @@ class CommandMatchViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-
                 },
                     { error ->
                         Log.e("ERROR_UPDATE_CMD", error.toString())
@@ -88,36 +94,36 @@ class CommandMatchViewModel(
     }
 
     fun endCommandMatch(firstTeamScore: Int, secondTeamScore: Int) {
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             commandMatchInteractor.endCommandMatch(id, firstTeamScore, secondTeamScore)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _events.value = EVENT_GO_BACK
+                    _events.value = CONSTANTS.ACTION.EVENT_GO_BACK
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        Log.e("ERROR_UPDATE", error.toString())
                         onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
         )
     }
 
     fun joinCommandMatch() {
+        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE
         compositeDisposable.add(
             commandMatchInteractor.joinCommandMatch(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _events.value = EVENT_GO_BACK
+                    _events.value = CONSTANTS.ACTION.EVENT_GO_BACK
+                    _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                 },
                     { error ->
-                        Log.e("ERROR_UPDATE_CMD", error.toString())
                         onError(error)
+                        _pgStatus.value = CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE
                     })
         )
-    }
-
-    companion object {
-        private const val EVENT_GO_BACK = "Go back"
     }
 }

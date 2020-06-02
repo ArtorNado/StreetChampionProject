@@ -2,8 +2,8 @@ package com.example.streetchampionproject.creating.createMatch.di
 
 import androidx.fragment.app.Fragment
 import com.example.streetchampionproject.creating.createMatch.di.scope.CreateMatchScope
-import com.example.streetchampionproject.creating.createMatch.presentation.CreateCommandMatchFragment
-import com.example.streetchampionproject.creating.createMatch.presentation.CreateSingleMatchFragment
+import com.example.streetchampionproject.creating.createMatch.presentation.commandMatch.CreateCommandMatchFragment
+import com.example.streetchampionproject.creating.createMatch.presentation.singleMatch.CreateSingleMatchFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 

@@ -1,8 +1,10 @@
 package com.example.streetchampionproject.registration.di
 
 import androidx.lifecycle.ViewModel
-import com.example.streetchampionproject.app.navigation.Navigator
+import com.example.streetchampionproject.api.apiFactory.ApiFactory
 import com.example.streetchampionproject.common.presentation.viewModel.ViewModelKey
+import com.example.streetchampionproject.login.data.LoginRepositoryImpl
+import com.example.streetchampionproject.login.data.interfaces.LoginRepository
 import com.example.streetchampionproject.registration.data.RegisterRepositoryImpl
 import com.example.streetchampionproject.registration.data.interfaces.RegisterRepository
 import com.example.streetchampionproject.registration.di.scope.RegisterActivityScope
@@ -20,10 +22,9 @@ class RegisterFeatureModule {
     @Provides
     @IntoMap
     @ViewModelKey(RegisterViewModel::class)
-    fun provideRegisterViewModel(registerInteractor: RegisterInteract, navigator: Navigator): ViewModel {
+    fun provideRegisterViewModel(registerInteractor: RegisterInteract): ViewModel {
         return RegisterViewModel(
-            registerInteractor,
-            navigator
+            registerInteractor
         )
     }
 
@@ -36,4 +37,17 @@ class RegisterFeatureModule {
     @Provides
     fun provideRegisterRepository(registerRepositoryImpl: RegisterRepositoryImpl)
             : RegisterRepository = registerRepositoryImpl
+
+    @RegisterActivityScope
+    @Provides
+    fun provideLoginRepository(loginRepository: LoginRepositoryImpl)
+            : LoginRepository = loginRepository
+
+    @RegisterActivityScope
+    @Provides
+    fun provideLoginService(apiFactory: ApiFactory) = apiFactory.loginService
+
+    @RegisterActivityScope
+    @Provides
+    fun provideRegisterService(apiFactory: ApiFactory) = apiFactory.registerService
 }

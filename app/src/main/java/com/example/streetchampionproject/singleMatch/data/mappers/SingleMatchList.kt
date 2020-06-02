@@ -36,6 +36,24 @@ fun mapMatchSingleRemoteToMatchSingleEntity(matchSingleRemote: MatchSingleRemote
         )
     }
 
+fun mapMatchSingleToMatchSingleEntity(
+    matchSingle: MatchSingleDetailInfo,
+    role: String?
+): MatchSingleEntity =
+    with(matchSingle) {
+        MatchSingleEntity(
+            matchId,
+            date,
+            time,
+            creatorId,
+            numberParticipant,
+            currentNumberParticipant,
+            description ?: "Dont have description",
+            matchCity ?: "Dont have city",
+            role
+        )
+    }
+
 fun mapUserStatusEntityToUserStatusInPlace(
     userStatusInPlaceEntity: UserStatusInPlaceEntity
 ): UserStatusInPlace {

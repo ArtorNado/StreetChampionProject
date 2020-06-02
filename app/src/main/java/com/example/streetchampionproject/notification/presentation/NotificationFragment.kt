@@ -13,7 +13,7 @@ import com.example.streetchampionproject.api.scs.models.Notification
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
 import com.example.streetchampionproject.notification.presentation.recycler.NotificationListAdapter
-import kotlinx.android.synthetic.main.fragment_notification.*
+import kotlinx.android.synthetic.main.notification_fragment.*
 
 class NotificationFragment : BaseFragment<NotificationViewModel>() {
 
@@ -24,7 +24,7 @@ class NotificationFragment : BaseFragment<NotificationViewModel>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_notification, container, false)
+    ): View? = inflater.inflate(R.layout.notification_fragment, container, false)
 
     override fun inject() {
         val bundle = this.arguments

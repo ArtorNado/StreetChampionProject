@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.streetchampionproject.R
 import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.common.presentation.BaseFragment
+import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.single_match_fragment.*
 
@@ -17,7 +18,6 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
 
     private var matchId: Int? = null
     private var bundle: Bundle? = null
-
     private var description: String? = null
 
     override fun onCreateView(
@@ -44,9 +44,9 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
             tv_city.text = it.matchCity
             tv_date.text = it.date
             tv_number_participant.text =
-                it.numberParticipant.toString() + "/" + it.currentNumberParticipant.toString()
+                it.currentNumberParticipant.toString() + "/" + it.numberParticipant.toString()
         })
-       observe( viewModel.userStatus, Observer {
+        observe(viewModel.userStatus, Observer {
             when (it) {
                 "Admin" -> btn_end.visibility = View.VISIBLE
                 "Undefined" -> btn_apply.visibility = View.VISIBLE
@@ -54,7 +54,23 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
             }
         })
         observe(viewModel.updateStatus, Observer {
-            if(it) initTabLayout(description?:"")
+            if (it) initTabLayout(description ?: "")
+        })
+        observe(viewModel.goTo, Observer {
+            when (it) {
+                CONSTANTS.ACTION.EVENT_GO_BACK -> findNavController().popBackStack()
+            }
+        })
+        observe(viewModel.pgStatus, Observer {
+            progress_bar.visibility =when (it) {
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_VISIBLE ->{
+                    View.VISIBLE
+                }
+                CONSTANTS.PROGRESSBAR.ARG_STATUS_GONE ->{
+                    View.GONE
+                }
+                else -> View.GONE
+            }
         })
     }
 
@@ -64,7 +80,8 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
     }
 
     private fun initTabLayout(description: String) {
-        viewpager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle, matchId ?: 0, description)
+        viewpager.adapter =
+            ViewPagerAdapter(childFragmentManager, lifecycle, matchId ?: 0, description)
         TabLayoutMediator(tabs, viewpager,
             TabLayoutMediator.TabConfigurationStrategy { tabs, position ->
                 when (position) {
@@ -84,6 +101,9 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
         }
         btn_apply.setOnClickListener {
             viewModel.joinInMatch()
+        }
+        btn_end.setOnClickListener {
+            viewModel.endMatch()
         }
     }
 
