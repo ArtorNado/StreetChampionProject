@@ -14,7 +14,7 @@
     <string name="error_match_type">Выберите тип матча</string>
     <string name="create_not_enough_rights">Только админ команды может создавать матч</string>
     <string name="already_have_team">Пользователь уже состоит в команде</string>
-    <string name="login_exist">Данный логин занят</string>
+    <string name="already_login_exist">Данный логин занят</string>
     <string name="mtrl_picker_text_input_date_hint" description="Label for a single date selected by the user [CHAR_LIMIT=60]">Date</string>
     <string name="max_players">Максимальное количество игроков</string>
     <string name="team_already_exist">Имя команды уже занято</string>

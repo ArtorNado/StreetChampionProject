@@ -13,6 +13,7 @@ import com.example.streetchampionproject.app.injector.Injector
 import com.example.streetchampionproject.app.navigation.Navigator
 import com.example.streetchampionproject.common.presentation.CONSTANTS
 import com.example.streetchampionproject.registration.data.model.User
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.registration.*
 import javax.inject.Inject
 
@@ -75,6 +76,13 @@ class RegisterActivity : AppCompatActivity() {
                 this,
                 viewModel?.userId ?: 0
             )
+        })
+        viewModel?.error?.observe(this, Observer {
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                getString(it),
+                Snackbar.LENGTH_SHORT
+            ).show()
         })
     }
 
