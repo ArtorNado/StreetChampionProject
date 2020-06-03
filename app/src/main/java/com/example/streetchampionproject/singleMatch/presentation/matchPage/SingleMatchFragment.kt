@@ -43,6 +43,7 @@ class SingleMatchFragment : BaseFragment<SingleMatchViewModel>() {
             description = it.description
             tv_city.text = it.matchCity
             tv_date.text = it.date
+            tv_time.text = it.time
             tv_number_participant.text =
                 it.currentNumberParticipant.toString() + "/" + it.numberParticipant.toString()
         })

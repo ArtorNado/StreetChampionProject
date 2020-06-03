@@ -39,6 +39,7 @@ class CommandMatchFragment : BaseFragment<CommandMatchViewModel>() {
         observe(viewModel.match, Observer {
             tv_city.text = it.matchCity
             tv_date.text = it.date
+            tv_time.text = it.time
             tv_description.text = it.description
             tv_team1.text = it.firstTeamName
             tv_team2.text = it.secondTeamName
