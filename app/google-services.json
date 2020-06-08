@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "887932445173",
+    "firebase_url": "https://streetchampionproject.firebaseio.com",
+    "project_id": "streetchampionproject",
+    "storage_bucket": "streetchampionproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887932445173:android:d2e308b8f8eed038d500bc",
+        "android_client_info": {
+          "package_name": "com.example.streetchampionproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887932445173-7ffr9god82gllm976nt00lffie6imu9d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.streetchampionproject",
+            "certificate_hash": "522405b77c95642fe04c20d5301884f108274c97"
+          }
+        },
+        {
+          "client_id": "887932445173-v6bqd4oku6mr0h7iki9i4fqoop0qs7gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL--zNKFj8iknCzZEJbaP21cISnKfiL5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887932445173-v6bqd4oku6mr0h7iki9i4fqoop0qs7gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
